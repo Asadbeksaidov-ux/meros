@@ -1,0 +1,521 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aral Sea Adventures | Meros Tour</title>
+    <link rel="icon" type="image/png" href="logo-v2.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <a href="index.html"
+                    style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                    <img src="logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
+                    <span>Meros B&B</span>
+                </a>
+            </div>
+            <!-- Globe Language Switcher -->
+            <div class="globe-lang-container">
+                <button class="globe-btn" id="lang-toggle" aria-label="Select Language">
+                    <i class="fas fa-globe"></i>
+                </button>
+                <div class="globe-dropdown" id="lang-dropdown">
+                    <a href="#" data-lang="en">English</a>
+                    <a href="#" data-lang="uz">O'zbek</a>
+                    <a href="#" data-lang="ru">Русский</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hamburger" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <a href="rooms.html" data-i18n="nav.rooms">Accommodation</a>
+            <a href="tours.html" class="active" data-i18n="nav.tours">Tours</a>
+            <a href="restaurant.html" data-i18n="nav.restaurant">Rooftop Dining</a>
+            <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+            <a href="admin.html" data-i18n="nav.admin">Admin</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section" style="background-image: url('aral_ships.png');">
+            <div class="hero-content">
+                <h1 data-i18n="tour_aral.title">Aral Sea Adventures</h1>
+                <p data-i18n="tour_aral.subtitle">Choose your expedition to the edge of the world</p>
+                <a href="gallery.html?filter=tours" class="btn" style="margin-top: 20px;"
+                    data-i18n="tours.view_gallery">View Gallery</a>
+            </div>
+        </section>
+
+        <section id="aral-sea" class="tour-category-detail container">
+            <h2 class="section-title" style="text-align:center;" data-i18n="aral.options_title">Aral Sea Tour Options
+            </h2>
+            <p style="text-align: center; color: #555; margin-bottom: 40px; font-size: 1.1em;"
+                data-i18n="aral.options_desc">
+                We offer four unique variations of the Aral Sea expedition.
+            </p>
+
+
+
+            <!-- OPTION 1 -->
+            <div class="aral-card">
+                <h3 data-i18n="aral.opt1_title">Option 1: Aral Sea Adventure (Classic)</h3>
+
+                <div class="route-box">
+                    <strong data-i18n="aral.label_route">Route:</strong> <span data-i18n="aral.opt1_route_text">Khiva -
+                        Chilpik Kala - Nukus Museum - Muynak History Museum - Muynak Ship Cemetery - Great Ustyurt
+                        Canyons - Tombs of Nomads' - Aral Sea shore overnight - Kurgancha Kala - Mizdakhan Necropolis -
+                        Nukus - Khiva</span>
+                </div>
+
+                <ul class="details-list">
+                    <li><strong data-i18n="aral.label_duration">Daytrip Duration:</strong> <span
+                            data-i18n="aral.opt1_dur_val">2 days and 1 night</span></li>
+                    <li><strong data-i18n="aral.label_sightseeing">Sightseeing time:</strong> <span
+                            data-i18n="aral.opt1_sight_val">6-8 hours</span></li>
+                    <li><strong data-i18n="aral.label_driving">Driving time:</strong> <span
+                            data-i18n="aral.opt1_drive_val">16-18 hours</span></li>
+                    <li><strong data-i18n="aral.label_included">Included:</strong> <span
+                            data-i18n="aral.opt1_inc_val">Transportation (4WD & Sedan w/ driver), Yurt Camp Stay, Dinner
+                            & Breakfast.</span></li>
+                    <li><strong data-i18n="aral.label_start">Start:</strong> <span data-i18n="aral.opt1_start_val">06:00
+                            am (Recommended)</span></li>
+                </ul>
+
+                <div class="price-preview">
+                    <span data-i18n="price.1pax_500">1 Pax: $500</span>
+                    <span data-i18n="price.2pax_540">2 Pax: $540</span>
+                    <span data-i18n="price.3pax_580">3 Pax: $580</span>
+                    <span data-i18n="price.4pax_620">4 Pax: $620</span>
+                </div>
+
+                <details>
+                    <summary data-i18n="aral.read_more">Read More</summary>
+                    <div class="expanded-content">
+                        <p><strong data-i18n="aral.intro_happy">We are happy to offer this tour!!!</strong></p>
+                        <p data-i18n="aral.history_intro">Once one of the largest inland lakes in the world, the Aral
+                            Sea has shrunk significantly in recent decades. Located in Central Asia, it borders
+                            Kazakhstan in the north and Uzbekistan in the south. Historically, the Aral Sea has been an
+                            important source of water and fish for the surrounding areas, but since the 1960s, it has
+                            been drying up due to the diversion of the rivers that fed it, particularly the Amudarya and
+                            Syrdarya, for irrigation purposes during the Soviet era. As a result, the water level of the
+                            Aral Sea dropped sharply and its volume decreased by almost 90%.</p>
+
+                        <h4 data-i18n="aral.itinerary">Itinerary</h4>
+                        <h5 data-i18n="aral.day_1">1st Day</h5>
+                        <ul>
+                            <li data-i18n="aral.opt1_d1_1">It is recommended to Start early morning at 6:00 am. Starts
+                                and ends in Khiva with sedan car.</li>
+                            <li data-i18n="aral.opt1_d1_2">Visit to Chilpik Kala.</li>
+                            <li data-i18n="aral.opt1_d1_3">Nukus Art museum.</li>
+                            <li data-i18n="aral.opt1_d1_4">Arrival in Muynak, lunch at the local kafe.</li>
+                            <li data-i18n="aral.opt1_d1_5">Muynak state local history museum, and watching a video about
+                                the history of the once-thriving Muynak.</li>
+                            <li data-i18n="aral.opt1_d1_6">Visit to the ship Graveyard.</li>
+                            <li data-i18n="aral.opt1_d1_7">Starts Aral Sea trip with a 4WD.</li>
+                            <li data-i18n="aral.opt1_d1_8">Overview of the impressive canyons of the Ustyurt Plateau, a
+                                cosmic landscape, visit to the tombs of nomads.</li>
+                            <li data-i18n="aral.opt1_d1_9">Arrival to the Aral Sea about 18:30. Stroll along the
+                                seashore, guests can swim in the sea.</li>
+                            <li data-i18n="aral.opt1_d1_10">Arrival at the yurt camp on the shores of the Aral Sea. The
+                                camp has a shower with clean fresh water and a restroom.</li>
+                            <li data-i18n="aral.opt1_d1_11">19:30 dinner in dining room and next day breakfast 7:00.
+                            </li>
+                        </ul>
+
+                        <h5 data-i18n="aral.day_2">2nd Day</h5>
+                        <ul>
+                            <li data-i18n="aral.opt1_d2_1">Do not miss the sunrise over the Aral sea.</li>
+                            <li data-i18n="aral.opt1_d2_2">7:00 Breakfast.</li>
+                            <li data-i18n="aral.opt1_d2_3">8:00 departure for the return journey.</li>
+                            <li data-i18n="aral.opt1_d2_4">Visit to Kurgancha-kala (XII-XVI centuries) a fortified
+                                trading post on the Great Silk Road.</li>
+                            <li data-i18n="aral.opt1_d2_5">Arrive to Muynak and change 4WD car to sedan car and stop for
+                                lunch on the way in local kafe.</li>
+                            <li data-i18n="aral.opt1_d2_6">Visit architectural complex Mizdakhan Necropolis from XIV
+                                century.</li>
+                            <li data-i18n="aral.opt1_d2_7">And come back to Khiva (if you want Nukus, Urgench, airport)
+                                the end.</li>
+                        </ul>
+
+                        <h4 data-i18n="aral.notes_title">Notes for Visitors</h4>
+                        <ul class="aral-notes">
+                            <li data-i18n="aral.note_drivers">Drivers will stop at sightseeing places for you to take
+                                photos.</li>
+                            <li data-i18n="aral.note_mobile">Mobile devices, cameras, and camcorders may be recharged at
+                                the yurt camp.</li>
+                            <li data-i18n="aral.note_cold">It is cold at the seashore in the mornings and evenings.
+                                Bring a sweater or a jacket.</li>
+                            <li data-i18n="aral.note_illness">If you have any chronic illnesses, don’t forget your
+                                medication.</li>
+                            <li data-i18n="aral.note_water">Always carry water with you.</li>
+                            <li data-i18n="aral.note_guide">Stay close to your guide and your vehicle.</li>
+                            <li data-i18n="aral.note_cliff">Stay at least 2 meters away from the edge of the Ustyurt
+                                Plateau.</li>
+                            <li><strong data-i18n="aral.label_not_included">Not included:</strong> <span
+                                    data-i18n="aral.note_excluded_val">Entrance tickets, lunch, guide ($150) &
+                                    etc.</span></li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- OPTION 2 -->
+            <div class="aral-card">
+                <h3 data-i18n="aral.opt2_title">Option 2: Aral Sea & Sudochie (Extended)</h3>
+
+                <div class="route-box">
+                    <strong data-i18n="aral.label_route">Route:</strong> <span data-i18n="aral.opt2_route_text">Khiva -
+                        Chilpik Kala - Nukus Museum - Muynak History Museum - Muynak Ship Cemetery - Great Ustyurt
+                        Canyons - Tombs of Nomads' - Aral Sea shore overnight - Kurgancha Kala вЂ“ Kubla Ustyurt,
+                        Sudochie Lake Urga - Mizdakhan Necropolis - Nukus - Khiva</span>
+                </div>
+
+                <ul class="details-list">
+                    <li><strong data-i18n="aral.label_duration">Daytrip Duration:</strong> <span
+                            data-i18n="aral.opt2_dur_val">2 days and 1 night</span></li>
+                    <li><strong data-i18n="aral.label_sightseeing">Sightseeing time:</strong> <span
+                            data-i18n="aral.opt2_sight_val">6-8 hours</span></li>
+                    <li><strong data-i18n="aral.label_driving">Driving time:</strong> <span
+                            data-i18n="aral.opt2_drive_val">16-18 hours</span></li>
+                    <li><strong data-i18n="aral.label_included">Included:</strong> <span
+                            data-i18n="aral.opt2_inc_val">Transportation (4WD & Sedan w/ driver), Yurt Camp Stay, Dinner
+                            & Breakfast.</span></li>
+                    <li><strong data-i18n="aral.label_start">Start:</strong> <span data-i18n="aral.opt2_start_val">06:00
+                            am (Recommended)</span></li>
+                </ul>
+
+                <div class="price-preview">
+                    <span data-i18n="price.opt2_1pax">1 Pax: $580</span>
+                    <span data-i18n="price.opt2_2pax">2 Pax: $620</span>
+                    <span data-i18n="price.opt2_3pax">3 Pax: $660</span>
+                    <span data-i18n="price.opt2_4pax">4 Pax: $700</span>
+                </div>
+
+                <details>
+                    <summary data-i18n="aral.read_more">Read More</summary>
+                    <div class="expanded-content">
+                        <p><strong data-i18n="aral.intro_happy">We are happy to offer this tour!!!</strong></p>
+                        <p data-i18n="aral.history_intro">Overview of Aral Sea history...</p>
+
+                        <h4 data-i18n="aral.itinerary">Itinerary</h4>
+                        <h5 data-i18n="aral.day_1">1st Day</h5>
+                        <ul>
+                            <li data-i18n="aral.opt2_d1_1">It is recommended to Start early morning at 6:00 am. Starts
+                                and ends in Khiva with sedan car.</li>
+                            <li data-i18n="aral.opt2_d1_2">Visit to Chilpik Kala.</li>
+                            <li data-i18n="aral.opt2_d1_3">Nukus Art museum.</li>
+                            <li data-i18n="aral.opt2_d1_4">Starts and ends from Nukus with a 4WD</li>
+                            <li data-i18n="aral.opt2_d1_5">Arrival in Muynak, lunch at the local kafe.</li>
+                            <li data-i18n="aral.opt2_d1_6">Muynak state local history museum, and watching a video about
+                                the history of the once-thriving Muynak.</li>
+                            <li data-i18n="aral.opt2_d1_7">Visit to the ship Graveyard.</li>
+                            <li data-i18n="aral.opt2_d1_8">Overview of the impressive canyons of the Ustyurt Plateau, a
+                                cosmic landscape, visit to the tombs of nomads.</li>
+                            <li data-i18n="aral.opt2_d1_9">Arrival to the Aral Sea about 18:30. Stroll along the
+                                seashore, guests can swim in the sea.</li>
+                            <li data-i18n="aral.opt2_d1_10">Arrival at the yurt camp on the shores of the Aral Sea. The
+                                camp has a shower with clean fresh water and a restroom.</li>
+                            <li data-i18n="aral.opt2_d1_11">19:30 dinner In dining room and next day breakfast 7:00.
+                            </li>
+                        </ul>
+
+                        <h5 data-i18n="aral.day_2">2nd Day</h5>
+                        <ul>
+                            <li data-i18n="aral.opt2_d2_1">Do not miss the sunrise over the Aral sea.</li>
+                            <li data-i18n="aral.opt2_d2_2">7:00 Breakfast.</li>
+                            <li data-i18n="aral.opt2_d2_3">8:00 departure for the return journey.</li>
+                            <li data-i18n="aral.opt2_d2_4">Visit to Kurgancha-kala (XII-XVI centuries).</li>
+                            <li data-i18n="aral.opt2_d2_5">Visit to the village of Kubla-Ustyurt (abandoned Soviet
+                                town).</li>
+                            <li data-i18n="aral.opt2_d2_6">Urga (abandoned fishing village) on Sudochie Lake.</li>
+                            <li data-i18n="aral.opt2_d2_7">The "Sudochie" State Ornithological Reserve (Bird watching,
+                                flamingos, etc.).</li>
+                            <li data-i18n="aral.opt2_d2_8">Visit architectural complex Mizdakhan Necropolis.</li>
+                            <li data-i18n="aral.opt2_d2_9">Arrive to Nukus and change 4WD car to sedan car and come back
+                                to Khiva (or Nukus/Urgench airport) the end.</li>
+                        </ul>
+
+                        <h4 data-i18n="aral.notes_title">Notes for Visitors</h4>
+                        <ul class="aral-notes">
+                            <li data-i18n="aral.note_drivers">Drivers will stop at sightseeing places for you to take
+                                photos.</li>
+                            <li data-i18n="aral.note_mobile">Mobile devices, cameras, and camcorders may be recharged at
+                                the yurt camp.</li>
+                            <li data-i18n="aral.note_cold">It is cold at the seashore in the mornings and evenings.
+                                Bring a sweater or a jacket.</li>
+                            <li data-i18n="aral.note_illness">If you have any chronic illnesses, don’t forget your
+                                medication.</li>
+                            <li data-i18n="aral.note_water">Always carry water with you.</li>
+                            <li data-i18n="aral.note_guide">Stay close to your guide and your vehicle.</li>
+                            <li data-i18n="aral.note_cliff">Stay at least 2 meters away from the edge of the Ustyurt
+                                Plateau.</li>
+                            <li><strong data-i18n="aral.label_not_included">Not included:</strong> <span
+                                    data-i18n="aral.note_excluded_val">Entrance tickets, lunch, guide ($150) &
+                                    etc.</span></li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- OPTION 3 -->
+            <div class="aral-card">
+                <h3 data-i18n="aral.opt3_title">Option 3: Aral Sea Adventure (via Kungrad)</h3>
+
+                <div class="route-box">
+                    <strong data-i18n="aral.label_route">Route:</strong> <span data-i18n="aral.opt3_route_text">Khiva -
+                        Chilpik Kala - Nukus Museum - Muynak History Museum - Muynak Ship Cemetery - Great Ustyurt
+                        Canyons - Tombs of Nomads' - Aral Sea shore overnight - Kurgancha Kala - Kubla Ustyurt, Sudochie
+                        Lake, Urga - Mizdakhan Necropolis - Nukus - Khiva</span>
+                </div>
+
+                <ul class="details-list">
+                    <li><strong data-i18n="aral.label_duration">Duration:</strong> <span data-i18n="aral.opt3_dur_val">2
+                            days and 1 night</span></li>
+                    <li><strong data-i18n="aral.label_sightseeing">Sightseeing:</strong> <span
+                            data-i18n="aral.opt3_sight_val">6-8 hours</span></li>
+                    <li><strong data-i18n="aral.label_driving">Driving:</strong> <span
+                            data-i18n="aral.opt3_drive_val">16-18 hours</span></li>
+                    <li><strong data-i18n="aral.label_included">Included:</strong> <span
+                            data-i18n="aral.opt3_inc_val">Transportation (4WD & Sedan w/ driver), Yurt Camp Stay, Dinner
+                            & Breakfast.</span></li>
+                </ul>
+
+                <div class="price-preview">
+                    <span data-i18n="price.1pax_550">1 Pax: $550</span>
+                    <span data-i18n="price.2pax_590">2 Pax: $590</span>
+                    <span data-i18n="price.3pax_630">3 Pax: $630</span>
+                    <span data-i18n="price.4pax_670">4 Pax: $670</span>
+                </div>
+
+                <details>
+                    <summary data-i18n="aral.read_more">Read More</summary>
+                    <div class="expanded-content">
+                        <p><strong data-i18n="aral.intro_happy">We are happy to offer this tour!!!</strong></p>
+                        <p data-i18n="aral.history_intro">Overview of Aral Sea history...</p>
+
+                        <h4 data-i18n="aral.itinerary">Itinerary</h4>
+                        <h5 data-i18n="aral.day_1">1st Day</h5>
+                        <ul>
+                            <li data-i18n="aral.opt3_d1_1">It is recommended to Start early morning at 6:00 am. Starts
+                                and ends in Khiva with sedan car.</li>
+                            <li data-i18n="aral.opt3_d1_2">Visit to Chilpik Kala.</li>
+                            <li data-i18n="aral.opt3_d1_3">Nukus Art museum.</li>
+                            <li data-i18n="aral.opt3_d1_4">Arrival in Muynak lunch at the local kafe.</li>
+                            <li data-i18n="aral.opt3_d1_5">Starts from Muynak with a 4WD.</li>
+                            <li data-i18n="aral.opt3_d1_6">Muynak state local history museum, and watching a video about
+                                the history of the once-thriving Muynak.</li>
+                            <li data-i18n="aral.opt3_d1_7">Visit to the ship Graveyard.</li>
+                            <li data-i18n="aral.opt3_d1_8">Overview of the impressive canyons of the Ustyurt Plateau, a
+                                cosmic landscape, visit to the tombs of nomads.</li>
+                            <li data-i18n="aral.opt3_d1_9">Arrival to the Aral Sea about 18:30. Stroll along the
+                                seashore, guests can swim in the sea.</li>
+                            <li data-i18n="aral.opt3_d1_10">Arrival at the yurt camp on the shores of the Aral Sea. The
+                                camp has a shower with clean fresh water and a restroom.</li>
+                            <li data-i18n="aral.opt3_d1_11">About 19:30 dinner In dining room and next day breakfast
+                                about 7:00.</li>
+                        </ul>
+
+                        <h5 data-i18n="aral.day_2">2nd Day</h5>
+                        <ul>
+                            <li data-i18n="aral.opt3_d2_1">Do not miss the sunrise over the Aral sea.</li>
+                            <li data-i18n="aral.opt3_d2_2">7:00 Breakfast.</li>
+                            <li data-i18n="aral.opt3_d2_3">8:00 departure for the return journey.</li>
+                            <li data-i18n="aral.opt3_d2_4">Visit to Kurgancha-kala (XII-XVI centuries).</li>
+                            <li data-i18n="aral.opt3_d2_5">Visit to the village of Kubla-Ustyurt.</li>
+                            <li data-i18n="aral.opt3_d2_6">Urga (fishing village remains).</li>
+                            <li data-i18n="aral.opt3_d2_7">"Sudochie" State Ornithological Reserve.</li>
+                            <li data-i18n="aral.opt3_d2_8">Visit architectural complex Mizdakhan Necropolis.</li>
+                            <li data-i18n="aral.opt3_d2_9">Arrive to Kungrad and change 4WD car to sedan car and come
+                                back to Khiva (or Nukus/Urgench airport) the end.</li>
+                        </ul>
+
+                        <h4 data-i18n="aral.notes_title">Notes for Visitors</h4>
+                        <ul class="aral-notes">
+                            <li data-i18n="aral.note_drivers">Drivers will stop at sightseeing places for you to take
+                                photos.</li>
+                            <li data-i18n="aral.note_mobile">Mobile devices, cameras, and camcorders may be recharged at
+                                the yurt camp.</li>
+                            <li data-i18n="aral.note_cold">It is cold at the seashore in the mornings and evenings.
+                                Bring a sweater or a jacket.</li>
+                            <li data-i18n="aral.note_illness">If you have any chronic illnesses, don’t forget your
+                                medication.</li>
+                            <li data-i18n="aral.note_water">Always carry water with you.</li>
+                            <li data-i18n="aral.note_guide">Stay close to your guide and your vehicle.</li>
+                            <li data-i18n="aral.note_cliff">Stay at least 2 meters away from the edge of the Ustyurt
+                                Plateau.</li>
+                            <li><strong data-i18n="aral.label_not_included">Not included:</strong> <span
+                                    data-i18n="aral.note_excluded_val">Entrance tickets, lunch, guide ($150) &
+                                    etc.</span></li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- OPTION 4 -->
+            <div class="aral-card">
+                <h3 data-i18n="aral.opt4_title">Option 4: Nukus to Aral Sea (4WD Only)</h3>
+
+                <div class="route-box">
+                    <strong data-i18n="aral.label_route">Route:</strong> <span data-i18n="aral.opt4_route_text">Nukus -
+                        Mizdakhan Necropolis - Muynak History Museum - Muynak Ship Cemetery - Great Ustyurt Canyons -
+                        Tombs of Nomads' - Aral Sea shore overnight - Kurgancha Kala - Kubla Ustyurt - Sudochie Lake -
+                        Urga - Nukus</span>
+                </div>
+
+                <ul class="details-list">
+                    <li><strong data-i18n="aral.label_duration">Duration:</strong> <span data-i18n="aral.opt4_dur_val">2
+                            days and 1 night</span></li>
+                    <li><strong data-i18n="aral.label_sightseeing">Sightseeing:</strong> <span
+                            data-i18n="aral.opt4_sight_val">6-8 hours</span></li>
+                    <li><strong data-i18n="aral.label_driving">Driving:</strong> <span
+                            data-i18n="aral.opt4_drive_val">12-14 hours</span></li>
+                    <li><strong data-i18n="aral.label_included">Included:</strong> <span
+                            data-i18n="aral.opt4_inc_val">Transportation (4WD w/ driver), Yurt Camp Stay, Dinner &
+                            Breakfast.</span></li>
+                    <li><strong data-i18n="aral.label_start">Start:</strong> <span data-i18n="aral.opt4_start_val">06:00
+                            am (Recommended)</span></li>
+                </ul>
+
+                <div class="price-preview">
+                    <span data-i18n="price.opt4_1pax">1 Pax: $490</span>
+                    <span data-i18n="price.opt4_2pax">2 Pax: $530</span>
+                    <span data-i18n="price.opt4_3pax">3 Pax: $570</span>
+                    <span data-i18n="price.opt4_4pax">4 Pax: $610</span>
+                </div>
+
+                <details>
+                    <summary data-i18n="aral.read_more">Read More</summary>
+                    <div class="expanded-content">
+                        <p><strong data-i18n="aral.intro_happy">We are happy to offer this tour!!!</strong></p>
+                        <p data-i18n="aral.history_intro">Overview of Aral Sea history...</p>
+
+                        <h4 data-i18n="aral.itinerary">Itinerary</h4>
+                        <h5 data-i18n="aral.day_1">1st Day</h5>
+                        <ul>
+                            <li data-i18n="aral.opt4_d1_1">Starts from Nukus with a 4WD.</li>
+                            <li data-i18n="aral.opt4_d1_2">Visit architectural complex Mizdakhan Necropolis.</li>
+                            <li data-i18n="aral.opt4_d1_3">Arrival in Muynak, lunch at the local kafe.</li>
+                            <li data-i18n="aral.opt4_d1_4">Muynak state local history museum, and watching a video about
+                                the history of the once-thriving Muynak.</li>
+                            <li data-i18n="aral.opt4_d1_5">Visit to the ship Graveyard.</li>
+                            <li data-i18n="aral.opt4_d1_6">Overview of the impressive canyons of the Ustyurt Plateau, a
+                                cosmic landscape, visit to the tombs of nomads.</li>
+                            <li data-i18n="aral.opt4_d1_7">Arrival to the Aral Sea, Stroll along the seashore, guests
+                                can swim in the sea.</li>
+                            <li data-i18n="aral.opt4_d1_8">Arrival at the yurt camp on the shores of the Aral Sea. The
+                                camp has a shower with clean fresh water and a restroom.</li>
+                            <li data-i18n="aral.opt4_d1_9">19:30 dinner and next day breakfast 7:00.</li>
+                        </ul>
+
+                        <h5 data-i18n="aral.day_2">2nd Day</h5>
+                        <ul>
+                            <li data-i18n="aral.opt4_d2_1">Do not miss the sunrise over the Aral sea.</li>
+                            <li data-i18n="aral.opt4_d2_2">7:00 Breakfast.</li>
+                            <li data-i18n="aral.opt4_d2_3">8:00 departure for the return journey.</li>
+                            <li data-i18n="aral.opt4_d2_4">Visit to Kurgancha-kala (XII-XVI centuries).</li>
+                            <li data-i18n="aral.opt4_d2_5">Visit to the village of Kubla-Ustyurt.</li>
+                            <li data-i18n="aral.opt4_d2_6">Urga (fishing village remains).</li>
+                            <li data-i18n="aral.opt4_d2_7">"Sudochie" State Ornithological Reserve.</li>
+                            <li data-i18n="aral.opt4_d2_8">Arrive to Nukus the end.</li>
+                        </ul>
+
+                        <h4 data-i18n="aral.notes_title">Notes for Visitors</h4>
+                        <ul class="aral-notes">
+                            <li data-i18n="aral.note_drivers">Drivers will stop at sightseeing places for you to take
+                                photos.</li>
+                            <li data-i18n="aral.note_mobile">Mobile devices, cameras, and camcorders may be recharged at
+                                the yurt camp.</li>
+                            <li data-i18n="aral.note_cold">It is cold at the seashore in the mornings and evenings.
+                                Bring a sweater or a jacket.</li>
+                            <li data-i18n="aral.note_illness">If you have any chronic illnesses, don’t forget your
+                                medication.</li>
+                            <li data-i18n="aral.note_water">Always carry water with you.</li>
+                            <li data-i18n="aral.note_guide">Stay close to your guide and your vehicle.</li>
+                            <li data-i18n="aral.note_cliff">Stay at least 2 meters away from the edge of the Ustyurt
+                                Plateau.</li>
+                            <li><strong data-i18n="aral.label_not_included">Not included:</strong> <span
+                                    data-i18n="aral.note_excluded_val">Entrance tickets, lunch, guide ($150) &
+                                    etc.</span></li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- BOOKING SECTION -->
+            <div id="booking-section" class="booking-checker-section" style="margin-top: 50px; text-align: center;">
+                <h3 class="details-title" data-i18n="contact.book_title">Ready to Book?</h3>
+                <p style="font-size: 18px; color: #555; margin-bottom: 30px;" data-i18n="aral.booking_desc">
+                    To book any of these options, please contact us directly. Mention "Option 1, 2, 3 or 4".
+                </p>
+
+                <div class="social-links-footer" style="justify-content: center; gap: 30px; margin-bottom: 20px;">
+                    <a href="https://wa.me/998887903293" target="_blank" class="social-icon-footer"
+                        style="background:#25D366; color:white; width: 60px; height: 60px; font-size: 28px;">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://t.me/ZiyovaddinMatkarimov" target="_blank" class="social-icon-footer"
+                        style="background:#0088cc; color:white; width: 60px; height: 60px; font-size: 28px;">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=meros.khiva@gmail.com"
+                        class="social-icon-footer"
+                        style="background:#EA4335; color:white; width: 60px; height: 60px; font-size: 28px;">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+
+                <p style="margin-top: 20px; font-weight: bold; color: #2c3e50;">
+                    <i class="fas fa-phone-alt"></i> +998 88 790 32 93
+                </p>
+            </div>
+
+        </section>
+    </main>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links-footer">
+                <a href="https://www.facebook.com/meroskhiva" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://t.me/ZiyovaddinMatkarimov" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+                <a href="https://wa.me/998887903293" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+            <div class="footer-contacts">
+                <a href="tel:+998943153700"><i class="fas fa-phone-alt"></i> +998 94 315 37 00</a>
+                <a href="tel:+998887903293"><i class="fas fa-phone-alt"></i> +998 88 790 32 93</a>
+            </div>
+
+            <div class="copyright" data-i18n="footer.copyright">
+                &copy; 2024 Meros B&B. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

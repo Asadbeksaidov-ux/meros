@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meros B&B - Gallery</title>
+    <link rel="icon" type="image/png" href="logo-v2.png">
+    <meta name="description"
+        content="Explore the beauty of Meros B&B Khiva through our photo gallery. Authentic interiors, rooftop views, and happy guests.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <a href="index.html"
+                    style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                    <img src="logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
+                    <span>Meros B&B</span>
+                </a>
+            </div>
+            <div class="globe-lang-container">
+                <button class="globe-btn" id="lang-toggle" aria-label="Select Language">
+                    <i class="fas fa-globe"></i>
+                </button>
+                <div class="globe-dropdown" id="lang-dropdown">
+                    <a href="#" data-lang="en">English</a>
+                    <a href="#" data-lang="uz">O'zbek</a>
+                    <a href="#" data-lang="ru">Русский</a>
+                </div>
+            </div>
+        </div>
+        <div class="hamburger" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="nav-menu">
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <a href="rooms.html" data-i18n="nav.rooms">Accommodation</a>
+            <a href="tours.html" data-i18n="nav.tours">Tours</a>
+            <a href="restaurant.html" data-i18n="nav.restaurant">Rooftop Dining</a>
+            <a href="gallery.html" class="active" data-i18n="nav.gallery">Gallery</a>
+            <a href="admin.html" data-i18n="nav.admin">Admin</a>
+        </nav>
+    </header>
+
+    <!-- FULLSCREEN SLIDESHOW SECTION -->
+    <section class="gallery-hero">
+        <div class="slideshow-container">
+            <!-- Dynamic Slides will be here -->
+            <div class="mySlides fade">
+                <img src="mGallery.jpg" alt="Meros B&B Gallery">
+            </div>
+            <div class="mySlides fade">
+                <img src="mGallery1.jpg" alt="Meros B&B Gallery">
+            </div>
+            <div class="mySlides fade">
+                <img src="mGallery2.jpg" alt="Meros B&B Gallery">
+            </div>
+            <div class="mySlides fade">
+                <img src="mGallery3.jpg" alt="Meros B&B Gallery">
+            </div>
+            <div class="mySlides fade">
+                <img src="mGallery4.jpg" alt="Meros B&B Gallery">
+            </div>
+            <div class="mySlides fade">
+                <img src="mGallery5.jpg" alt="Meros B&B Gallery">
+            </div>
+            <div class="mySlides fade">
+                <img src="mGallery6.jpg" alt="Meros B&B Gallery">
+            </div>
+            <div class="mySlides fade">
+                <img src="mGallery7.jpg" alt="Meros B&B Gallery">
+            </div>
+            <div class="mySlides fade">
+                <img src="mGallery8.jpg" alt="Meros B&B Gallery">
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- MASONRY GRID SECTION -->
+    <section class="section">
+        <h2 data-i18n="gallery.grid_title">Explore Meros</h2>
+
+        <!-- Filter Buttons -->
+        <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all" data-i18n="filter.all">All</button>
+            <button class="filter-btn" data-filter="rooms" data-i18n="filter.rooms">Rooms</button>
+            <button class="filter-btn" data-filter="dining" data-i18n="filter.dining">Dining</button>
+            <button class="filter-btn" data-filter="tours" data-i18n="filter.tours">Tours</button>
+            <button class="filter-btn" data-filter="exterior" data-i18n="filter.exterior">Courtyard</button>
+        </div>
+
+        <div class="gallery-grid">
+            <!-- Exterior / General -->
+            <div class="gallery-item" data-category="exterior">
+                <img src="mGallery.jpg" alt="Meros Courtyard" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="exterior">
+                <img src="mGallery1.jpg" alt="Meros Exterior" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="exterior">
+                <img src="mGallery2.jpg" alt="Meros Architecture" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+
+            <!-- Tours -->
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(1).jpg" alt="Tour Image 1" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(2).jpg" alt="Tour Image 2" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(3).jpg" alt="Tour Image 3" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(4).jpg" alt="Tour Image 4" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(5).jpg" alt="Tour Image 5" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(6).jpg" alt="Tour Image 6" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(7).jpg" alt="Tour Image 7" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(8).jpg" alt="Tour Image 8" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(9).jpg" alt="Tour Image 9" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+
+            <!-- Additional Tour Images -->
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(10).jpg" alt="Tour Image 10" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(11).jpg" alt="Tour Image 11" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(12).jpg" alt="Tour Image 12" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(13).jpg" alt="Tour Image 13" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(14).jpg" alt="Tour Image 14" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(15).jpg" alt="Tour Image 15" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(16).jpg" alt="Tour Image 16" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(17).jpg" alt="Tour Image 17" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(18).jpg" alt="Tour Image 18" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="tours">
+                <img src="tour(19).jpg" alt="Tour Image 19" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+
+
+            <!-- Rooms -->
+            <div class="gallery-item" data-category="rooms">
+                <img src="double.room.jpg" alt="Double Room" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="rooms">
+                <img src="twin.room.jpg" alt="Twin Room" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="rooms">
+                <img src="Triple.room.jpg" alt="Triple Room" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="rooms">
+                <img src="Dbalcony.jpg" alt="Balcony Room" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+
+            <!-- Dining -->
+            <div class="gallery-item" data-category="dining">
+                <img src="rooftop.jpg" alt="Rooftop Dining" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+
+
+            <!-- More Exterior/Mix -->
+            <div class="gallery-item" data-category="exterior">
+                <img src="mGallery3.jpg" alt="Meros Detail" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="exterior">
+                <img src="mGallery4.jpg" alt="Meros Night" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="exterior">
+                <img src="mGallery5.jpg" alt="Meros Terrace" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="exterior">
+                <img src="mGallery6.jpg" alt="Meros View" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="exterior">
+                <img src="mGallery7.jpg" alt="Meros Guest" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="exterior">
+                <img src="mGallery8.jpg" alt="Meros Atmosphere" loading="lazy">
+                <div class="overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links-footer">
+                <a href="https://www.facebook.com/meroskhiva" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://t.me/Jaloladdin_MATKARIMOV" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+                <a href="https://wa.me/998943153700" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+            <div class="footer-contacts">
+                <a href="tel:+998943153700"><i class="fas fa-phone-alt"></i> +998 94 315 37 00</a>
+                <a href="tel:+998887903293"><i class="fas fa-phone-alt"></i> +998 88 790 32 93</a>
+            </div>
+
+            <div class="copyright" data-i18n="footer.copyright">
+                &copy; 2024 Meros B&B. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="main.js"></script>
+    <script>
+        // Inline script for specific slideshow logic to ensure it runs immediately
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 2000); // Change image every 2 seconds
+        }
+    </script>
+</body>
+
+</html>
