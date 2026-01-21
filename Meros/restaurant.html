@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meros Rooftop Restaurant - Best Dining in Khiva</title>
+    <link rel="icon" type="image/png" href="logo-v2.png">
+    <meta name="description"
+        content="Enjoy traditional Khorezm cuisine with a breathtaking view of Ichan Kala at Meros B&B's rooftop restaurant. The best dining experience in Khiva.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <a href="index.html"
+                    style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                    <img src="logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
+                    <span>Meros B&B</span>
+                </a>
+            </div>
+            <!-- Globe Language Switcher -->
+            <div class="globe-lang-container">
+                <button class="globe-btn" id="lang-toggle" aria-label="Select Language">
+                    <i class="fas fa-globe"></i>
+                </button>
+                <div class="globe-dropdown" id="lang-dropdown">
+                    <a href="#" data-lang="en">English</a>
+                    <a href="#" data-lang="uz">O'zbek</a>
+                    <a href="#" data-lang="ru">Русский</a>
+                </div>
+            </div>
+        </div>
+        <div class="hamburger" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="nav-menu">
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <a href="rooms.html" data-i18n="nav.rooms">Accommodation</a>
+            <a href="tours.html" data-i18n="nav.tours">Tours</a>
+            <a href="restaurant.html" class="active" data-i18n="nav.restaurant">Rooftop Dining</a>
+            <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+            <a href="admin.html" data-i18n="nav.admin">Admin</a>
+        </nav>
+    </header>
+
+
+
+
+    <section class="restaurant-hero">
+        <div class="hero-content">
+            <h1 data-i18n="dining.hero_title">Rooftop Dining Experience</h1>
+            <p data-i18n="dining.hero_subtitle">Enjoy traditional Uzbek cuisine with a panoramic view of the Old City.
+            </p>
+            <a href="#menu-start" class="btn" data-i18n="dining.view_menu">View Menu</a>
+        </div>
+    </section>
+
+    <main id="menu-start">
+        <div class="menu-pages-container" id="menu-container">
+            <!-- Menu items will be injected here by main.js -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links-footer">
+                <a href="https://www.facebook.com/meroskhiva" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://t.me/Jaloladdin_MATKARIMOV" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+                <a href="https://wa.me/998943153700" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+            <div class="footer-contacts">
+                <a href="tel:+998943153700"><i class="fas fa-phone-alt"></i> +998 94 315 37 00</a>
+                <a href="tel:+998887903293"><i class="fas fa-phone-alt"></i> +998 88 790 32 93</a>
+            </div>
+
+            <div class="copyright" data-i18n="footer.copyright">
+                &copy; 2026 Meros B&B. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="main.js?v=dynamic_revert"></script>
+</body>
+
+</html>

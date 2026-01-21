@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khiva City Walking Tour | Ichan-Qal'a</title>
+    <link rel="icon" type="image/png" href="logo-v2.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <a href="index.html"
+                    style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                    <img src="logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
+                    <span>Meros B&B</span>
+                </a>
+            </div>
+            <!-- Globe Language Switcher -->
+            <div class="globe-lang-container">
+                <button class="globe-btn" id="lang-toggle" aria-label="Select Language">
+                    <i class="fas fa-globe"></i>
+                </button>
+                <div class="globe-dropdown" id="lang-dropdown">
+                    <a href="#" data-lang="en">English</a>
+                    <a href="#" data-lang="uz">O'zbek</a>
+                    <a href="#" data-lang="ru">Русский</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hamburger" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <a href="rooms.html" data-i18n="nav.rooms">Accommodation</a>
+            <a href="tours.html" class="active" data-i18n="nav.tours">Tours</a>
+            <a href="restaurant.html" data-i18n="nav.restaurant">Rooftop Dining</a>
+            <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+            <a href="admin.html" data-i18n="nav.admin">Admin</a>
+        </nav>
+    </header>
+
+    <section class="hero-section"
+        style="background-image: url('khiva-city-tour-11.jpg'); background-position: center; background-size: cover;">
+        <div class="hero-content">
+            <h1 data-i18n="tour_khiva.title">Khiva City Tour</h1>
+            <p data-i18n="tour_khiva.subtitle">Unlock the secrets of the Open Air Museum</p>
+            <a href="gallery.html?filter=tours" class="btn" style="margin-top: 20px;"
+                data-i18n="tours.view_gallery">View Gallery</a>
+        </div>
+    </section>
+    <section id="walking-tour" class="tour-category-detail container">
+        <h2 class="section-title" style="text-align:center;" data-i18n="tour_khiva.section_title">Magic of Ichan-Kala:
+            Full Day Program</h2>
+        <p style="text-align: center; color: #555; margin-bottom: 40px; font-size: 1.1em;" data-i18n="tour_khiva.desc">
+            Immerse yourself in the atmosphere of the Silk Road. This curated walking tour covers all the major
+            landmarks of the UNESCO World Heritage site Ichan-Kala.
+        </p>
+
+        <div class="aral-card" style="border-left: 5px solid #D4AF37; margin-bottom: 40px;">
+            <h3><i class="fas fa-info-circle"></i> Tour Essentials</h3>
+            <ul class="aral-features">
+                <li><strong>Duration:</strong> Approx. 4-5 hours (Flexible Pace)</li>
+                <li><strong>Meeting Point:</strong> From your hotel or location in Khiva</li>
+                <li><strong>Start Time:</strong> Flexible (09:00 AM recommended)</li>
+                <li><strong>Activity Level:</strong> Private Walking Tour</li>
+                <li><strong>Guide Service:</strong> Experienced Licensed Guide (English or Russian)</li>
+                <li><strong>Exclusions:</strong> Entrance tickets, lunch</li>
+            </ul>
+        </div>
+
+        <h3 class="section-title">PROGRAM</h3>
+
+        <div class="timeline-item">
+            <div class="timeline-content" style="width: 100%; margin-left: 0;">
+                <ul class="itinerary-list">
+                    <li><strong>1. Mukhammad Aminkhan Madrasah & Minaret:</strong> The iconic unfinished blue
+                        tower
+                        (Kalta Minor) and the largest medieval madrasah.</li>
+                    <li><strong>2. Kunya Ark Palace:</strong> The ancient citadel and residence of the Khans.
+                    </li>
+                    <li><strong>3. Mukhammad Rahimkhan Madrasah:</strong> A historical center of education and
+                        poetry.</li>
+                    <li><strong>4. The Exhibition of Ak-Mechet Mennonites :</strong> A unique small mosque with
+                        a
+                        conical dome.
+                    </li>
+                    <li><strong>5. Khiva Silk Carpet Workshop:</strong> See the traditional silk weaving
+                        process.
+                    </li>
+                    <li><strong>6. Pakhlavan Makhmud Mausoleum:</strong> The sacred mausoleum with stunning
+                        turquoise tiles.</li>
+                    <li><strong>7. Islam-Khodja Madrasah & Minaret:</strong> The tallest minaret in Khiva giving
+                        a
+                        skyline view.</li>
+                    <li><strong>8. Juma Mosque:</strong> The unique Friday Mosque with 213 wooden columns.</li>
+                    <li><strong>9. Mukhammad Amin Inaq Madrasah:</strong> One of the earliest buildings in the
+                        eastern part.</li>
+                    <li><strong>10. Tash-Khovli Palace:</strong> The "Stone Palace" known for its intricate
+                        Harem
+                        and courtyards.</li>
+                    <li><strong>11. Caravan Sarai:</strong> Examples of the trading heritage (Allakuli Khan).
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="price-box" style="margin-top: 40px; text-align: center;">
+            <h3>Tour Price</h3>
+            <p>This is a private guided tour. The price is per group, not per person.
+            </p>
+            <div class="price-tag">$70 (Guide Service)</div>
+            <p style="margin-top: 15px; font-style: italic; color: #d35400;">Please let us know in advance for
+                guide
+                service.</p>
+        </div>
+
+        <div id="booking-section" class="booking-checker-section" style="margin-top: 50px; text-align: center;">
+            <h3 class="details-title">Ready to Book?</h3>
+            <p style="font-size: 18px; color: #555; margin-bottom: 30px;">
+                To book this tour or ask questions, please contact us directly via WhatsApp, Telegram, or Email.
+            </p>
+
+            <div class="social-links-footer" style="justify-content: center; gap: 30px; margin-bottom: 20px;">
+                <a href="https://wa.me/998887903293" target="_blank" class="social-icon-footer"
+                    style="background:#25D366; color:white; width: 60px; height: 60px; font-size: 28px;">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://t.me/ZiyovaddinMatkarimov" target="_blank" class="social-icon-footer"
+                    style="background:#0088cc; color:white; width: 60px; height: 60px; font-size: 28px;">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=meros.khiva@gmail.com" class="social-icon-footer"
+                    style="background:#EA4335; color:white; width: 60px; height: 60px; font-size: 28px;">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+
+            <p style="margin-top: 20px; font-weight: bold; color: #2c3e50;">
+                <i class="fas fa-phone-alt"></i> +998 88 790 32 93
+            </p>
+        </div>
+    </section>
+    </main>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links-footer">
+                <a href="https://www.facebook.com/meroskhiva" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://t.me/ZiyovaddinMatkarimov" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+                <a href="https://wa.me/998887903293" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+            <div class="footer-contacts">
+                <a href="tel:+998943153700"><i class="fas fa-phone-alt"></i> +998 94 315 37 00</a>
+                <a href="tel:+998887903293"><i class="fas fa-phone-alt"></i> +998 88 790 32 93</a>
+            </div>
+
+            <div class="copyright" data-i18n="footer.copyright">
+                &copy; 2026 Meros B&B. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

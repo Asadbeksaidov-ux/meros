@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Transfers & Sightseeing | Khiva Tours</title>
+    <link rel="icon" type="image/png" href="logo-v2.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <a href="index.html"
+                    style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                    <img src="logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
+                    <span>Meros B&B</span>
+                </a>
+            </div>
+            <!-- Globe Language Switcher -->
+            <div class="globe-lang-container">
+                <button class="globe-btn" id="lang-toggle" aria-label="Select Language">
+                    <i class="fas fa-globe"></i>
+                </button>
+                <div class="globe-dropdown" id="lang-dropdown">
+                    <a href="#" data-lang="en">English</a>
+                    <a href="#" data-lang="uz">O'zbek</a>
+                    <a href="#" data-lang="ru">Русский</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hamburger" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <a href="rooms.html" data-i18n="nav.rooms">Accommodation</a>
+            <a href="tours.html" class="active" data-i18n="nav.tours">Tours</a>
+            <a href="restaurant.html" data-i18n="nav.restaurant">Rooftop Dining</a>
+            <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+            <a href="admin.html" data-i18n="nav.admin">Admin</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section" style="background-image: url('private_transfer_hero.jpg');">
+            <div class="hero-content">
+                <h1 data-i18n="transfers.title">Private Transfers: Sightseeing Routes</h1>
+                <p data-i18n="transfers.subtitle">Turn a long drive into an enriching day trip by visiting ancient
+                    fortresses between major cities.</p>
+                <a href="gallery.html?filter=tours" class="btn" style="margin-top: 20px;"
+                    data-i18n="tours.view_gallery">View Gallery</a>
+            </div>
+        </section>
+
+        <section id="transfers" class="tour-category-detail container">
+            <h2 class="section-title" data-i18n="transfers.section_title">рџљ— Connecting Tours: Khiva в†” Nukus /
+                Khiva в†”
+                Bukhara</h2>
+            <p class="section-description" data-i18n="transfers.section_desc">
+                Enjoy a comfortable private transfer combined with sightseeing stops. Departure time is flexible,
+                but
+                recommended start is 8:00 am.
+            </p>
+
+            <!-- Fleet Section Removed as per user request -->
+
+            <!-- Standard Transfers Section -->
+            <h3 style="margin-top: 40px; margin-bottom: 20px;" data-i18n="transfers.standard_title">
+                вњ€пёЏ
+                Standard Transfers (Point-to-Point)
+            </h3>
+            <table class="tour-table transfer-table">
+                <thead>
+                    <tr>
+                        <th data-i18n="transfers.route">Route</th>
+                        <th>Duration</th>
+                        <th>SEDAN (1-3 PAX)</th>
+                        <th>SUV (1-4 PAX)</th>
+                        <th>MINIVAN (1-6 PAX)</th>
+                        <th>MINIBUS (1-10 PAX)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Route"><strong data-i18n="transfers.route_railway">Khiva Railway Station -
+                                Hotel</strong></td>
+                        <td data-label="Duration">15 min</td>
+                        <td data-label="Sedan Price">$5</td>
+                        <td data-label="SUV Price">$10</td>
+                        <td data-label="Minivan Price">$15</td>
+                        <td data-label="Minibus Price">$20</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Route"><strong data-i18n="transfers.route_urgench">Khiva - Urgench
+                                Airport/Railway Station</strong></td>
+                        <td data-label="Duration">50 min</td>
+                        <td data-label="Sedan Price">$15</td>
+                        <td data-label="SUV Price">$25</td>
+                        <td data-label="Minivan Price">$35</td>
+                        <td data-label="Minibus Price">$50</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Route"><strong data-i18n="transfers.route_shavat">Khiva - Shavat
+                                (Turkmenistan
+                                Border)</strong></td>
+                        <td data-label="Duration">90 min</td>
+                        <td data-label="Sedan Price">$30</td>
+                        <td data-label="SUV Price">$45</td>
+                        <td data-label="Minivan Price">$60</td>
+                        <td data-label="Minibus Price">$80</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Route"><strong data-i18n="transfers.route_nukus">Khiva в†” Nukus</strong>
+                        </td>
+                        <td data-label="Duration">3 hours</td>
+                        <td data-label="Sedan Price">$60</td>
+                        <td data-label="SUV Price">$90</td>
+                        <td data-label="Minivan Price">$130</td>
+                        <td data-label="Minibus Price">$150</td>
+                    </tr>
+
+
+                    <tr>
+                        <td data-label="Route"><strong data-i18n="transfers.route_bukhara">Khiva в†”
+                                Bukhara</strong></td>
+                        <td data-label="Duration">5-6 hours</td>
+                        <td data-label="Sedan Price">$80</td>
+                        <td data-label="SUV Price">$130</td>
+                        <td data-label="Minivan Price">$190</td>
+                        <td data-label="Minibus Price">$210</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 40px; margin-bottom: 20px;" data-i18n="transfers.sightseeing_title">
+
+
+                <!-- Contact/Booking Prompt (Identical to day tours) -->
+                <div id="booking-section" class="booking-checker-section" style="margin-top: 50px; text-align: center;">
+                    <h3 class="details-title" data-i18n="contact.book_title">Ready to Book?</h3>
+                    To book this tour or ask questions, please contact us directly via WhatsApp, Telegram, or Email.
+                    </p>
+
+                    <div class="social-links-footer" style="justify-content: center; gap: 30px; margin-bottom: 20px;">
+                        <a href="https://wa.me/998887903293" target="_blank" class="social-icon-footer"
+                            style="background:#25D366; color:white; width: 60px; height: 60px; font-size: 28px;">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://t.me/ZiyovaddinMatkarimov" target="_blank" class="social-icon-footer"
+                            style="background:#0088cc; color:white; width: 60px; height: 60px; font-size: 28px;">
+                            <i class="fab fa-telegram-plane"></i>
+                        </a>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=meros.khiva@gmail.com"
+                            class="social-icon-footer"
+                            style="background:#EA4335; color:white; width: 60px; height: 60px; font-size: 28px;">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+
+                    <p style="margin-top: 20px; font-weight: bold; color: #2c3e50;">
+                        <i class="fas fa-phone-alt"></i> +998 88 790 32 93
+                    </p>
+                </div>
+        </section>
+
+    </main>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links-footer">
+                <a href="https://www.facebook.com/meroskhiva" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://t.me/ZiyovaddinMatkarimov" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+                <a href="https://wa.me/998887903293" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+            <div class="footer-contacts">
+                <a href="tel:+998943153700"><i class="fas fa-phone-alt"></i> +998 94 315 37 00</a>
+                <a href="tel:+998887903293"><i class="fas fa-phone-alt"></i> +998 88 790 32 93</a>
+            </div>
+
+            <div class="copyright" data-i18n="footer.copyright">
+                &copy; 2026 Meros B&B. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /style.css
+Disallow: /main.js
+
+Sitemap: https://meroskhiva.com/sitemap.xml

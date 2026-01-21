@@ -1,0 +1,4245 @@
+/* ==============================
+   1. GLOBAL SOZLAMALAR (Hamma sahifa uchun)
+============================== */
+
+/* Google Fonts Import - Zamonaviy shrift */
+/* Google Fonts Import - Zamonaviy va Hashamatli shriftlar */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* style.css dagi body qismi */
+/* Body Styles Combined */
+body {
+    background-color: #fbfbfb;
+    /* Juda och kulrang-oq fon */
+    color: #2c3e50;
+    /* To'q ko'k-kulrang (o'qishga qulay) */
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-top: 80px;
+    background-image: none;
+    /* Toza fon */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.logo {
+    font-family: 'Playfair Display', serif;
+    /* Hashamatli sarlavhalar */
+}
+
+/* ==============================
+   2. HEADER & NAV (Hamma sahifa uchun)
+============================== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(26, 26, 26, 0.95);
+    /* Biroz shaffoflik */
+    backdrop-filter: blur(10px);
+    /* Orqa fonni xiralashtirish (Glassmorphism) */
+    color: white;
+    padding: 15px 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    /* Yumshoqroq soya */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 80px;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.logo span {
+    /* Gradient Text Fix */
+    background: linear-gradient(45deg, #fff, #D4AF37);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* LANG GLOBE CONTAINER */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.globe-lang-container {
+    position: relative;
+    display: block;
+}
+
+.globe-btn {
+    background: none;
+    border: none;
+    color: white;
+    /* Default white */
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.globe-btn:hover {
+    color: #D4AF37;
+    transform: scale(1.1);
+}
+
+.globe-dropdown {
+    display: none;
+    /* Hidden by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
+    background-color: rgba(26, 26, 26, 0.98);
+    backdrop-filter: blur(10px);
+    width: 140px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1001;
+    overflow: hidden;
+}
+
+.globe-dropdown a {
+    color: white;
+    padding: 12px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: background 0.3s;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.globe-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.globe-dropdown a:hover {
+    background-color: rgba(212, 175, 55, 0.2);
+    color: #D4AF37;
+}
+
+.globe-dropdown.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+nav a {
+    color: white;
+    margin-left: 15px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    /* Ramka va fon */
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid transparent;
+    display: inline-block;
+}
+
+nav a:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #D4AF37;
+    color: #D4AF37;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+nav a.active {
+    background: transparent !important;
+    color: white !important;
+    font-weight: 700;
+    border: 2px solid #D4AF37 !important;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5) !important;
+    position: relative;
+    text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+}
+
+/* Active indicator line - o'chiramiz */
+nav a.active::after {
+    display: none;
+}
+
+/* ==============================
+   3. HERO SECTION (Faqat index.html uchun)
+============================== */
+.hero {
+    height: 80vh;
+    /* Sizning eski rasm yo'lingiz */
+    background: url("photo_2025-12-11_14-13-21.jpg") center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+/* Rasm ustidagi professional gradient parda */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 50, 50, 0.5) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-content h1 {
+    font-size: 56px;
+    margin-bottom: 10px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.btn {
+    background: linear-gradient(135deg, #C5A028 0%, #E6C25B 100%);
+    color: white;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(197, 160, 40, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(197, 160, 40, 0.4);
+    background: linear-gradient(135deg, #E6C25B 0%, #C5A028 100%);
+}
+
+/* 4. SECTION (Tepadan joy va sarlavha uslubi) */
+.section {
+    padding: 50px 20px;
+    /* Tepadan bo'shliq beradi */
+    text-align: center;
+    /* justify-content va min-height kabi vertikal markazlashtirish o'chirildi */
+}
+
+.section h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+}
+
+.section p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ==============================
+   5. ROOMS & CARDS (rooms.html uchun - Yakuniy fiks)
+============================== */
+/* style.css dagi 5. ROOMS & CARDS bo'limini toping va shuni o'zgartiring: */
+
+.rooms-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    /* YANGI QO'SHILGAN: Kartochkalarni tepadagi sarlavhadan uzoqlashtirish */
+    margin-top: 50px;
+}
+
+/* ==============================
+   6. ABOUT SECTION (Yangi Rasm/Matn split dizayn)
+============================== */
+.about-wrapper {
+    display: grid;
+    /* Kontentni 1/3 qism rasm, 2/3 qism matn qilib bo'lish */
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    max-width: 1100px;
+    /* Butun blokning maksimal kengligi */
+    margin: 50px auto;
+    /* Tepadan bo'shliq va markazlashtirish */
+    align-items: start;
+}
+
+.about-wrapper img {
+    width: 100%;
+    height: 100%;
+    /* Balandlikni about-content ga moslaydi */
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Ramka va orqa fon uchun (.about-content) */
+.about-content {
+    /* RAMKA UCHUN STYLING */
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    /* Chiroyli soya */
+    padding: 40px;
+
+    /* Matn sozlamalari */
+    text-align: left;
+    line-height: 1.7;
+    font-size: 17px;
+    max-width: none;
+    /* Kenglikni endi .about-wrapper boshqaradi */
+}
+
+/* Kartochkani o'rab turgan linkning chiziqlarini olib tashlash */
+.rooms-container a.room-card-link {
+    text-decoration: none;
+    display: flex;
+    /* Flexbox qilib ichidagi elementni cho'zamiz */
+    height: 100%;
+    /* Balandlikni to'liq egallash */
+}
+
+.room-card {
+    width: 320px;
+    /* Biroz kengaytirdik */
+    background: #ffffff;
+    border-radius: 12px;
+    /* Zamonaviy yumaloqlik */
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    /* Yumshoq, chuqur soya */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* "Spring" animatsiyasi */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    /* Juda yengil chegara */
+    justify-content: space-between;
+    /* Elementlarni chiroyli tarqatish */
+    position: relative;
+}
+
+.room-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(197, 160, 40, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.room-card:hover::before {
+    opacity: 1;
+}
+
+/* Kartochka ustiga borganda animatsiya */
+/* Kartochka ustiga borganda animatsiya */
+.room-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Rasm sozlamalari */
+.room-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.room-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Matn va narxlar paddingi */
+.room-card h3 {
+    padding: 18px 20px 8px;
+    font-size: 22px;
+    color: #1a1a1a;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
+}
+
+.room-card .price {
+    display: block;
+    padding: 0 20px 22px;
+    font-weight: 800;
+    color: #D4AF37;
+    font-size: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ==============================
+   ROOMS & CARDS - YAKUNIY FIKS
+============================== */
+
+/* Kartochkani o'rab turgan linkning chiziqlarini olib tashlash */
+.rooms-container a.room-link {
+    text-decoration: none;
+    /* Pastki chiziqni yo'qotadi */
+}
+
+/* Xona nomini to'g'ri rangga qaytarish (qora) */
+.room-card h3 {
+    color: #222;
+}
+
+/* Narxni avvalgi sariq rangida qoldirish (ajralib turishi uchun) */
+.room-card .price {
+    color: #D4AF37;
+}
+
+
+/* ==============================
+   7. ROOM DETAIL PAGE (Xona batafsil sahifasi)
+============================== */
+.room-detail-container {
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 50px auto;
+    text-align: left;
+    align-items: flex-start;
+}
+
+.main-room-image {
+    width: 60%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.room-info {
+    width: 40%;
+    padding: 20px;
+}
+
+.room-info h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.detail-price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #D4AF37;
+    margin-bottom: 20px;
+}
+
+.room-info ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.room-info ul li {
+    background: #fff;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+/* Qo'shimcha rasmlar gallereyasi */
+.gallery-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.gallery-container img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Booking Section Styles --- */
+.booking-checker-section {
+    background-color: #ffffff;
+    /* White or light background */
+    padding: 30px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    margin: 40px auto;
+    max-width: 1000px;
+}
+
+.booking-container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    color: #1a1a1a;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+
+
+
+
+
+/* Form Grid Layout (For side-by-side fields) */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    /* Responsive columns */
+    gap: 15px;
+    align-items: end;
+    /* Aligns the button with the input fields */
+}
+
+.form-group {
+    padding: 5px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #444;
+    font-size: 0.9rem;
+}
+
+.form-group input[type="date"],
+.form-group input[type="number"],
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    font-size: 1rem;
+    height: 42px;
+    /* Fixed height for visual consistency */
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #ff6600;
+    /* Use your brand color here */
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 102, 0, 0.3);
+}
+
+
+/* FORMALAR UCHUN ASOSIY STYLING */
+
+/* Ma'lumot kiritish qismi uchun konteyner */
+/* Ma'lumot kiritish qismi uchun konteyner */
+.booking-details-container {
+    max-width: 800px;
+    /* Biroz torroq, o'qishga qulay */
+    margin: 60px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    /* Katta radius */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+    /* Juda yumshoq soya */
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.details-title {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+/* Input va Textarea uslubi */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px 20px;
+    /* Kengroq padding */
+    border: 2px solid #f0f0f0;
+    /* Juda och kulrang chegara */
+    border-radius: 12px;
+    /* Zamonaviy yumaloqlik */
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    background-color: #fafafa;
+    color: #333;
+}
+
+/* Focus bo'lganda uslub */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #D4AF37;
+    /* Brand color */
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+    /* Glow effekti */
+    outline: none;
+    background-color: #fff;
+}
+
+/* Finalize Booking tugmasi */
+.book-now-button {
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(135deg, #D4AF37 0%, #00b894 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 40px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+}
+
+.book-now-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
+}
+
+@media (max-width: 768px) {
+    .booking-details-container {
+        padding: 25px;
+        margin: 30px 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+
+
+
+
+
+
+
+.room-options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+}
+
+.room-option-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.room-option-row:last-child {
+    border-bottom: none;
+}
+
+.room-option-row label {
+    flex-grow: 1;
+    /* Yorliq ko'proq joy egallaydi */
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Checkbox o'lchami */
+.room-option-row input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Son kiritish maydoni */
+.room-option-row input[type="number"] {
+    width: 60px;
+    /* Kichik kenglik */
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+/* O'chirilgan (disabled) maydonni xiralashtirish */
+.room-option-row input[type="number"]:disabled {
+    background-color: #f1f1f1;
+    cursor: not-allowed;
+}
+
+
+
+
+
+
+
+/* Xona Tanlash Grid Konteyneri */
+.room-options-grid {
+    display: grid;
+    /* Grid format: 3 ustundan iborat, ular avtomatik moslashadi */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.selection-title {
+    display: block;
+    margin-bottom: 15px !important;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+/* Har bir xona tanlash kartasi */
+.room-card-selection {
+    background-color: white;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+/* room-card-link sinfiga ega bo'lgan barcha silka (<a>) teglari uchun */
+.room-card-link {
+    text-decoration: none;
+    /* Silka tagidagi chiziqni yo'qotadi */
+    color: inherit;
+    /* Asosiy matn rangini (ko'k emas) saqlaydi */
+}
+
+/* Xona nomi va narxining rangini ta'minlash uchun qo'shimcha qoida */
+.room-card-link h3,
+.room-card-link span {
+    color: inherit;
+    /* Agar bu yerda boshqa rang bo'lsa, o'zgartirishingiz mumkin, masalan: color: #333; */
+}
+
+.room-card-selection h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.room-card-selection .room-price {
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.quantity-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.quantity-control input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+}
+
+.quantity-control label {
+    font-weight: 500;
+    color: #555;
+    flex-grow: 1;
+    text-align: left;
+    margin: 0;
+}
+
+/* Son kiritish maydoni (Quantity) */
+.quantity-control input[type="number"] {
+    width: 50px;
+    /* Ixcham o'lcham */
+    padding: 6px;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.quantity-control input[type="number"]:disabled {
+    background-color: #eee;
+}
+
+/* Media Query: Kichik ekranlarda bir ustun bo'lishi uchun */
+@media (max-width: 600px) {
+    .room-options-grid {
+        grid-template-columns: 1fr;
+        /* Faqat bitta ustun */
+    }
+}
+
+
+
+
+
+
+
+/* Guest counter joylashuvini boshqarish (Adults va Children yonma-yon chiqishi uchun) */
+.guest-counter-group {
+    display: flex;
+    /* Elementlarni bir qatorga qo'yadi */
+    gap: 30px;
+    /* Elementlar orasidagi bo'shliq */
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Kiritish maydonini kichiklashtirish */
+.guest-counter-group .form-group input[type="number"] {
+    width: 80px;
+    /* Kiritish maydonining kengligi */
+    text-align: center;
+    padding: 10px;
+}
+
+
+
+
+
+
+
+.tours-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ======================== */
+/* 0. Umumiy stillar */
+/* ======================== */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+    /* Fixed headerdan keyin joy tashlash (anchor linklar uchun) */
+}
+
+/* Old body rule removed, moved to top */
+
+
+/* Conflicting header style removed */
+
+
+@media (max-width: 600px) {
+    /* 
+       OLD CODE REMOVED: 
+       nav { visibility: hidden; } 
+       The old code hid the nav entirely. We are replacing it with a hamburger menu.
+    */
+
+    .logo {
+        font-size: 20px;
+    }
+}
+
+/* =========================================
+   MOBILE MENU & RESPONSIVE STYLES
+   ========================================= */
+
+/* Hamburger Menu Button (Hidden on Desktop) */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1100;
+    /* Headerdan yuqorida */
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Styles (Max Width 768px) */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+    }
+
+    .hamburger {
+        display: flex;
+        /* Show hamburger on mobile */
+    }
+
+    /* Navigation Menu on Mobile - IMPROVED */
+    /* Navigation Menu on Mobile - PREMIUM */
+    nav {
+        position: fixed;
+        top: 80px;
+        right: -100%;
+        width: 100%;
+        /* Full width for cleaner look */
+        height: calc(100vh - 80px);
+        /* Subtract header height */
+        background-color: rgba(26, 26, 26, 0.98);
+        /* Almost solid dark */
+        backdrop-filter: blur(15px);
+        /* Strong blur */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        /* Center items vertically */
+        padding-top: 0;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: none;
+    }
+
+    nav.nav-open {
+        right: 0;
+        /* Ekranga kirib keladi */
+    }
+
+    nav a {
+        display: block;
+        margin: 15px 20px;
+        font-size: 18px;
+        /* Kattaroq yozuv - Telefonda bosish oson bo'lishi uchun */
+        padding: 14px 24px;
+        width: calc(100% - 40px);
+        text-align: center;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    nav a:hover {
+        background: rgba(212, 175, 55, 0.2);
+        border-color: #D4AF37;
+        transform: translateX(-5px);
+    }
+
+    nav a.active {
+        background: transparent !important;
+        color: white !important;
+        border: 2px solid #D4AF37 !important;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.3) !important;
+        font-weight: 700;
+    }
+
+    /* Hamburger icon animatsiyasi */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+}
+
+/* ==============================
+   FOOTER SECTION
+============================== */
+footer {
+    background-color: #222;
+    color: #fff;
+    padding: 40px 20px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.social-links-footer {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.social-icon-footer {
+    color: #fff;
+    font-size: 24px;
+    transition: color 0.3s, transform 0.3s;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-decoration: none;
+    /* Link tagidagi chiziqni olib tashlash */
+    border-bottom: none;
+    /* Har ehtimolga qarshi */
+}
+
+.social-icon-footer:hover {
+    color: #D4AF37;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.footer-contacts a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 10px;
+    display: inline-block;
+    padding: 10px;
+    /* Touch area increased */
+}
+
+.footer-contacts i {
+    color: #D4AF37;
+    margin-right: 8px;
+}
+
+.copyright {
+    margin-top: 20px;
+    color: #888;
+    font-size: 14px;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    width: 100%;
+}
+
+/* Mobile Footer Adjustments */
+@media (max-width: 768px) {
+    .footer-contacts a {
+        display: block;
+        margin: 10px 0;
+    }
+}
+
+/* End of Mobile Nav */
+
+/* ==============================
+   MOBILE RESPONSIVENESS (Other Sections)
+============================== */
+@media (max-width: 768px) {
+
+    /* Hero Section Fixes */
+    .hero-content h1 {
+        font-size: 28px;
+        line-height: 1.3;
+        padding: 0 15px;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+        line-height: 1.5;
+        padding: 0 15px;
+    }
+
+    /* Section Sarlavhalari */
+    .section h2 {
+        font-size: 24px;
+        line-height: 1.4;
+        margin-bottom: 20px;
+    }
+
+    /* Booking Form Sarlavhasi */
+    .booking-details-container h3 {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+
+    /* About Section Stacking */
+    .about-wrapper {
+        grid-template-columns: 1fr;
+        /* Stack image and text */
+        gap: 20px;
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+
+    .about-content {
+        padding: 25px;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .about-content p {
+        margin-bottom: 15px;
+    }
+
+    .room-detail-container {
+        flex-direction: column;
+        padding: 0 15px;
+    }
+
+    .main-room-image,
+    .room-info {
+        width: 100%;
+    }
+
+    .gallery-container {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 0 15px;
+    }
+
+    .gallery-container img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+
+    /* Booking Form Mobile */
+    .booking-details-container {
+        padding: 20px 15px;
+        margin: 20px 10px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-group label {
+        font-size: 15px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .guest-counter-group {
+        flex-direction: column;
+        /* Stack Adults/Children */
+        gap: 15px;
+    }
+
+    /* Children discount text */
+    .children h3 {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* Restaurant Menu Grid */
+    .menu-grid {
+        grid-template-columns: 1fr;
+        /* 1 column for menu items */
+    }
+
+    /* Button Sizes */
+    .btn,
+    .btn-primary {
+        padding: 14px 28px;
+        font-size: 16px;
+        display: inline-block;
+    }
+
+    .book-now-button {
+        padding: 16px;
+        font-size: 18px;
+    }
+}
+
+/* Hamburger Animation (When Active) */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+
+.logo {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+
+
+
+/* ======================== */
+/* 1. Sarlavhalar (Title/Subtitle) */
+/* ======================== */
+.tours-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+/* ======================== */
+/* 2. Tours Grid (Setka) */
+/* ======================== */
+.tours-grid {
+    display: grid;
+    /* Katta ekranlarda 3 ustun, o'rta ekranlarda 2 ustun */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    /* Kartalar orasidagi bo'shliq */
+    padding: 20px 0;
+}
+
+/* ======================== */
+/* 3. Tour Card Dizayni */
+/* ======================== */
+.tour-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+.tour-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.tour-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tour-image {
+    width: 100%;
+    height: 240px;
+    /* Biroz balandroq rasm */
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.tour-card:hover .tour-image {
+    transform: scale(1.05);
+    /* Rasm sekin yaqinlashadi */
+}
+
+.tour-details {
+    padding: 30px;
+    text-align: left;
+    /* Markaz emas, chapga tekislash professionalroq */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.tour-details h3 {
+    font-size: 1.5em;
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.tour-details p {
+    font-size: 1em;
+    color: #636e72;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.view-details {
+    display: inline-block;
+    font-weight: 600;
+    color: #D4AF37;
+    /* Brand color */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9em;
+    border-bottom: 0;
+    margin-top: auto;
+    /* Pastki qismga tushirish */
+}
+
+
+/* ======================== */
+/* 4. Mobil moslashuv */
+/* ======================== */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2em;
+    }
+
+    .tours-grid {
+        /* Mobil qurilmalar uchun faqat 1 ustun */
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ================================================= */
+/* GLOBAL & LAYOUT RESTORATION */
+/* ================================================= */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1,
+h2 {
+    font-family: 'Playfair Display', serif;
+}
+
+/* HEADER & NAVIGATION */
+.main-header {
+    background-color: #004d40;
+    color: white;
+    padding: 10px 0;
+}
+
+.main-nav ul {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.main-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 5px 10px;
+}
+
+.main-nav ul li a.active,
+.main-nav ul li a:hover {
+    background-color: transparent;
+    /* Fon rangi olib tashlandi */
+    color: #ffab40;
+    /* Matn rangi o'zgaradi */
+    border-radius: 0;
+}
+
+/* HERO SECTION */
+.hero-section {
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.hero-content * {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-section h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+/* TOUR CONTENT */
+.tour-category-detail {
+    margin-bottom: 40px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.section-title {
+    font-size: 32px;
+    color: #004d40;
+    border-bottom: 3px solid #ffab40;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+.note {
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.note.info {
+    background-color: #e0f2f1;
+    border-left: 5px solid #009688;
+    color: #004d40;
+}
+
+.note.alert {
+    background-color: #fff8e1;
+    border-left: 5px solid #ffc107;
+    color: #6d4c41;
+}
+
+.aral-card,
+.simple-card {
+    background-color: #fcfcfc;
+    border: 1px solid #e0f2f1;
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 15px;
+}
+
+.aral-features,
+.simple-card ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+/* TABLE STYLES (for Day Trips and Transfers) */
+.tour-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 13px;
+    /* Reduced from 15px */
+}
+
+.tour-table thead th {
+    background-color: #004d40;
+    color: white;
+    padding: 10px 8px;
+    /* Reduced padding */
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.tour-table tbody td {
+    border-bottom: 1px solid #eee;
+    padding: 8px;
+    /* Reduced padding */
+    color: #333;
+}
+
+.tour-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* RESPONSIVE DESIGN (Mobile) */
+@media screen and (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 32px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .tour-table,
+    .tour-table thead,
+    .tour-table tbody,
+    .tour-table th,
+    .tour-table td,
+    .tour-table tr {
+        display: block;
+    }
+
+    .tour-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .tour-table tr {
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+        background-color: #fff;
+        border-radius: 6px;
+    }
+
+    .tour-table td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding: 12px 12px 12px 55% !important;
+        /* Adjusted for mobile */
+        text-align: right;
+    }
+
+    .tour-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        width: 40%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #004d40;
+    }
+
+    .main-nav ul li {
+        display: block;
+        margin: 5px 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ================================================= */
+/* === ASOSIY USLUBIYATLAR === */
+/* ================================================= */
+:root {
+    --primary-color: #004c4c;
+    /* To'q firuza rang (Sarlavhalar uchun) */
+    --secondary-color: #ff9900;
+    /* To'q sariq (Aksentlar uchun) */
+    --bg-light: #f5f5f5;
+    --bg-dark: #222;
+}
+
+/* Duplicate body rule removed */
+
+/* === HERO SECTION (Yuqori Qism) === */
+.restaurant-hero {
+    /* TripAdvisor Image with Gradient */
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('rooftop-dining.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    /* Parallax Effect & Positioning */
+    background-position: center center;
+    background-attachment: fixed;
+    /* Focus on view */
+    height: 80vh;
+    /* Element Position */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    color: white;
+    width: 100%;
+    z-index: 1;
+}
+
+.restaurant-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    /* Rasmni qoraytirish */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+}
+
+.hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5em;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 25px;
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+    padding: 10px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #cc7a00;
+}
+
+/* ================================================= */
+/* === MENYU KONTEYNERI === */
+/* ================================================= */
+
+.menu-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.menu-container h2 {
+    text-align: center;
+    font-size: 2.2em;
+    color: var(--primary-color);
+    margin-bottom: 50px;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+}
+
+.menu-category {
+    margin-bottom: 60px;
+}
+
+.menu-category h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8em;
+    color: var(--bg-dark);
+    background-color: #eee;
+    padding: 10px 15px;
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+/* === Taomlar Ro'yxati (Rasm bilan) === */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.menu-item {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.menu-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.item-details {
+    padding: 15px;
+    text-align: center;
+}
+
+.item-details h4 {
+    font-size: 1.2em;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+/* Narxni rasm ustiga yozish uchun: */
+.menu-item::after {
+    content: attr(data-price);
+    /* HTML'dagi narxni olish */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 700;
+}
+
+/* === Ichimliklar Ro'yxati (Rassiz) === */
+.menu-list {
+    padding: 0 20px;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #ccc;
+}
+
+.list-item:last-child {
+    border-bottom: none;
+}
+
+.list-item h4 {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--bg-dark);
+    margin: 0;
+}
+
+.price-separator {
+    flex-grow: 1;
+    margin: 0 10px;
+}
+
+.list-price {
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+
+.drinks-subhead {
+    font-style: italic;
+    color: var(--primary-color);
+    margin-top: 15px;
+    margin-bottom: 5px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    display: block;
+}
+
+/* === Mobil moslashuv === */
+@media (max-width: 600px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .restaurant-hero h1 {
+        font-size: 2.5em;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ================================================= */
+/* === FIXED CONTACT BUTTONS USLUBLARI === */
+/* ================================================= */
+
+/* Tugmalar konteynerini ekranga qotirish */
+.fixed-contact-buttons {
+    position: fixed;
+    right: 20px;
+    /* O'ng tomondan masofa */
+    bottom: 20px;
+    /* Pastki tomondan masofa */
+    z-index: 1000;
+    /* Boshqa elementlardan yuqorida turishi uchun */
+    display: flex;
+    flex-direction: column;
+    /* Tugmalarni ustma-ust joylashtirish */
+    gap: 15px;
+    /* Tugmalar orasidagi masofa */
+}
+
+/* Har bir tugmaning umumiy uslubi */
+.contact-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    /* Tugmaning kengligi */
+    height: 55px;
+    /* Tugmaning balandligi */
+    border-radius: 50%;
+    /* Yumaloq shakl */
+    color: white;
+    /* Ikonka rangi */
+    font-size: 1.5em;
+    /* Ikonka kattaligi */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    /* Soya */
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Logotiplar joylashgan joyni markazga olish */
+.social-links-container {
+    display: flex;
+    justify-content: center;
+    /* Gorizontal markazlashtirish */
+    align-items: center;
+    margin-top: 50px;
+    /* Saytda pastda ko'rinishi uchun joy tashlash */
+}
+
+/* Har bir dumaloq tugma uchun asosiy uslublar */
+.social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    /* Tugma o'lchami */
+    height: 50px;
+    /* Tugma o'lchami */
+    border-radius: 50%;
+    /* Dumaloq shakl berish */
+    margin: 0 10px;
+    /* Oraliq masofa */
+    font-size: 24px;
+    /* Logotip kattaligi */
+    text-decoration: none;
+    /* Havola ostidagi chiziqni yo'qotish */
+    color: white;
+    /* Logotip rangini oq qilish */
+    transition: transform 0.3s ease;
+    /* Sichqoncha ustiga borganda animatsiya */
+}
+
+/* Sichqoncha ustiga borganda biroz kattalashishi */
+.social-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Facebook uchun o'ziga xos rang */
+.facebook {
+    background-color: #3b5998;
+    /* Facebook ko'k rangi */
+}
+
+/* Telegram uchun o'ziga xos rang */
+.telegram {
+    background-color: #0088cc;
+    /* Telegram ko'k rangi */
+}
+
+/* WhatsApp uchun o'ziga xos rang */
+.whatsapp {
+    background-color: #25d366;
+    /* WhatsApp yashil rangi */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Telefon raqamlari konteyneri: Markazlashtirish va joylashtirish */
+.phone-numbers-container {
+    display: flex;
+    justify-content: center;
+    /* Raqamlarni markazga qo'yish */
+    align-items: center;
+    margin-top: 20px;
+    /* Logotiplar bilan oraliq masofa */
+    padding-bottom: 20px;
+    /* Eng pastki qismdan ozgina bo'sh joy qoldirish */
+}
+
+/* Har bir telefon raqami havolasi uslubi */
+.phone-link {
+    text-decoration: none;
+    /* Ostki chiziqni yo'qotish */
+    color: #333;
+    /* Qora rang */
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 15px;
+    /* Raqamlar orasidagi masofa */
+    transition: color 0.3s;
+}
+
+/* Raqam yonidagi telefon ikonkasi */
+.phone-link i {
+    margin-right: 5px;
+    color: #007bff;
+    /* Moviy rang berish */
+}
+
+/* Raqamlar orasidagi ajratuvchi chiziq (/) */
+.separator {
+    color: #ccc;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+/* Sichqoncha ustiga borganda effekt */
+.phone-link:hover {
+    color: #007bff;
+    /* Moviy rangga o'tadi */
+}
+
+/* Logotip uslublari (Avvalgi kodlar o'zgarmasdan qoladi) */
+.social-links-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+/* ... (qolgan .social-icon, .facebook, .telegram, .whatsapp uslublari) ... */
+
+/* ================================================= */
+/* === TOUR PAGES RESPONSIVE HEADER === */
+/* ================================================= */
+
+/* Hamburger Menu for Tour Pages (Hidden on Desktop) */
+.main-header .hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1100;
+}
+
+.main-header .hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+/* Tour Pages Mobile Styles */
+@media (max-width: 768px) {
+    .main-header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    .main-header .hamburger {
+        display: flex;
+        /* Show hamburger on mobile */
+    }
+
+    .main-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #004d40;
+        /* Match header color */
+        display: none;
+        /* Hidden by default */
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+
+    .main-nav.nav-open {
+        display: flex;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+    }
+
+    .main-nav ul li {
+        display: block;
+        margin: 10px 20px;
+        /* Yonlardan joy tashlandi */
+        text-align: center;
+    }
+
+    .main-nav ul li a {
+        display: block;
+        padding: 10px;
+        font-size: 18px;
+    }
+}
+
+/* ================================================= */
+/* === MOBILE OPTIMIZATION & COMPACT FIXES === */
+/* ================================================= */
+
+@media (max-width: 768px) {
+
+    /* 1. Header to'sib qolishini oldini olish - MOBIL UCHUN */
+    body {
+        padding-top: 60px !important;
+        /* Header balandligi (60px) ga tenglashtirildi */
+    }
+
+    /* Agar header fixed bo'lsa, u tepadagi joyni egallaydi */
+    header,
+    .main-header {
+        height: 60px;
+        /* Aniq balandlik */
+        padding: 5px 15px;
+        /* Kichikroq padding */
+    }
+
+    .logo {
+        font-size: 20px;
+        /* Logo ixchamroq */
+    }
+
+    /* 2. Sarlavhalarni ixchamlashtirish */
+    .hero-content h1,
+    .restaurant-hero .hero-content h1,
+    .hero-section h1 {
+        font-size: 20px !important;
+        /* Kichikroq sarlavha */
+        line-height: 1.2;
+        margin-bottom: 5px;
+    }
+
+    .hero-content p,
+    .hero-section p {
+        font-size: 13px !important;
+        /* Matnni ixchamlashtirish */
+        margin-bottom: 10px;
+        line-height: 1.4;
+    }
+
+    .section-title,
+    .details-title {
+        font-size: 20px !important;
+        margin-bottom: 10px !important;
+        padding-bottom: 5px;
+    }
+
+    .section h2 {
+        font-size: 22px;
+    }
+
+    /* 3. Padding va Marginlarni kamaytirish */
+    .section,
+    .tour-category-detail,
+    .menu-container,
+    .room-detail-container,
+    .booking-details-container {
+        padding: 15px 10px !important;
+        /* Masofalarni qisqartirish */
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+    }
+
+    .rooms-container,
+    .tours-container {
+        flex-direction: column;
+        /* Mobil telefonda ustma-ust joylashish */
+        align-items: center;
+        /* Markazlashtirish */
+        margin-top: 15px !important;
+        gap: 20px;
+        /* Oraliq masofani chiroyli qilish */
+    }
+
+    /* Kartochkani o'rab turgan linkni to'liq ekran qilish */
+    .rooms-container a.room-card-link {
+        width: 100%;
+        display: block;
+        /* Flex o'rniga block, shunda width ishlaydi */
+        max-width: 400px;
+        /* Juda cho'zilib ketmasligi uchun */
+    }
+
+    /* 4. Kartochkalar (Cards) ni ekran kengligiga moslash */
+    .room-card,
+    .tour-card,
+    .menu-item {
+        width: 100% !important;
+        /* Ekranni to'ldirib tursin */
+        max-width: 100%;
+        margin: 0 auto;
+        /* Marginni olib tashladik, gap konteynerda */
+    }
+
+    .room-card img,
+    .tour-image,
+    .menu-item img {
+        height: 160px;
+        /* Rasm balandligini yana qisqartirish */
+    }
+
+    /* 5. Formalar va buttonlarni ixcham qilish */
+    .form-group label {
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 8px;
+        /* Padding kamaytirildi */
+        font-size: 14px;
+        /* Shrift kichraytirildi */
+        height: auto;
+    }
+
+    .book-now-button,
+    .btn,
+    .btn-primary {
+        padding: 10px 15px;
+        /* Tugma o'lchami ixchamlashdi */
+        font-size: 14px;
+        /* Yozuv kichraydi */
+        margin-top: 10px;
+        width: auto;
+        /* To'liq kenglik shart emas, yoki 'inline-block' */
+        min-width: 150px;
+        /* Minimal kenglik */
+        display: inline-block;
+        border-radius: 6px;
+    }
+
+    .guest-counter-group {
+        gap: 10px;
+        align-items: center;
+    }
+
+    .guest-counter-group .form-group input[type="number"] {
+        width: 50px;
+    }
+
+    /* 6. Footer va telefon raqamlar */
+    .phone-numbers-container {
+        flex-direction: column;
+        /* Raqamlarni ustma-ust chiqarish */
+        gap: 5px;
+        margin-top: 15px;
+    }
+
+    .phone-link {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    /* 7. Input miqdorini aniqroq ko'rsatish (Quantity Control) */
+    .quantity-control select {
+        width: 60% !important;
+        /* Inline style (100%) ni bosish va sig'dirish uchun */
+        max-width: 150px;
+        /* Juda katta bo'lib ketmasligi uchun */
+        font-size: 16px;
+        padding: 5px 15px;
+        /* Yozuv yonidan joy */
+        border: 2px solid #D4AF37;
+        /* Chiroyli rang */
+        border-radius: 50px;
+        /* User so'ragan radius (dumaloq) */
+        background-color: white;
+        text-align: center;
+        text-align-last: center;
+        /* Mobil brauzerlarda markazlash */
+    }
+
+    .room-card-selection {
+        padding: 20px 15px;
+        /* Kartochka ichini kengaytirish */
+    }
+
+    .separator {
+        display: none;
+        /* "/" belgisini yashirish */
+    }
+
+    .social-links-container {
+        margin-top: 30px;
+    }
+
+    /* Hero section balandligini kamaytirish */
+    .hero,
+    .hero-section,
+    .restaurant-hero {
+        height: auto;
+        min-height: 300px;
+        /* Minimal balandlik */
+        padding: 60px 20px 40px 20px;
+        /* Tepadan header uchun joy, lekin padding-top bodyga berilgan */
+        align-items: center;
+    }
+}
+
+/* ================================================= */
+/* === CUSTOM SELECT DROPDOWN STYLES === */
+/* ================================================= */
+
+/* Asosiy konteyner */
+.custom-select {
+    position: relative;
+    font-family: Arial;
+    width: 60%;
+    max-width: 150px;
+    margin: 0 auto;
+}
+
+/* Trigger (ko'rinib turgan qismi) */
+.select-selected {
+    background-color: white;
+    color: #333;
+    padding: 8px 30px 8px 16px;
+    /* O'ngda joy ajratish */
+    border: 2px solid #D4AF37;
+    border-radius: 50px;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Ochiq holatdagi strelka */
+.select-selected:after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    right: 15px;
+    transform: translateY(-25%);
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #D4AF37 transparent transparent transparent;
+}
+
+/* Strelka aylanishi */
+.select-selected.select-arrow-active:after {
+    border-color: transparent transparent #D4AF37 transparent;
+    transform: translateY(-75%);
+}
+
+/* Variantlar ro'yxati (Dropdown) */
+.select-items {
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin-top: 8px;
+    border: 1px solid #eee;
+}
+
+/* Yopiq holat */
+.select-hide {
+    display: none;
+}
+
+/* Variantlar */
+.select-items div {
+    color: #333;
+    padding: 12px 16px;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    border-bottom: 1px solid #f5f5f5;
+    transition: background 0.2s;
+}
+
+.select-items div:last-child {
+    border-bottom: none;
+}
+
+/* Hover va Selected */
+.select-items div:hover,
+.same-as-selected {
+    background-color: #1976D2;
+    /* Material Blue */
+    color: #ffffff;
+}
+
+/* Mobil uchun moslashuv */
+@media (max-width: 768px) {
+    .custom-select {
+        width: 80%;
+    }
+}
+
+/* ==============================
+   LIGHTBOX (Rasm Kattalashtirish)
+============================== */
+#lightbox {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    /* Boshida yashirin */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+#lightbox.active img {
+    transform: scale(1);
+}
+
+#lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#lightbox-close:hover {
+    color: #D4AF37;
+}
+
+/* Mobil uchun lightbox moslashuvi */
+@media (max-width: 768px) {
+    #lightbox img {
+        max-width: 95%;
+        max-height: 95%;
+    }
+
+    #lightbox-close {
+        top: 10px;
+        right: 15px;
+        font-size: 35px;
+    }
+}
+
+/* ================================================= */
+/* === MOBILE OPTIMIZATION (COMPREHENSIVE) === */
+/* ================================================= */
+
+@media (max-width: 768px) {
+
+    /* --- GLOBAL LAYOUT FIXES --- */
+    body {
+        padding-top: 60px !important;
+        /* Header height ensure */
+    }
+
+    .container,
+    .menu-container,
+    .rooms-container,
+    .tours-container,
+    .tour-category-detail {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    section {
+        padding: 40px 0 !important;
+        /* Uniform section padding */
+    }
+
+    /* --- TYPOGRAPHY SCALING --- */
+    h1 {
+        font-size: 28px !important;
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: 24px !important;
+    }
+
+    h3 {
+        font-size: 20px !important;
+    }
+
+    p,
+    li,
+    .room-card-description,
+    .menu-item-desc {
+        font-size: 15px !important;
+        line-height: 1.5;
+    }
+
+    /* --- HERO SECTIONS --- */
+    .hero-section,
+    .restaurant-hero,
+    .room-hero,
+    .tour-hero {
+        height: auto !important;
+        height: auto !important;
+        min-height: 300px !important;
+        /* Reasonable height for mobile */
+        padding-top: 80px !important;
+        padding-bottom: 40px !important;
+        background-attachment: scroll !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        /* Parallax off on mobile for performance */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .hero-content {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        padding: 0 15px;
+    }
+
+    /* --- CARDS & GRIDS --- */
+    .rooms-container,
+    .tours-grid,
+    .menu-items-list,
+    .reviews-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        /* Force Single Column */
+        gap: 25px !important;
+    }
+
+    .room-card,
+    .tour-card,
+    .menu-item-card,
+    .review-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+
+    /* --- IMAGES --- */
+    .room-card img,
+    .menu-item-card img,
+    .tour-image {
+        height: 200px !important;
+        /* Consistent image height */
+        object-fit: cover;
+    }
+
+    /* --- FORMS & INPUTS --- */
+    .booking-form-container form {
+        grid-template-columns: 1fr !important;
+        /* Stack form inputs */
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 16px !important;
+        /* Prevent iOS zoom */
+        padding: 12px !important;
+        height: auto !important;
+        width: 100% !important;
+        /* Ensure full width */
+        box-sizing: border-box;
+    }
+
+    /* Guest Counter specific fix */
+    .guest-counter-input {
+        width: 60px !important;
+        text-align: center;
+    }
+
+    /* --- BUTTONS --- */
+    .btn,
+    .book-now-btn {
+        width: 100% !important;
+        /* Full width buttons on mobile */
+        padding: 15px !important;
+        font-size: 16px !important;
+        display: block;
+        margin-top: 10px;
+    }
+
+    /* Ensure Scroll Top Button stays round and small, and move up to avoid social icons */
+    .scroll-top-btn {
+        width: 50px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        bottom: 90px !important;
+        right: 20px !important;
+        margin: 0 !important;
+        display: none;
+        /* Controlled by JS .visible */
+    }
+
+    .scroll-top-btn.visible {
+        display: flex !important;
+    }
+
+    /* --- RESTAURANT SPECIFIC --- */
+    .menu-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .menu-nav button {
+        width: auto !important;
+        /* Keep tabs auto width */
+        font-size: 14px !important;
+        padding: 8px 15px !important;
+    }
+
+    .menu-item-card {
+        flex-direction: column;
+        /* Stack image and text */
+        text-align: center;
+    }
+
+    .menu-item-info {
+        padding: 15px;
+    }
+
+    /* --- TABLES (Tours) --- */
+    .tour-table {
+        display: block;
+        overflow-x: auto;
+        /* Horizontal scroll for tables */
+        white-space: nowrap;
+    }
+
+    /* --- MAP --- */
+    .map-overlay {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: auto;
+        max-width: 90%;
+        margin-bottom: 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        border: none;
+        background: rgba(255, 255, 255, 0.95);
+        display: block !important;
+        /* Ensure it is visible */
+        z-index: 10;
+    }
+}
+
+/* ==============================
+   RANG PALITRASINI BOYITISH
+============================== */
+
+/* Gradient Button Styles */
+.btn-gradient {
+    background: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%);
+    color: white;
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Accent Color for Important Elements */
+.accent-text {
+    color: #D4AF37;
+    font-weight: 600;
+}
+
+/* ==============================
+   SMOOTH TRANSITIONS
+============================== */
+
+/* Smooth transitions for all interactive elements */
+a,
+button,
+input,
+textarea,
+select {
+    transition: all 0.3s ease;
+}
+
+/* Better focus states for accessibility */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid #D4AF37;
+    outline-offset: 2px;
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ==============================
+   LANGUAGE SWITCHER
+==============================    /* Old Language Switcher styles removed */
+
+/* ==============================
+   CUSTOMER REVIEWS (Testimonials)
+============================== */
+.reviews-section {
+    padding: 60px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto 0;
+}
+
+.review-card {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    /* Softer, deeper shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f0f0f0;
+    /* Very subtle border */
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Pushes content apart if height is fixed */
+    height: 100%;
+    /* If grid stretches items */
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+}
+
+.review-stars {
+    color: #FFC107;
+    /* Bright Amber */
+    font-size: 16px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.review-text {
+    font-style: italic;
+    color: #444;
+    /* Darker grey for better readability */
+    line-height: 1.7;
+    margin-bottom: 25px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    /* Clean font */
+    flex-grow: 1;
+    /* Pushes author down */
+}
+
+.review-author {
+    font-weight: 700;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #f9f9f9;
+    /* Subtle separator line optional, or remove */
+    margin-top: auto;
+}
+
+.review-author img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    /* White ring */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ==============================
+   GOOGLE MAPS SECTION
+============================== */
+.map-section {
+    height: 400px;
+    width: 100%;
+    margin-top: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.map-container {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.map-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    max-width: 300px;
+}
+
+.map-overlay h4 {
+    margin-top: 0;
+    color: #D4AF37;
+}
+
+@media (max-width: 768px) {
+    .map-section {
+        height: 300px;
+    }
+
+    .map-overlay {
+        display: none;
+        /* Mobilda xaritani to'sib qo'ymasligi uchun */
+    }
+}
+
+/* ==============================
+   10. TOUR PAGES & TABLES (Yangi Professional Dizayn)
+============================== */
+
+/* Tour Table Styling */
+.tour-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    font-size: 16px;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    /* Slightly sharper corners like screenshot */
+    overflow: hidden;
+}
+
+.tour-table thead {
+    background-color: #014134;
+    /* Dark green from screenshot */
+    color: white;
+}
+
+.tour-table th,
+.tour-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.tour-table th {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    border-bottom: none;
+    /* Header row usually doesn't have internal border in this style */
+}
+
+/* Alternate row colors if needed, but screenshot was white/clean */
+.tour-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.tour-table tbody tr:hover {
+    background-color: #fcfcfc;
+}
+
+.tour-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Mobile Responsive Table */
+/* Mobile Responsive Table - Card Style */
+@media screen and (max-width: 768px) {
+    .tour-table {
+        border: 0;
+        box-shadow: none;
+        background: transparent;
+        white-space: normal;
+    }
+
+    .tour-table thead {
+        display: none;
+    }
+
+    .tour-table tr {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        /* Soft shadow */
+        margin-bottom: 25px;
+        display: block;
+        padding: 0;
+        overflow: hidden;
+        /* For header radius */
+        border: 1px solid #e0e0e0;
+    }
+
+    .tour-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #f5f5f5;
+        padding: 15px 20px;
+        font-size: 15px;
+        text-align: right;
+        color: #333;
+    }
+
+    /* Route Header Style */
+    .tour-table td:first-child {
+        background-color: #014134;
+        /* Brand Dark Green */
+        color: white;
+        display: block;
+        text-align: left !important;
+        padding: 15px;
+    }
+
+    .tour-table td:first-child strong {
+        font-size: 18px;
+        font-weight: 700;
+        color: white !important;
+    }
+
+    /* Hide label for the header (Route) as it's obvious */
+    .tour-table td:first-child::before {
+        display: none;
+    }
+
+    .tour-table td:last-child {
+        border-bottom: none;
+    }
+
+    .tour-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #777;
+        /* Softer label color */
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        text-align: left;
+        flex-shrink: 0;
+        width: 45%;
+        /* Fixed width for alignment */
+    }
+
+    /* SPECIFIC: Make Stops Left Aligned and Stacked */
+    .tour-table td[data-label="Stops"] {
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        background-color: #f9fdfc;
+        padding-top: 15px !important;
+        padding-bottom: 15px !important;
+    }
+
+    .tour-table td[data-label="Stops"]::before {
+        width: 100%;
+        text-align: left !important;
+        margin-right: 0 !important;
+        margin-bottom: 5px;
+        color: #014134;
+        font-weight: 700;
+        font-size: 13px;
+    }
+}
+
+/* Fleet/Car Types Section */
+.fleet-section {
+    padding: 40px 0;
+    text-align: center;
+    background-color: #fbfbfb;
+}
+
+.fleet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.fleet-card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.fleet-card:hover {
+    transform: translateY(-5px);
+    border-color: #D4AF37;
+}
+
+.fleet-icon {
+    font-size: 40px;
+    color: #D4AF37;
+    margin-bottom: 20px;
+}
+
+.fleet-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.fleet-capacity {
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+/* Note/Alert Boxes */
+.note {
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.note.alert {
+    background-color: #fff4e5;
+    border-left: 4px solid #ff9800;
+    color: #663c00;
+}
+
+.note.info {
+    background-color: #e8f8f5;
+    border-left: 4px solid #D4AF37;
+    color: #004d40;
+}
+
+/* Update Tour Hero */
+.page-hero {
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.page-hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+}
+
+.room-hero {
+    background-image: url('photo_2025-12-22_17-19-35.jpg');
+}
+
+.tour-hero {
+    background-image: url('khiva-city-tour-11.jpg');
+}
+
+/* ==============================
+   SCROLL TO TOP BUTTON
+============================== */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #D4AF37;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    display: none;
+    /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    z-index: 9999;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.scroll-top-btn.visible {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+    background: #008f75;
+    transform: translateY(-5px);
+}
+
+/* ==============================
+   INTERACTIVE MENU BOOK (restaurant.html)
+============================== */
+.menu-book-wrapper {
+    background-color: #fdfbf7;
+    /* Paper-like off-white */
+    padding: 60px 20px;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+    /* Subtle texture */
+}
+
+.menu-book {
+    width: 100%;
+    max-width: 900px;
+    background: white;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-header {
+    background: #2c3e50;
+    color: #cca43b;
+    /* Goldish color */
+    padding: 20px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+}
+
+.menu-header h2 {
+    margin: 0;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: #cca43b;
+}
+
+.menu-pages-container {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    /* Hide other pages */
+}
+
+.menu-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    overflow-y: auto;
+    /* Allow scrolling inside page if content is long */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(50px);
+    transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+    background: white;
+}
+
+.menu-page.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    z-index: 2;
+}
+
+/* Page content styling */
+.page-title {
+    text-align: center;
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    border-bottom: 2px double #cca43b;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.menu-items-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.menu-item-card {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 15px;
+}
+
+.menu-item-card img {
+    width: 110px;
+    height: 110px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item-info h4 {
+    margin: 0 0 5px;
+    color: #2c3e50;
+    font-family: 'Playfair Display', serif;
+}
+
+.menu-item-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.menu-controls {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: #f9f9f9;
+    border-top: 1px solid #eee;
+}
+
+.page-btn {
+    background: transparent;
+    border: 2px solid #2c3e50;
+    color: #2c3e50;
+    padding: 10px 25px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: all 0.3s;
+}
+
+.page-btn:hover {
+    background: #2c3e50;
+    color: #cca43b;
+}
+
+.page-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: #ccc;
+    color: #ccc;
+}
+
+/* --- FAQ SECTION STYLES --- */
+.accordion-item {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.accordion-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.accordion-header:hover {
+    background-color: rgba(212, 175, 55, 0.05) !important;
+}
+
+.review-author img {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ======================== */
+/* GALLERY PAGE STYLES */
+/* ======================== */
+.gallery-hero {
+    position: relative;
+    max-width: 100%;
+    height: 50vh;
+    /* Reduced height */
+    overflow: hidden;
+    margin-top: 80px;
+    /* Header height */
+    background: #000;
+}
+
+.slideshow-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.mySlides {
+    display: none;
+    height: 100%;
+    width: 100%;
+}
+
+.mySlides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensures image covers the area */
+    animation: zoomEffect 10s infinite alternate;
+    /* Subtle zoom effect */
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes zoomEffect {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.1);
+    }
+}
+
+/* Text Overlay on Slideshow */
+.slideshow-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Full coverage for gradient */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 60px;
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+
+.slideshow-overlay h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    font-family: 'Playfair Display', serif;
+}
+
+.slideshow-overlay p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+/* Basic Gallery Grid & Item styles removed (See Enhanced Gallery section below) */
+
+/* Duplicate mobile query removed */
+
+/* ========================================= */
+/* ROOM DETAIL PAGE LAYOUTS (Standardized)   */
+/* ========================================= */
+
+.section {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.room-detail-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.main-room-image {
+    width: 60%;
+    /* Occupy left side */
+    height: 400px;
+    /* Fixed height for consistency */
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.room-info {
+    width: 40%;
+    /* Occupy right side */
+}
+
+/* Typography for room info */
+.detail-price {
+    font-size: 2em;
+    color: #D4AF37;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.room-info p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.room-info h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.room-info ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.room-info ul li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+    font-size: 1.05em;
+    display: flex;
+    align-items: center;
+}
+
+.room-info ul li:before {
+    content: "✓";
+    color: #D4AF37;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* MOBILE RESPONSIVENESS for Room Details */
+@media (max-width: 900px) {
+    .room-detail-container {
+        flex-direction: column;
+    }
+
+    .main-room-image {
+        width: 100%;
+        height: 300px;
+        /* Slightly smaller height on mobile */
+    }
+
+    .room-info {
+        width: 100%;
+    }
+}
+
+/* ========================================= */
+/* SHARED IMAGE HOVER EFFECTS (LIGHTBOX)     */
+/* ========================================= */
+
+/* Ensure all clickable images have the pointer cursor and hover effect */
+.main-room-image,
+.gallery-image,
+.menu-item-card img,
+.gallery-item img {
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+    /* Optional: adds rounded corners if not present */
+}
+
+/* Hover Effect: Scale up slightly */
+.main-room-image:hover,
+.gallery-image:hover,
+.menu-item-card img:hover,
+.gallery-item img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    /* Ensure it floats above */
+    position: relative;
+}
+
+/* Add some spacing for gallery container images on room pages if missing */
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.gallery-image {
+    width: calc(25% - 15px);
+    /* 4 images per row logic */
+    height: 150px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .gallery-image {
+        width: calc(50% - 15px);
+        /* 2 images per row on mobile */
+    }
+}
+
+/* ==============================
+   8. ENHANCED GALLERY (Filters & Lightbox)
+============================== */
+.gallery-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 2px solid #D4AF37;
+    color: #2c3e50;
+    padding: 10px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: #D4AF37;
+    color: white;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 10px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    height: 250px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    background: #f0f0f0;
+    /* Layout placeholder color */
+}
+
+/* Hide item for filtering */
+.gallery-item.hide {
+    display: none;
+    /* Use display:none to reflow grid. Alternatively use opacity/scale for animation but display:none is simpler for grid */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-item .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    /* Allows clicks to reach the image underneath */
+}
+
+.gallery-item:hover .overlay {
+    opacity: 1;
+}
+
+.gallery-item .overlay i {
+    display: none;
+    /* Hide the magnifying glass icon */
+}
+
+/* Lightbox Enhancements */
+#lightbox {
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+#lightbox img {
+    width: 90vw;
+    /* Fixed width relative to viewport */
+    height: 85vh;
+    /* Fixed height relative to viewport */
+    object-fit: contain;
+    /* Scale image to fit within the fixed box without distortion */
+    border-radius: 4px;
+    box-shadow: none;
+    /* Remove shadow to avoid outlining the empty parts of the box */
+    animation: zoomIn 0.3s ease;
+    background: transparent;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    z-index: 2001;
+}
+
+#lightbox-close:hover {
+    transform: rotate(90deg);
+    color: #D4AF37;
+}
+
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    user-select: none;
+    z-index: 2001;
+}
+
+.lightbox-prev {
+    left: 30px;
+}
+
+.lightbox-next {
+    right: 30px;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: #D4AF37;
+    color: white;
+}
+
+@media (max-width: 768px) {
+
+    .lightbox-prev,
+    .lightbox-next {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+        padding: 0;
+    }
+}
+
+/* =========================================
+   10. ENHANCED RESTAURANT MENU STYLES
+   ========================================= */
+
+/* Restaurant Hero */
+
+
+/* Menu Container */
+#menu-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #D4AF37;
+    margin-bottom: 40px;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.page-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #D4AF37;
+    margin: 15px auto 0;
+}
+
+/* Grid Layout */
+.menu-items-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    /* Reduced from 350px */
+    gap: 20px;
+    /* Reduced gap */
+    margin-bottom: 50px;
+}
+
+/* Card Design */
+.menu-item-card {
+    background: #fff;
+    border-radius: 12px;
+    /* Slightly smaller radius */
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    /* Lighter shadow */
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.menu-item-card:hover {
+    transform: translateY(-5px);
+    /* Less movement */
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+}
+
+/* Image container */
+.menu-item-card img {
+    width: 100%;
+    height: 180px;
+    /* Reduced from 250px */
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.menu-item-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Content */
+.menu-item-info {
+    padding: 15px;
+    /* Reduced from 25px */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+/* .menu-header removed as price is removed */
+
+.menu-item-info h4 {
+    font-size: 1.15em;
+    /* Reduced from 1.4em */
+    color: #2c3e50;
+    margin: 0 0 8px 0;
+    /* Added bottom margin */
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+
+/* .menu-price removed */
+
+.menu-item-info p {
+    color: #666;
+    font-size: 0.9em;
+    /* Reduced from 0.95em */
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Controls */
+.menu-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    gap: 15px;
+}
+
+.page-btn {
+    background: transparent;
+    border: 1px solid #D4AF37;
+    /* Thinner border */
+    color: #2c3e50;
+    padding: 8px 25px;
+    /* Smaller padding */
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    /* Smaller font */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.page-btn:hover:not(:disabled) {
+    background: #D4AF37;
+    color: white;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.page-btn:disabled {
+    border-color: #ccc;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+#page-indicator {
+    font-size: 1em;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .menu-items-list {
+        grid-template-columns: 1fr;
+        /* Keep 1 column but it will be compact */
+        gap: 15px;
+    }
+
+    .menu-item-card {
+        flex-direction: row;
+        /* Try horizontal layout for very compact mobile view? Or stick to vertical? */
+        /* Let's stick to vertical as it handles long descriptions better, but compact. */
+        flex-direction: column;
+    }
+
+    .menu-item-card img {
+        height: 160px;
+        /* Even smaller on mobile */
+    }
+
+    .menu-item-info {
+        padding: 15px;
+    }
+
+    .menu-item-info h4 {
+        font-size: 1.1em;
+    }
+
+    .page-title {
+        font-size: 1.8em;
+        /* Slightly smaller title */
+    }
+}
+
+/* ==============================
+   GALLERY HERO SLIDESHOW STYLES
+============================== */
+.gallery-hero {
+    height: 80vh;
+    width: 100%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.slideshow-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.mySlides {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.mySlides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Overlay styles removed as requested */
+
+/* Make sure active class logic from JS works */
+.mySlides.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+/* Mobile Adjustments for Gallery Hero */
+@media (max-width: 768px) {
+    .slideshow-overlay h1 {
+        font-size: 2.2em;
+    }
+
+    .slideshow-overlay p {
+        font-size: 1.1em;
+    }
+}
+
+/* ==============================
+   MOBILE GALLERY FIXES
+============================== */
+@media (max-width: 768px) {
+
+    /* Fix Hero Height on Mobile */
+    .gallery-hero {
+        height: 40vh;
+        /* Reduced from 80vh to 40vh for mobile */
+        min-height: 250px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        /* Full width items */
+        gap: 15px;
+    }
+
+    .gallery-item {
+        height: 250px;
+        /* Force fixed height on mobile */
+        width: 100%;
+    }
+
+    .gallery-item img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        /* Crop nicely */
+    }
+}
+
+/* ==============================
+   ARAL SEA PAGE STYLES
+============================== */
+.aral-card {
+    padding: 30px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+    border-top: 5px solid #D4AF37;
+}
+
+.aral-card h3 {
+    font-size: 1.8em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.route-box {
+    background: #f0f4f8;
+    padding: 15px;
+    border-left: 4px solid #D4AF37;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-style: italic;
+    color: #333;
+}
+
+.details-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.details-list li {
+    font-size: 0.95em;
+    color: #444;
+    background: #fafafa;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+.details-list strong {
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.price-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #D4AF37;
+    background: #fffbf0;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+details summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 700;
+    color: #fff;
+    background: #2c3e50;
+    padding: 12px 30px;
+    border-radius: 50px;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+details summary:hover {
+    background: #D4AF37;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+details summary::after {
+    content: ' \f078';
+    font-family: "Font Awesome 5 Free";
+    margin-left: 10px;
+}
+
+details[open] summary::after {
+    content: ' \f077';
+}
+
+.expanded-content {
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px dashed #ddd;
+    animation: fadeIn 0.5s ease;
+}
+
+.expanded-content h4 {
+    color: #D4AF37;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+.expanded-content h5 {
+    color: #2c3e50;
+    font-size: 1.1em;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.expanded-content ul {
+    padding-left: 20px;
+    line-height: 1.6;
+}
+
+.expanded-content li {
+    margin-bottom: 8px;
+}

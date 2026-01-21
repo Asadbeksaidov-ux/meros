@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meros B&B - Rooms</title>
+    <title>Meros B&B - Accommodation</title>
+    <link rel="icon" type="image/png" href="logo-v2.png">
+    <meta name="description"
+        content="Choose from our range of comfortable double, twin, and triple rooms. Authentic Khiva style with modern amenities. Book directly for the best rates.">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <a href="index.html"
+                    style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                    <img src="logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
+                    <span>Meros B&B</span>
+                </a>
+            </div>
+            <!-- Globe Language Switcher -->
+            <div class="globe-lang-container">
+                <button class="globe-btn" id="lang-toggle" aria-label="Select Language">
+                    <i class="fas fa-globe"></i>
+                </button>
+                <div class="globe-dropdown" id="lang-dropdown">
+                    <a href="#" data-lang="en">English</a>
+                    <a href="#" data-lang="uz">O'zbek</a>
+                    <a href="#" data-lang="ru">Русский</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hamburger Menu Button -->
+        <div class="hamburger" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-menu">
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <a href="rooms.html" class="active" data-i18n="nav.rooms">Accommodation</a>
+            <a href="tours.html" data-i18n="nav.tours">Tours</a>
+            <a href="restaurant.html" data-i18n="nav.restaurant">Rooftop Dining</a>
+            <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+            <a href="admin.html" data-i18n="nav.admin">Admin</a>
+        </nav>
+    </header>
+
+    <section class="page-hero room-hero">
+        <div class="hero-content">
+            <h1 data-i18n="rooms.hero_title">Our Rooms</h1>
+            <p data-i18n="rooms.hero_subtitle">Comfort and tradition combined</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 data-i18n="rooms.section_title">Our Rooms</h2>
+        <div class="rooms-container">
+            <a href="double.html" class="room-card-link">
+                <div class="room-card">
+                    <img src="double.room.jpg" alt="Double Room">
+                    <h3 data-i18n="rooms.double_title">Double Room</h3>
+                    <span class="price"><span data-i18n="rooms.price_from">$50</span>/<span
+                            data-i18n="rooms.per_night">night</span></span>
+                </div>
+            </a>
+
+            <a href="twin.html" class="room-card-link">
+                <div class="room-card">
+                    <img src="twin.room.jpg" alt="Twin Room">
+                    <h3 data-i18n="rooms.twin_title">Twin Room</h3>
+                    <span class="price"><span data-i18n="rooms.price_from">$50</span>/<span
+                            data-i18n="rooms.per_night">night</span></span>
+                </div>
+            </a>
+            <a href="triple.html" class="room-card-link">
+                <div class="room-card">
+                    <img src="triple.room.jpg" alt="Triple Room">
+                    <h3 data-i18n="rooms.triple_title">Triple Room</h3>
+                    <span class="price"><span data-i18n="rooms.price_triple">$80</span>/<span
+                            data-i18n="rooms.per_night">night</span></span>
+                </div>
+            </a>
+
+            <a href="Tbalcony.html" class="room-card-link">
+                <div class="room-card">
+                    <img src="Tbalcony.jpg" alt="Tbalcony Room">
+                    <h3 data-i18n="rooms.twin_balcony_title">Twin Balcony Room</h3>
+                    <span class="price"><span data-i18n="rooms.price_balcony">$60</span>/<span
+                            data-i18n="rooms.per_night">night</span></span>
+                </div>
+            </a>
+            <a href="Dbalcony.html" class="room-card-link">
+                <div class="room-card">
+                    <img src="Dbalcony.jpg" alt="Dbalcony Room">
+                    <h3 data-i18n="rooms.double_balcony_title">Double Balcony Room</h3>
+                    <span class="price"><span data-i18n="rooms.price_balcony">$60</span>/<span
+                            data-i18n="rooms.per_night">night</span></span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <div class="booking-details-container">
+        <h3>&#9989; Enter Your Contact Details & Booking</h3>
+
+        <form id="booking-form">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="John Smith" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="checkInDate">Check-in Date *</label>
+                <input type="date" id="checkInDate" name="checkInDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="checkOutDate">Check-out Date *</label>
+                <input type="date" id="checkOutDate" name="checkOutDate" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number (Optional)</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+1 555 123 45 67">
+                </div>
+            </div>
+
+            <div class="guest-counter-group">
+                <div class="form-group">
+                    <label for="adults-count">Adults</label>
+                    <input type="number" id="adults-count" name="adults" value="1" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="children-count">Children</label>
+                    <input type="number" id="children-count" name="children" value="0" min="0">
+                </div>
+            </div>
+            <div class="children">
+                <h3>Children under 5 y/o are free for existing beds, up to 12 y/o are %50 discount.</h3>
+            </div>
+
+            <div class="form-group room-selection-group">
+                <label class="selection-title">Select Room Types</label>
+                <div class="room-options-grid">
+
+                    <div class="room-card-selection">
+                        <h3 data-i18n="rooms.double_title">Double Room</h3>
+                        <p class="room-price"><span data-i18n="rooms.price_from">$50 ($35 Single Use)</span>/<span
+                                data-i18n="rooms.per_night">night</span></p>
+                        <div class="quantity-control">
+                            <label for="qty_double" data-i18n="form.quantity">Quantity:</label>
+                            <select id="qty_double" name="qty_double" style="width: 100%; text-align: center;">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="room-card-selection">
+                        <h3 data-i18n="rooms.twin_title">Twin Room</h3>
+                        <p class="room-price"><span data-i18n="rooms.price_from">$50 ($35 Single Use)</span>/<span
+                                data-i18n="rooms.per_night">night</span></p>
+                        <div class="quantity-control">
+                            <label for="qty_twin" data-i18n="form.quantity">Quantity:</label>
+                            <select id="qty_twin" name="qty_twin" style="width: 100%; text-align: center;">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="room-card-selection">
+                        <h3 data-i18n="rooms.triple_title">Triple Room</h3>
+                        <p class="room-price"><span data-i18n="rooms.price_triple">$80 ($60 Double Use),($40 Single
+                                Use)</span>/<span data-i18n="rooms.per_night">night</span></p>
+                        <div class="quantity-control">
+                            <label for="qty_triple" data-i18n="form.quantity">Quantity:</label>
+                            <select id="qty_triple" name="qty_triple" style="width: 100%; text-align: center;">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="room-card-selection">
+                        <h3 data-i18n="rooms.double_balcony_title">Double w/ Balcony</h3>
+                        <p class="room-price"><span data-i18n="rooms.price_balcony">$60 ($45 Single Use)</span>/<span
+                                data-i18n="rooms.per_night">night</span></p>
+                        <div class="quantity-control">
+                            <label for="qty_double_balcony" data-i18n="form.quantity">Quantity:</label>
+                            <select id="qty_double_balcony" name="qty_double_balcony"
+                                style="width: 100%; text-align: center;">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="room-card-selection">
+                        <h3 data-i18n="rooms.twin_balcony_title">Twin w/ Balcony</h3>
+                        <p class="room-price"><span data-i18n="rooms.price_balcony">$60 ($45 Single Use)</span>/<span
+                                data-i18n="rooms.per_night">night</span></p>
+                        <div class="quantity-control">
+                            <label for="qty_twin_balcony" data-i18n="form.quantity">Quantity:</label>
+                            <select id="qty_twin_balcony" name="qty_twin_balcony"
+                                style="width: 100%; text-align: center;">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="room-selection-alert"
+                    style="color: red; margin-top: 15px; font-weight: bold; text-align: center; padding: 10px; border: 1px solid red; display: none;">
+                    Please select at least one room type and quantity to finalize your booking.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="additionalNotes">Additional Notes (Optional)</label>
+                <textarea id="additionalNotes" name="additionalNotes" rows="3"
+                    placeholder="Example: I would like a room with a better view."></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn" class="book-now-button">Finalize Booking</button>
+            <p id="form-status" class="status-message"></p>
+            <div id="form-status-message"
+                style="margin-top: 15px; padding: 10px; border-radius: 4px; text-align: center; display: block; font-weight: bold;">
+            </div>
+        </form>
+    </div>
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links-footer">
+                <a href="https://www.facebook.com/meroskhiva" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://t.me/Jaloladdin_MATKARIMOV" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+                <a href="https://wa.me/998943153700" target="_blank" class="social-icon-footer">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+            <div class="footer-contacts">
+                <a href="tel:+998943153700"><i class="fas fa-phone-alt"></i> +998 94 315 37 00</a>
+                <a href="tel:+998887903293"><i class="fas fa-phone-alt"></i> +998 88 790 32 93</a>
+            </div>
+
+            <div class="copyright" data-i18n="footer.copyright">
+                &copy; 2026 Meros B&B. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            // YOUR_PUBLIC_KEY o'rniga EmailJS akkauntingizdagi Public Key'ni qo'ying
+            emailjs.init({
+                publicKey: "VFOlcr26fn2MPqXYK",
+            });
+        })();
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="main.js"></script>
+
+</body>
+
+</html>
