@@ -44,11 +44,13 @@ function initBookingForm() {
             emailjs.send('service_n4nb5ob', 'template_59tfqm9', templateParams)
                 .then(function (response) {
                     console.log('SUCCESS!', response.status, response.text);
-                    alert('вњ… Your booking request has been successfully sent!');
+                    const lang = localStorage.getItem('selectedLang') || 'en';
+                    alert(translations[lang]?.['form.success'] || translations['en']['form.success']);
                     form.reset();
                 }, function (error) {
                     console.log('FAILED...', error);
-                    alert('вќЊ An error occurred. Please try again.');
+                    const lang = localStorage.getItem('selectedLang') || 'en';
+                    alert(translations[lang]?.['form.error'] || translations['en']['form.error']);
                 });
         });
     }
@@ -375,7 +377,7 @@ const translations = {
         "about_main.p1": "Dear guests, welcome to the MEROS B&B. The MEROS B&B is located inside the baked mud walls of ancient Khiva, not far from the western & northern gates. The guest house started welcoming guests in 1999. MEROS means 'cultural heritage' in English, and the Matkarimov's family is steeped in Uzbek culture. Their great-great-grandfather Said Arbob was a master artisan (usto in Uzbek) engaged by the Khivan Khans.",
         "about_main.p2": "Saadulla Matkarimov (1936-1993) father of the owner Kuranbay Matkarimov, worked for more than 20 years on the restoration of Khiva during the Soviet Union. Kuranbay Matkarimov (1957-2018), was a master of pattern design and restoration. He worked on restoration projects in the World Heritage centres of Khiva, Bukhara and Shaxrisabz. He was chief restorer of the decorated ceilings of Khiva. The ceilings in the MEROS guest rooms and verandahs are painted in this classical Khorezmian style.",
         "map.full_address": "<strong>Meros B&B</strong><br>A. Boltaev Street 57, Ichan Kala<br>Khiva, Uzbekistan",
-        "footer.copyright": "В© 2024 Meros B&B. All Rights Reserved.",
+        "footer.copyright": "© " + new Date().getFullYear() + " Meros B&B. All Rights Reserved.",
 
         // ROOM DETAILS GENERICS
         "detail.price_prefix": "Price:",
@@ -407,6 +409,8 @@ const translations = {
         "reviews.label_comment": "Your Review",
         "reviews.label_photo": "Attach Photo",
         "reviews.btn_submit": "Submit Review",
+        "reviews.alert_success": "Thank you for your comment!",
+        "reviews.alert_error": "Error sending review. Please try again.",
         "map.title": "Find Us Here",
         "map.address": "Inside the Old City Walls",
 
@@ -1145,7 +1149,7 @@ const translations = {
         "about_main.p1": "Hurmatli mehmonlar, MEROS B&B ga xush kelibsiz. MEROS B&B qadimiy Xivaning paxsadan qurilgan devorlari ichida, G'arbiy va Shimoliy darvozalar yaqinida joylashgan. Mehmon uyi 1999-yildan beri mehmonlarni qabul qilib kelmoqda. 'Meros' so'zi ingliz tilida 'cultural heritage' ma'nosini bildiradi va Matkarimovlar oilasi o'zbek madaniyati bilan chambarchas bog'langan. Ularning katta bobosi Said Arbob Xiva xonlari tomonidan yollangan usta hunarmand bo'lgan.",
         "about_main.p2": "Mulk egasi Kuranbay Matkarimovning otasi Saadulla Matkarimov (1936-1993) Sovet Ittifoqi davrida Xivani restavratsiya qilishda 20 yildan ortiq mehnat qilgan. Kuranbay Matkarimov (1957-2018) naqsh dizayni va restavratsiya ustasi bo'lgan. U Xiva, Buxoro va Shahrisabz kabi Jahon merosi markazlarida restavratsiya loyihalarida ishlagan. U Xivaning naqshinkor shiftlarini ta'mirlash bo'yicha bosh ustasi bo'lgan. MEROS mehmonxonasining xonalari va ayvonlari shiftlari aynan shu klassik Xorazm uslubida bo'yalgan.",
         "map.full_address": "<strong>Meros B&B</strong><br>A.Boltayev ko'chasi, Ichan Qala<br>Xiva, O'zbekiston",
-        "footer.copyright": "В© 2024 Meros B&B. Barcha huquqlar himoyalangan.",
+        "footer.copyright": "© " + new Date().getFullYear() + " Meros B&B. Barcha huquqlar himoyalangan.",
 
         // ROOM DETAILS GENERICS
         "detail.price_prefix": "Narx:",
@@ -1177,6 +1181,8 @@ const translations = {
         "reviews.label_comment": "Sizning Fikringiz",
         "reviews.label_photo": "Rasm Yuklash",
         "reviews.btn_submit": "Izohni Yuborish",
+        "reviews.alert_success": "Izohingiz uchun rahmat!",
+        "reviews.alert_error": "Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.",
         "reviews.review1_text": "\"Xivadagi haqiqiy marvarid! Ichan Qala ichidagi joylashuvi ajoyib. Minoralarga qaragan holda qilingan tonggi nonushta sayohatimizning eng esda qolarli onlari bo'ldi. Hammaga tavsiya qilaman!\"",
         "reviews.review1_author": "Sara Jenkins",
         "reviews.review2_text": "\"Mehmonxonani boshqaradigan oila juda samimiy va mehmondo'st. Xona toza, keng va chiroyli milliy uslubda bezatilgan. Albatta yana kelamiz.\"",
@@ -1502,7 +1508,7 @@ const translations = {
         "transfers.route_shavat": "Xiva - Shovot (Turkmaniston Chegarasi)",
         "transfers.route_nukus": "Xiva - Nukus",
         "transfers.route_bukhara": "Xiva - Buxoro",
-        "transfers.route_nukus": "Xiva - Nukus",
+
         "transfers.route_nukus_3": "Xiva - Nukus (Uch Qal'a)",
         "transfers.route_nukus_4": "Xiva - Nukus (To'rt Qal'a)",
         "transfers.route_bukhara_3": "Xiva - Buxoro (Uch Qal'a)",
@@ -1516,11 +1522,7 @@ const translations = {
         "transfers.stops_bukhara_4": "Xiva, Uch Qal'a, Katta Guldursun Qal'a + Oqcha Ko'li, Buxoro",
         "transfers.route_nukus_gaur": "Xiva - Baday To'qay - Nukus (Uch Qal'a)",
         "transfers.stops_nukus_gaur": "Xiva, G'ovur Qal'a, Jampiq Qal'a, Baday To'qay Qo'riqxonasi, Chilpiq Qal'a, Nukus",
-        "transfers.stops_nukus": "Xiva, Chilpiq Qal'a, Nukus",
-        "transfers.stops_nukus_3": "Ayaz Qal'a, Tuproq Qal'a, Qizil Qal'a + Akcha Ko'li",
-        "transfers.stops_nukus_4": "Xiva, Uch Qal'a, Chilpiq Qal'a + Akcha Ko'li, Nukus",
-        "transfers.stops_bukhara_3": "Qizil Qal'a, Tuproq Qal'a, Ayaz Qal'a + Akcha Ko'li",
-        "transfers.stops_bukhara_4": "Xiva, Uch Qal'a, Katta Guldursun Qal'a + Akcha Ko'li, Buxoro",
+
 
 
         // COMMON & FORM
@@ -1640,7 +1642,7 @@ const translations = {
         "about_main.p1": "Уважаемые гости, добро пожаловать в MEROS B&B. MEROS B&B расположен внутри глинобитных стен древней Хивы, недалеко от западных и северных ворот. Гостевой дом начал принимать гостей в 1999 году. 'Meros' означает 'культурное наследие', и семья Маткаримовых глубоко погружена в узбекскую культуру. Их прадед Саид Арбоб был мастером-ремесленником (усто), нанятым хивинскими ханами.",
         "about_main.p2": "Саадулла Маткаримов (1936-1993), отец владельца Куранбая Маткаримова, более 20 лет работал над реставрацией Хивы в советское время. Куранбай Маткаримов (1957-2018) был мастером орнамента и реставрации. Он работал над проектами реставрации в центрах Всемирного наследия Хивы, Бухары и Шахрисабза. Он был главным реставратором расписных потолков Хивы. Потолки в гостевых комнатах и на верандах MEROS расписаны именно в этом классическом хорезмском стиле.",
         "map.full_address": "<strong>Meros B&B</strong><br>Улица А.Болтаева, Ичан-Кала<br>Хива, Узбекистан",
-        "footer.copyright": "© 2024 Meros B&B. Все права защищены.",
+        "footer.copyright": "© " + new Date().getFullYear() + " Meros B&B. Все права защищены.",
 
         // ROOM DETAILS GENERICS
         "detail.price_prefix": "Цена:",
@@ -1672,6 +1674,8 @@ const translations = {
         "reviews.label_comment": "Ваш Отзыв",
         "reviews.label_photo": "Прикрепить Фото",
         "reviews.btn_submit": "Отправить Отзыв",
+        "reviews.alert_success": "Спасибо за ваш комментарий!",
+        "reviews.alert_error": "Ошибка отправки отзыва. Пожалуйста, попробуйте еще раз.",
         "reviews.review1_text": "\"Настоящая жемчужина Хивы! Расположение внутри Ичан-Калы идеальное. Завтрак на крыше с видом на минареты стал главным событием нашей поездки. Очень рекомендую!\"",
         "reviews.review1_author": "Сара Дженкинс",
         "reviews.review2_text": "\"Семья, управляющая этим местом, очень теплая и гостеприимная. Номер был чистым, просторным и оформленным в красивом традиционном стиле. Обязательно вернемся.\"",
@@ -2255,20 +2259,14 @@ function initReviews() {
                         console.log("Review written with ID: ", docRef.id);
                         // Localized Success Message
                         const currentLang = localStorage.getItem('selectedLang') || 'en';
-                        const messages = {
-                            en: "Thank you for your comment!",
-                            uz: "Izohingiz uchun rahmat!",
-                            ru: "РЎРїР°СЃРёР±Рѕ Р·Р° РІР°С€ РєРѕРјРјРµРЅС‚Р°СЂРёР№!",
-                            fr: "Merci pour votre commentaire!",
-                            it: "Grazie per il tuo commento!"
-                        };
-                        alert(messages[currentLang] || messages['en']);
+                        alert(translations[currentLang]?.['reviews.alert_success'] || translations['en']['reviews.alert_success']);
                         reviewForm.reset();
                         if (photoPreview) photoPreview.style.display = 'none';
                     })
                     .catch((error) => {
                         console.error("Error adding review: ", error);
-                        alert("Error sending review. Please try again.");
+                        const currentLang = localStorage.getItem('selectedLang') || 'en';
+                        alert(translations[currentLang]?.['reviews.alert_error'] || translations['en']['reviews.alert_error']);
                     })
                     .finally(() => {
                         if (submitBtn) {
@@ -2352,7 +2350,7 @@ async function checkAdminPassword() {
     const loginSection = document.getElementById('admin-login');
     const dashboard = document.getElementById('admin-dashboard');
 
-    // SHA-256 Hash of 'meros2024'
+    // SHA-256 Hash of '123456'
     const secretHash = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
 
     try {
@@ -2592,7 +2590,7 @@ const menuData = [
             { img: "achichuk.jpg", title_key: "menu.achichuk", desc_key: "menu.desc_achichuk" },
             { img: "garden_salad.jpg", title_key: "menu.garden_salad", desc_key: "menu.desc_garden_salad" },
             { img: "caesar.jpg", title_key: "menu.caesar", desc_key: "menu.desc_caesar" },
-            { img: "eggplant.jpg", fallback_img: "eggplant.jpg", title_key: "menu.eggplant", desc_key: "menu.desc_eggplant" }
+            { img: "egplant salad.jpg", fallback_img: "eggplant.jpg", title_key: "menu.eggplant", desc_key: "menu.desc_eggplant" }
         ]
     },
     // PAGE 4
