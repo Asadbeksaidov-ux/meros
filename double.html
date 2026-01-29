@@ -110,11 +110,13 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="fullName" data-i18n="form.full_name">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="John Smith" required>
+                    <input type="text" id="fullName" name="fullName" placeholder="John Smith"
+                        data-i18n-ph="form.ph_name" required>
                 </div>
                 <div class="form-group">
                     <label for="email" data-i18n="form.email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    <input type="email" id="email" name="email" placeholder="your@email.com"
+                        data-i18n-ph="form.ph_email" required>
                 </div>
             </div>
             <div class="form-group">
@@ -130,7 +132,8 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="phoneNumber" data-i18n="form.phone">Phone Number (Optional)</label>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+1 555 123 45 67">
+                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+1 555 123 45 67"
+                        data-i18n-ph="form.ph_phone">
                 </div>
             </div>
 
@@ -234,7 +237,8 @@
             <div class="form-group">
                 <label for="additionalNotes" data-i18n="form.notes">Additional Notes (Optional)</label>
                 <textarea id="additionalNotes" name="additionalNotes" rows="3"
-                    placeholder="Example: I would like a room with a better view."></textarea>
+                    placeholder="Example: I would like a room with a better view."
+                    data-i18n-ph="form.ph_notes"></textarea>
             </div>
 
             <button type="submit" id="submit-btn" class="book-now-button" data-i18n="form.btn_book">Finalize

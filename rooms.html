@@ -109,53 +109,57 @@
     </section>
 
     <div class="booking-details-container">
-        <h3>&#9989; Enter Your Contact Details & Booking</h3>
+        <h3 data-i18n="form.details_title">&#9989; Enter Your Contact Details & Booking</h3>
 
         <form id="booking-form">
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="John Smith" required>
+                    <label for="fullName" data-i18n="form.full_name">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="John Smith"
+                        data-i18n-ph="form.ph_name" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    <label for="email" data-i18n="form.email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com"
+                        data-i18n-ph="form.ph_email" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="checkInDate">Check-in Date *</label>
+                <label for="checkInDate" data-i18n="form.check_in">Check-in Date *</label>
                 <input type="date" id="checkInDate" name="checkInDate" required>
             </div>
 
             <div class="form-group">
-                <label for="checkOutDate">Check-out Date *</label>
+                <label for="checkOutDate" data-i18n="form.check_out">Check-out Date *</label>
                 <input type="date" id="checkOutDate" name="checkOutDate" required>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="phoneNumber">Phone Number (Optional)</label>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+1 555 123 45 67">
+                    <label for="phoneNumber" data-i18n="form.phone">Phone Number (Optional)</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+1 555 123 45 67"
+                        data-i18n-ph="form.ph_phone">
                 </div>
             </div>
 
             <div class="guest-counter-group">
                 <div class="form-group">
-                    <label for="adults-count">Adults</label>
+                    <label for="adults-count" data-i18n="form.adults">Adults</label>
                     <input type="number" id="adults-count" name="adults" value="1" min="1" required>
                 </div>
                 <div class="form-group">
-                    <label for="children-count">Children</label>
+                    <label for="children-count" data-i18n="form.children">Children</label>
                     <input type="number" id="children-count" name="children" value="0" min="0">
                 </div>
             </div>
             <div class="children">
-                <h3>Children under 5 y/o are free for existing beds, up to 12 y/o are %50 discount.</h3>
+                <h3 data-i18n="form.children_policy">Children under 5 y/o are free for existing beds, up to 12 y/o are
+                    %50 discount.</h3>
             </div>
 
             <div class="form-group room-selection-group">
-                <label class="selection-title">Select Room Types</label>
+                <label class="selection-title" data-i18n="form.room_selection">Select Room Types</label>
                 <div class="room-options-grid">
 
                     <div class="room-card-selection">
@@ -237,12 +241,14 @@
             </div>
 
             <div class="form-group">
-                <label for="additionalNotes">Additional Notes (Optional)</label>
+                <label for="additionalNotes" data-i18n="form.notes">Additional Notes (Optional)</label>
                 <textarea id="additionalNotes" name="additionalNotes" rows="3"
-                    placeholder="Example: I would like a room with a better view."></textarea>
+                    placeholder="Example: I would like a room with a better view."
+                    data-i18n-ph="form.ph_notes"></textarea>
             </div>
 
-            <button type="submit" id="submit-btn" class="book-now-button">Finalize Booking</button>
+            <button type="submit" id="submit-btn" class="book-now-button" data-i18n="form.btn_book">Finalize
+                Booking</button>
             <p id="form-status" class="status-message"></p>
             <div id="form-status-message"
                 style="margin-top: 15px; padding: 10px; border-radius: 4px; text-align: center; display: block; font-weight: bold;">

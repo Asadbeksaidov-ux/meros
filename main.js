@@ -20,6 +20,43 @@ function initBookingForm() {
 
             const form = event.target;
 
+            // NEW: Validate Room Selection
+            const qtyInputs = [
+                form.querySelector('[name="qty_double"]'),
+                form.querySelector('[name="qty_twin"]'),
+                form.querySelector('[name="qty_triple"]'),
+                form.querySelector('[name="qty_double_balcony"]'),
+                form.querySelector('[name="qty_twin_balcony"]')
+            ];
+
+            let totalRooms = 0;
+            qtyInputs.forEach(input => {
+                if (input) totalRooms += parseInt(input.value || "0");
+            });
+
+            if (totalRooms === 0) {
+                const lang = localStorage.getItem('selectedLang') || 'en';
+                const roomAlertMsg = translations[lang]?.['form.alert_select_room'] || translations['en']['form.alert_select_room'];
+
+                // Show Error
+                alert(roomAlertMsg);
+
+                // Highlight section (optional visual cue)
+                const roomSection = form.querySelector('.room-selection-group');
+                if (roomSection) {
+                    roomSection.style.border = "2px solid red";
+                    roomSection.style.padding = "10px";
+                    roomSection.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                    // Remove highlight after 3 seconds
+                    setTimeout(() => {
+                        roomSection.style.border = "none";
+                        roomSection.style.padding = "";
+                    }, 3000);
+                }
+                return; // Stop execution
+            }
+
             // Forma ma'lumotlarini EmailJS shabloni uchun yig'ish (templateParams)
             const templateParams = {
                 // Aloqa va Asosiy Ma'lumotlar
@@ -788,6 +825,24 @@ const translations = {
         "menu.cat_drinks": "Drinks & Desserts",
         "menu.shivit": "Shivit Oshi",
         "menu.desc_shivit": "Signature Khiva green dill noodles topped with savory meat stew and yogurt.",
+
+        // FORM PLACEHOLDERS
+        "form.ph_name": "John Smith",
+        "form.ph_email": "your@email.com",
+        "form.ph_phone": "+998 90 123 45 67",
+        "form.ph_email": "your@email.com",
+        "form.ph_phone": "+998 90 123 45 67",
+        "form.ph_notes": "Example: I would like a room with a better view.",
+
+        // REVIEWS PLACEHOLDERS & OPTIONS
+        "reviews.ph_name": "John Doe",
+        "reviews.ph_comment": "Share your experience...",
+        "reviews.opt_excellent": "⭐⭐⭐⭐⭐ (Excellent)",
+        "reviews.opt_good": "⭐⭐⭐⭐ (Good)",
+        "reviews.opt_average": "⭐⭐⭐ (Average)",
+        "reviews.opt_poor": "⭐⭐ (Poor)",
+        "reviews.opt_terrible": "⭐ (Terrible)",
+
         "menu.tuxum_barak": "Tuxum Barak",
         "menu.desc_tuxum_barak": "Unique square dumplings filled with spiced eggs, a local delicacy.",
         "menu.palov": "Plov (Khorezm Style)",
@@ -1548,6 +1603,21 @@ const translations = {
         "form.success": "Buyurtmangiz muvaffaqiyatli yuborildi!",
         "form.error": "Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.",
 
+        // FORM PLACEHOLDERS
+        "form.ph_name": "Vali Valiyev",
+        "form.ph_email": "sizning@email.uz",
+        "form.ph_phone": "+998 90 123 45 67",
+        "form.ph_notes": "Masalan: Menga manzarali xona kerak.",
+
+        // REVIEWS PLACEHOLDERS & OPTIONS
+        "reviews.ph_name": "Ali Valiyev",
+        "reviews.ph_comment": "Taassurotlaringiz bilan bo'lishing...",
+        "reviews.opt_excellent": "⭐⭐⭐⭐⭐ (A'lo)",
+        "reviews.opt_good": "⭐⭐⭐⭐ (Yaxshi)",
+        "reviews.opt_average": "⭐⭐⭐ (O'rtacha)",
+        "reviews.opt_poor": "⭐⭐ (Yomon)",
+        "reviews.opt_terrible": "⭐ (Juda Yomon)",
+
         // Option 2 Prices (New)
         "price.opt2_1pax": "1 Pax: $580",
         "price.opt2_2pax": "2 Pax: $620",
@@ -2048,6 +2118,22 @@ const translations = {
         "form.alert_select_room": "Пожалуйста, выберите хотя бы один тип номера и количество.",
         "form.success": "Запрос на бронирование успешно отправлен!",
         "form.error": "Не удалось отправить запрос. Пожалуйста, попробуйте снова.",
+
+        // FORM PLACEHOLDERS
+        "form.ph_name": "Иван Иванов",
+        "form.ph_email": "vashe@email.com",
+        "form.ph_phone": "+998 90 123 45 67",
+        "form.ph_notes": "Например: Я хотел бы номер с лучшим видом.",
+
+        // REVIEWS PLACEHOLDERS & OPTIONS
+        "reviews.ph_name": "Иван Иванов",
+        "reviews.ph_comment": "Поделитесь своими впечатлениями...",
+        "reviews.opt_excellent": "⭐⭐⭐⭐⭐ (Отлично)",
+        "reviews.opt_good": "⭐⭐⭐⭐ (Хорошо)",
+        "reviews.opt_average": "⭐⭐⭐ (Средне)",
+        "reviews.opt_poor": "⭐⭐ (Плохо)",
+        "reviews.opt_terrible": "⭐ (Ужасно)",
+
         // DINING PAGE (Russian Translations)
         "menu.cat_national": "Национальные Блюда (Хорезм)",
         "menu.cat_soups": "Супы и Сытные Блюда",
@@ -2159,6 +2245,24 @@ function applyLanguage(lang) {
         const key = el.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
             el.innerHTML = translations[lang][key];
+        }
+    });
+
+    // 2. Handle Placeholders (New)
+    const placeholders = document.querySelectorAll('[data-i18n-ph]');
+    placeholders.forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (translations[lang] && translations[lang][key]) {
+            el.setAttribute('placeholder', translations[lang][key]);
+        }
+    });
+
+    // 3. Handle Select Options (New) - for Rating
+    const options = document.querySelectorAll('option[data-i18n-opt]');
+    options.forEach(el => {
+        const key = el.getAttribute('data-i18n-opt');
+        if (translations[lang] && translations[lang][key]) {
+            el.innerText = translations[lang][key];
         }
     });
 }
@@ -2810,7 +2914,60 @@ function initScrollAndMenu() {
 
 
 /* =================================================
-   8. FAQ ACCORDION LOGIC
+   8. DATE PICKER RESTRICTIONS
+   ================================================= */
+function initDatePickers() {
+    const checkIn = document.getElementById('checkInDate');
+    const checkOut = document.getElementById('checkOutDate');
+
+    if (checkIn && checkOut) {
+        // 1. Set minimum date to today (Using Local Time to avoid timezone issues)
+        const d = new Date();
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        const today = `${year}-${month}-${day}`;
+
+        checkIn.setAttribute('min', today);
+        checkOut.setAttribute('min', today);
+
+        // 2. Update Check-out minimum when Check-in changes
+        checkIn.addEventListener('change', function () {
+            validateDateInput(this, today);
+
+            if (this.value) {
+                checkOut.setAttribute('min', this.value);
+
+                // If check-out is before new check-in, clear it
+                if (checkOut.value && checkOut.value < this.value) {
+                    checkOut.value = "";
+                }
+            }
+        });
+
+        checkOut.addEventListener('change', function () {
+            // For checkout, min date is checkIn date OR today
+            const minDate = checkIn.value || today;
+            validateDateInput(this, minDate);
+        });
+    }
+}
+
+function validateDateInput(input, minDate) {
+    if (input.value && input.value < minDate) {
+        const lang = localStorage.getItem('selectedLang') || 'en';
+        const messages = {
+            en: "You cannot select a past date.",
+            uz: "O'tib ketgan sanani tanlay olmaysiz.",
+            ru: "Вы не можете выбрать прошедшую дату."
+        };
+        alert(messages[lang] || messages['en']);
+        input.value = ""; // Clear invalid input
+    }
+}
+
+/* =================================================
+   9. FAQ ACCORDION LOGIC
    ================================================= */
 function initFAQ() {
     const accordionHeaders = document.querySelectorAll('.accordion-header');
@@ -2841,7 +2998,7 @@ function initFAQ() {
 }
 
 /* =================================================
-   9. MAIN INITIALIZATION
+   10. MAIN INITIALIZATION
    ================================================= */
 document.addEventListener('DOMContentLoaded', () => {
     // 0. IMMEDIATE TRACKING (Priority)
@@ -2857,4 +3014,5 @@ document.addEventListener('DOMContentLoaded', () => {
     try { initReviews(); } catch (e) { console.error("Error in initReviews:", e); }
     try { initScrollAndMenu(); } catch (e) { console.error("Error in initScrollAndMenu:", e); }
     try { initFAQ(); } catch (e) { console.error("Error in initFAQ:", e); }
+    try { initDatePickers(); } catch (e) { console.error("Error in initDatePickers:", e); }
 });
