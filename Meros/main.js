@@ -20,6 +20,43 @@ function initBookingForm() {
 
             const form = event.target;
 
+            // NEW: Validate Room Selection
+            const qtyInputs = [
+                form.querySelector('[name="qty_double"]'),
+                form.querySelector('[name="qty_twin"]'),
+                form.querySelector('[name="qty_triple"]'),
+                form.querySelector('[name="qty_double_balcony"]'),
+                form.querySelector('[name="qty_twin_balcony"]')
+            ];
+
+            let totalRooms = 0;
+            qtyInputs.forEach(input => {
+                if (input) totalRooms += parseInt(input.value || "0");
+            });
+
+            if (totalRooms === 0) {
+                const lang = localStorage.getItem('selectedLang') || 'en';
+                const roomAlertMsg = translations[lang]?.['form.alert_select_room'] || translations['en']['form.alert_select_room'];
+
+                // Show Error
+                alert(roomAlertMsg);
+
+                // Highlight section (optional visual cue)
+                const roomSection = form.querySelector('.room-selection-group');
+                if (roomSection) {
+                    roomSection.style.border = "2px solid red";
+                    roomSection.style.padding = "10px";
+                    roomSection.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                    // Remove highlight after 3 seconds
+                    setTimeout(() => {
+                        roomSection.style.border = "none";
+                        roomSection.style.padding = "";
+                    }, 3000);
+                }
+                return; // Stop execution
+            }
+
             // Forma ma'lumotlarini EmailJS shabloni uchun yig'ish (templateParams)
             const templateParams = {
                 // Aloqa va Asosiy Ma'lumotlar
@@ -788,6 +825,24 @@ const translations = {
         "menu.cat_drinks": "Drinks & Desserts",
         "menu.shivit": "Shivit Oshi",
         "menu.desc_shivit": "Signature Khiva green dill noodles topped with savory meat stew and yogurt.",
+
+        // FORM PLACEHOLDERS
+        "form.ph_name": "John Smith",
+        "form.ph_email": "your@email.com",
+        "form.ph_phone": "+998 90 123 45 67",
+        "form.ph_email": "your@email.com",
+        "form.ph_phone": "+998 90 123 45 67",
+        "form.ph_notes": "Example: I would like a room with a better view.",
+
+        // REVIEWS PLACEHOLDERS & OPTIONS
+        "reviews.ph_name": "John Doe",
+        "reviews.ph_comment": "Share your experience...",
+        "reviews.opt_excellent": "⭐⭐⭐⭐⭐ (Excellent)",
+        "reviews.opt_good": "⭐⭐⭐⭐ (Good)",
+        "reviews.opt_average": "⭐⭐⭐ (Average)",
+        "reviews.opt_poor": "⭐⭐ (Poor)",
+        "reviews.opt_terrible": "⭐ (Terrible)",
+
         "menu.tuxum_barak": "Tuxum Barak",
         "menu.desc_tuxum_barak": "Unique square dumplings filled with spiced eggs, a local delicacy.",
         "menu.palov": "Plov (Khorezm Style)",
@@ -800,21 +855,21 @@ const translations = {
         "menu.desc_soup_barak": "Miniature dumplings served in a rich, comforting broth.",
         "menu.tefteli": "Tefteli Soup",
         "menu.desc_tefteli": "Hearty vegetable soup with large meatballs.",
-        "menu.special_soup": "Meros Special Soup",
-        "menu.desc_special_soup": "Chef's daily special broth with fresh ingredients.",
+        "menu.special_soup": "Traditional Boiled Soup (Qaynatma)",
+        "menu.desc_special_soup": "Rich and clear broth with tender meat and vegetables, cooked to perfection.",
         "menu.shashlik": "Shashlik Assortment",
         "menu.desc_shashlik": "Juicy grilled skewers: Beef, Lamb, or Chicken served with onions.",
         "menu.galubsi": "Galubsi (Stuffed Cabbage)",
         "menu.desc_galubsi": "Cabbage leaves or peppers stuffed with meat and rice.",
         "menu.somsa": "Somsa",
         "menu.desc_somsa": "Oven-baked layered pastry filled with meat or pumpkin.",
-        "menu.achichuk": "Achichuk",
+        "menu.achichuk": "Achchiq-chuchuk (tomato salad)",
         "menu.desc_achichuk": "Traditional salad of thinly sliced tomatoes and onions (spicy).",
         "menu.garden_salad": "Garden Salad",
         "menu.desc_garden_salad": "Fresh mix of cucumbers, tomatoes, and local greens.",
         "menu.caesar": "Caesar Salad",
         "menu.desc_caesar": "Classic salad with croutons, parmesan, and creamy dressing.",
-        "menu.eggplant": "Eggplant Salad",
+        "menu.eggplant": "Eggplant Salad + boiled rice",
         "menu.desc_eggplant": "Roasted eggplants with garlic and herbs.",
         "menu.qapshirma": "Qapshirma",
         "menu.desc_qapshirma": "Fried layered dough, a delicious local side snack.",
@@ -826,8 +881,6 @@ const translations = {
         "menu.desc_wine": "Selection of local and imported beverages.",
         "menu.cocktail": "Cocktails",
         "menu.desc_cocktail": "Mojito, Gin Tonic, and other refreshing mixes.",
-        "menu.cake": "Honey Cake & Fruits",
-        "menu.desc_cake": "Homemade honey cake and seasonal melon platter.",
         "menu.page_indicator": "Page of "
     },
 
@@ -1548,6 +1601,21 @@ const translations = {
         "form.success": "Buyurtmangiz muvaffaqiyatli yuborildi!",
         "form.error": "Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.",
 
+        // FORM PLACEHOLDERS
+        "form.ph_name": "Vali Valiyev",
+        "form.ph_email": "sizning@email.uz",
+        "form.ph_phone": "+998 90 123 45 67",
+        "form.ph_notes": "Masalan: Menga manzarali xona kerak.",
+
+        // REVIEWS PLACEHOLDERS & OPTIONS
+        "reviews.ph_name": "Ali Valiyev",
+        "reviews.ph_comment": "Taassurotlaringiz bilan bo'lishing...",
+        "reviews.opt_excellent": "⭐⭐⭐⭐⭐ (A'lo)",
+        "reviews.opt_good": "⭐⭐⭐⭐ (Yaxshi)",
+        "reviews.opt_average": "⭐⭐⭐ (O'rtacha)",
+        "reviews.opt_poor": "⭐⭐ (Yomon)",
+        "reviews.opt_terrible": "⭐ (Juda Yomon)",
+
         // Option 2 Prices (New)
         "price.opt2_1pax": "1 Pax: $580",
         "price.opt2_2pax": "2 Pax: $620",
@@ -1577,8 +1645,8 @@ const translations = {
         "menu.desc_soup_barak": "Boy va mazali bulyonda pishirilgan kichik chuchvaralar.",
         "menu.tefteli": "Teftel Sho'rva",
         "menu.desc_tefteli": "Yumshoq go'shtli koptokchalar bilan tayyorlangan to'yimli sabzavotli sho'rva.",
-        "menu.special_soup": "Meros Maxsus Sho'rvasi",
-        "menu.desc_special_soup": "Oshpazning yangi masalliqlardan tayyorlagan kunlik maxsus sho'rvasi.",
+        "menu.special_soup": "Qaynatma Sho'rva",
+        "menu.desc_special_soup": "Yumshoq go'sht va sabzavotlar bilan uzoq qaynatilgan mazali va to'yimli sho'rva.",
         "menu.shashlik": "Shashlik Assorti",
         "menu.desc_shashlik": "Sersuv kaboblar: Mol, Qo'y yoki Tovuq go'shti, piyoz bilan tortiladi.",
         "menu.galubsi": "Karam Do'lma (Golubsi)",
@@ -1590,7 +1658,7 @@ const translations = {
         "menu.desc_garden_salad": "Bodring, pomidor va mahalliy ko'katlardan tayyorlangan yangi salat.",
         "menu.caesar": "Sezar Salati",
         "menu.desc_caesar": "Krutonlar, parmezan va qaymoqli sous bilan klassik salat.",
-        "menu.eggplant": "Baqlajonli Salat",
+        "menu.eggplant": "Baqlajonli Salat + qaynatilgan guruch",
         "menu.desc_eggplant": "Sarimsoq va ko'katlar bilan qovurilgan baqlajon.",
         "menu.qapshirma": "Qapshirma",
         "menu.desc_qapshirma": "Qovurilgan qatlama xamir, mahalliy sevimli gazak.",
@@ -1603,8 +1671,6 @@ const translations = {
         "menu.desc_wine": "Mahalliy va import ichimliklar tanlovi.",
         "menu.cocktail": "Kokteyllar",
         "menu.desc_cocktail": "Moxito, Jin Tonik va boshqa tetiklantiruvchi ichimliklar.",
-        "menu.cake": "Asalli Tort va Mevalar",
-        "menu.desc_cake": "Uyda tayyorlangan asalli tort va mavsumiy qovun-tarvuz lagani.",
     },
     ru: {
         "nav.home": "Главная",
@@ -2048,6 +2114,22 @@ const translations = {
         "form.alert_select_room": "Пожалуйста, выберите хотя бы один тип номера и количество.",
         "form.success": "Запрос на бронирование успешно отправлен!",
         "form.error": "Не удалось отправить запрос. Пожалуйста, попробуйте снова.",
+
+        // FORM PLACEHOLDERS
+        "form.ph_name": "Иван Иванов",
+        "form.ph_email": "vashe@email.com",
+        "form.ph_phone": "+998 90 123 45 67",
+        "form.ph_notes": "Например: Я хотел бы номер с лучшим видом.",
+
+        // REVIEWS PLACEHOLDERS & OPTIONS
+        "reviews.ph_name": "Иван Иванов",
+        "reviews.ph_comment": "Поделитесь своими впечатлениями...",
+        "reviews.opt_excellent": "⭐⭐⭐⭐⭐ (Отлично)",
+        "reviews.opt_good": "⭐⭐⭐⭐ (Хорошо)",
+        "reviews.opt_average": "⭐⭐⭐ (Средне)",
+        "reviews.opt_poor": "⭐⭐ (Плохо)",
+        "reviews.opt_terrible": "⭐ (Ужасно)",
+
         // DINING PAGE (Russian Translations)
         "menu.cat_national": "Национальные Блюда (Хорезм)",
         "menu.cat_soups": "Супы и Сытные Блюда",
@@ -2069,8 +2151,8 @@ const translations = {
         "menu.desc_soup_barak": "Миниатюрные пельмени в насыщенном бульоне.",
         "menu.tefteli": "Суп с Тефтелями",
         "menu.desc_tefteli": "Сытный овощной суп с нежными фрикадельками.",
-        "menu.special_soup": "Специальный Суп Meros",
-        "menu.desc_special_soup": "Ежедневный фирменный суп от шеф-повара из свежих ингредиентов.",
+        "menu.special_soup": "Кайнатма Шурва",
+        "menu.desc_special_soup": "Традиционный наваристый суп с нежным мясом и овощами, приготовленный на медленном огне.",
         "menu.shashlik": "Ассорти Шашлыков",
         "menu.desc_shashlik": "Сочные шашлыки: Говядина, Баранина или Курица, подается с луком.",
         "menu.galubsi": "Голубцы",
@@ -2078,13 +2160,13 @@ const translations = {
         "menu.somsa": "Самса",
         "menu.desc_somsa": "Запеченная в духовке слоеная выпечка с мясом или тыквой.",
 
-        "menu.achichuk": "Ачичук",
+        "menu.achichuk": "аччик-чучук (салат из помидоров)",
         "menu.desc_achichuk": "Традиционный салат из тонко нарезанных помидоров и лука (острый).",
         "menu.garden_salad": "Сезонный Салат",
         "menu.desc_garden_salad": "Свежая смесь огурцов, помидоров и местной зелени.",
         "menu.caesar": "Цезарь",
         "menu.desc_caesar": "Классический салат с сухариками, пармезаном и сливочным соусом.",
-        "menu.eggplant": "Салат из Баклажанов",
+        "menu.eggplant": "Салат из Баклажанов + вареный рис",
         "menu.desc_eggplant": "Запеченные баклажаны с чесноком и травами.",
         "menu.qapshirma": "Капширма",
         "menu.desc_qapshirma": "Жареное слоеное тесто, вкусная местная закуска.",
@@ -2097,9 +2179,6 @@ const translations = {
         "menu.desc_wine": "Выбор местных и импортных напитков.",
         "menu.cocktail": "Коктейли",
         "menu.desc_cocktail": "Мохито, Джин-тоник и другие освежающие напитки.",
-        "menu.cake": "Медовик и Фрукты",
-        "menu.desc_cake": "Домашний медовый торт и сезонная фруктовая нарезка.",
-
         "menu.page_indicator": "Страница %s из %s",
     },
 };
@@ -2159,6 +2238,24 @@ function applyLanguage(lang) {
         const key = el.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
             el.innerHTML = translations[lang][key];
+        }
+    });
+
+    // 2. Handle Placeholders (New)
+    const placeholders = document.querySelectorAll('[data-i18n-ph]');
+    placeholders.forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (translations[lang] && translations[lang][key]) {
+            el.setAttribute('placeholder', translations[lang][key]);
+        }
+    });
+
+    // 3. Handle Select Options (New) - for Rating
+    const options = document.querySelectorAll('option[data-i18n-opt]');
+    options.forEach(el => {
+        const key = el.getAttribute('data-i18n-opt');
+        if (translations[lang] && translations[lang][key]) {
+            el.innerText = translations[lang][key];
         }
     });
 }
@@ -2253,8 +2350,8 @@ function initReviews() {
                     timestamp: firebase.firestore.FieldValue.serverTimestamp() // Order by time
                 };
 
-                // Add to Firestore 'pending_reviews'
-                db.collection("pending_reviews").add(newReview)
+                // Add to Firestore 'approved_reviews' (Public Immediately)
+                db.collection("approved_reviews").add(newReview)
                     .then((docRef) => {
                         console.log("Review written with ID: ", docRef.id);
                         // Localized Success Message
@@ -2262,6 +2359,7 @@ function initReviews() {
                         alert(translations[currentLang]?.['reviews.alert_success'] || translations['en']['reviews.alert_success']);
                         reviewForm.reset();
                         if (photoPreview) photoPreview.style.display = 'none';
+                        loadReviews(); // Refresh the list immediately
                     })
                     .catch((error) => {
                         console.error("Error adding review: ", error);
@@ -2401,7 +2499,7 @@ function loadAdminReviews() {
         pendingList.innerHTML = '<p>Loading...</p>';
         db.collection("pending_reviews").orderBy("timestamp", "desc").get().then((snapshot) => {
             pendingList.innerHTML = '';
-            if (pendingBtn) pendingBtn.textContent = `Pending (${snapshot.size})`;
+            if (pendingBtn) pendingBtn.textContent = `Archive/Pending (${snapshot.size})`;
 
             if (snapshot.empty) {
                 pendingList.innerHTML = '<p>No pending reviews.</p>';
@@ -2435,7 +2533,7 @@ function loadAdminReviews() {
         approvedList.innerHTML = '<p>Loading...</p>';
         db.collection("approved_reviews").orderBy("timestamp", "desc").get().then((snapshot) => {
             approvedList.innerHTML = '';
-            if (approvedBtn) approvedBtn.textContent = `Live (${snapshot.size})`;
+            if (approvedBtn) approvedBtn.textContent = `Live Reviews (${snapshot.size})`;
 
             if (snapshot.empty) {
                 approvedList.innerHTML = '<p>No approved reviews yet.</p>';
@@ -2600,8 +2698,7 @@ const menuData = [
             { img: "Cups_of_green_and_black_tea_with_mint_on_rustic_table_1000x.webp", fallback_img: "tea.jpg", title_key: "menu.tea", desc_key: "menu.desc_tea" },
             { img: "Featured_Image_1_1.webp", fallback_img: "juice.jpg", title_key: "menu.juice", desc_key: "menu.desc_juice" },
             { img: "images (1).jpg", fallback_img: "wine.jpg", title_key: "menu.wine", desc_key: "menu.desc_wine" },
-            { img: "images.jpg", fallback_img: "cocktail.jpg", title_key: "menu.cocktail", desc_key: "menu.desc_cocktail" },
-            { img: "20220818_094822.jpg", fallback_img: "honey_cake.jpg", title_key: "menu.cake", desc_key: "menu.desc_cake" }
+            { img: "images.jpg", fallback_img: "cocktail.jpg", title_key: "menu.cocktail", desc_key: "menu.desc_cocktail" }
         ]
     }
 ];
@@ -2810,7 +2907,60 @@ function initScrollAndMenu() {
 
 
 /* =================================================
-   8. FAQ ACCORDION LOGIC
+   8. DATE PICKER RESTRICTIONS
+   ================================================= */
+function initDatePickers() {
+    const checkIn = document.getElementById('checkInDate');
+    const checkOut = document.getElementById('checkOutDate');
+
+    if (checkIn && checkOut) {
+        // 1. Set minimum date to today (Using Local Time to avoid timezone issues)
+        const d = new Date();
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        const today = `${year}-${month}-${day}`;
+
+        checkIn.setAttribute('min', today);
+        checkOut.setAttribute('min', today);
+
+        // 2. Update Check-out minimum when Check-in changes
+        checkIn.addEventListener('change', function () {
+            validateDateInput(this, today);
+
+            if (this.value) {
+                checkOut.setAttribute('min', this.value);
+
+                // If check-out is before new check-in, clear it
+                if (checkOut.value && checkOut.value < this.value) {
+                    checkOut.value = "";
+                }
+            }
+        });
+
+        checkOut.addEventListener('change', function () {
+            // For checkout, min date is checkIn date OR today
+            const minDate = checkIn.value || today;
+            validateDateInput(this, minDate);
+        });
+    }
+}
+
+function validateDateInput(input, minDate) {
+    if (input.value && input.value < minDate) {
+        const lang = localStorage.getItem('selectedLang') || 'en';
+        const messages = {
+            en: "You cannot select a past date.",
+            uz: "O'tib ketgan sanani tanlay olmaysiz.",
+            ru: "Вы не можете выбрать прошедшую дату."
+        };
+        alert(messages[lang] || messages['en']);
+        input.value = ""; // Clear invalid input
+    }
+}
+
+/* =================================================
+   9. FAQ ACCORDION LOGIC
    ================================================= */
 function initFAQ() {
     const accordionHeaders = document.querySelectorAll('.accordion-header');
@@ -2841,7 +2991,7 @@ function initFAQ() {
 }
 
 /* =================================================
-   9. MAIN INITIALIZATION
+   10. MAIN INITIALIZATION
    ================================================= */
 document.addEventListener('DOMContentLoaded', () => {
     // 0. IMMEDIATE TRACKING (Priority)
@@ -2857,4 +3007,5 @@ document.addEventListener('DOMContentLoaded', () => {
     try { initReviews(); } catch (e) { console.error("Error in initReviews:", e); }
     try { initScrollAndMenu(); } catch (e) { console.error("Error in initScrollAndMenu:", e); }
     try { initFAQ(); } catch (e) { console.error("Error in initFAQ:", e); }
+    try { initDatePickers(); } catch (e) { console.error("Error in initDatePickers:", e); }
 });

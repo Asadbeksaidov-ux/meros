@@ -74,10 +74,10 @@
 
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <div class="tabs" style="display: flex; gap: 10px;">
-                    <button id="btn-pending" onclick="showTab('pending')" class="btn"
-                        style="background: #e67e22;">Pending</button>
                     <button id="btn-approved" onclick="showTab('approved')" class="btn"
-                        style="background: #27ae60;">Live</button>
+                        style="background: #27ae60;">Live Reviews</button>
+                    <button id="btn-pending" onclick="showTab('pending')" class="btn"
+                        style="background: #e67e22;">Archive/Pending</button>
                 </div>
                 <button onclick="logoutAdmin()" class="btn"
                     style="background: #c0392b; padding: 5px 15px; font-size: 14px;">
@@ -86,13 +86,13 @@
             </div>
 
             <!-- Pending Reviews -->
-            <div id="pending-reviews-tab">
-                <h3>Pending Approval</h3>
+            <div id="pending-reviews-tab" style="display: none;">
+                <h3>Archive / Pending Approval</h3>
                 <div id="pending-reviews-list"></div>
             </div>
 
             <!-- Approved Reviews -->
-            <div id="approved-reviews-tab" style="display: none;">
+            <div id="approved-reviews-tab">
                 <h3>Live on Website</h3>
                 <div id="approved-reviews-list"></div>
             </div>
