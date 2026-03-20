@@ -508,6 +508,11 @@ const translations = {
         "tours.btn_view": "View Details",
         "tours.view_gallery": "View Gallery",
 
+        // MORE INFO BANNER
+        "tours.more_info_title": "More Information",
+        "tours.more_info_desc": "For more detailed information about our tour services, itineraries, and booking, please visit our dedicated travel website:",
+        "tours.more_info_link": "Visit Meros Travel",
+
         // ARAL SEA TOUR DETAILS (aral_sea.html)
         "tour_aral.title": "Aral Sea Adventures",
         "tour_aral.subtitle": "Choose your expedition to the edge of the world",
@@ -1298,6 +1303,11 @@ const translations = {
         "tours.btn_view": "Batafsil Ko'rish",
         "tours.view_gallery": "Galereyani Ko'rish",
 
+        // MORE INFO BANNER
+        "tours.more_info_title": "Batafsil Ma'lumot",
+        "tours.more_info_desc": "Tur xizmatlarimiz, yo'nalishlar va band qilish bo'yicha batafsilroq ma'lumot olish uchun maxsus saytimizga tashrif buyuring:",
+        "tours.more_info_link": "Meros Travel'ga O'tish",
+
         // ARAL SEA TOUR DETAILS (aral_sea.html)
         "tour_aral.title": "Orol Dengizi Sarguzashtlari: Mo'ynoq Kemalar Qabristoni",
         "tour_aral.subtitle": "Kemalar qabristoni va Qoraqalpog'istonning o'ziga xos madaniyatiga guvoh bo'lish uchun jadal bir kunlik sayohat.",
@@ -1803,6 +1813,11 @@ const translations = {
         "tours.btn_book": "Запросить Услугу",
         "tours.btn_view": "Подробнее",
         "tours.view_gallery": "Смотреть Галерею",
+
+        // MORE INFO BANNER
+        "tours.more_info_title": "Подробная Информация",
+        "tours.more_info_desc": "Для получения более подробной информации о наших туристических услугах, маршрутах и бронировании, посетите наш специализированный сайт:",
+        "tours.more_info_link": "Перейти на Meros Travel",
 
         // ARAL SEA TOUR DETAILS (aral_sea.html)
         "tour_aral.title": "Приключения на Аральском море: Кладбище кораблей",
@@ -2350,8 +2365,8 @@ function initReviews() {
                     timestamp: firebase.firestore.FieldValue.serverTimestamp() // Order by time
                 };
 
-                // Add to Firestore 'pending_reviews'
-                db.collection("pending_reviews").add(newReview)
+                // Add to Firestore 'approved_reviews' (Public Immediately)
+                db.collection("approved_reviews").add(newReview)
                     .then((docRef) => {
                         console.log("Review written with ID: ", docRef.id);
                         // Localized Success Message
@@ -2359,6 +2374,7 @@ function initReviews() {
                         alert(translations[currentLang]?.['reviews.alert_success'] || translations['en']['reviews.alert_success']);
                         reviewForm.reset();
                         if (photoPreview) photoPreview.style.display = 'none';
+                        loadReviews(); // Refresh the list immediately
                     })
                     .catch((error) => {
                         console.error("Error adding review: ", error);
@@ -2498,7 +2514,7 @@ function loadAdminReviews() {
         pendingList.innerHTML = '<p>Loading...</p>';
         db.collection("pending_reviews").orderBy("timestamp", "desc").get().then((snapshot) => {
             pendingList.innerHTML = '';
-            if (pendingBtn) pendingBtn.textContent = `Pending (${snapshot.size})`;
+            if (pendingBtn) pendingBtn.textContent = `Archive/Pending (${snapshot.size})`;
 
             if (snapshot.empty) {
                 pendingList.innerHTML = '<p>No pending reviews.</p>';
@@ -2532,7 +2548,7 @@ function loadAdminReviews() {
         approvedList.innerHTML = '<p>Loading...</p>';
         db.collection("approved_reviews").orderBy("timestamp", "desc").get().then((snapshot) => {
             approvedList.innerHTML = '';
-            if (approvedBtn) approvedBtn.textContent = `Live (${snapshot.size})`;
+            if (approvedBtn) approvedBtn.textContent = `Live Reviews (${snapshot.size})`;
 
             if (snapshot.empty) {
                 approvedList.innerHTML = '<p>No approved reviews yet.</p>';
