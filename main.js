@@ -1,4 +1,4 @@
-﻿/* =================================================
+/* =================================================
    EMAILJS INITIALIZATION
    ================================================= */
 (function () {
@@ -2661,10 +2661,51 @@ function loadAdminStats() {
         console.error("Error receiving stats updates:", error);
     });
 }
-
 /* ================================================= */
 /* === SCROLL TO TOP & MENU BOOKS LOGIC === */
 /* ================================================= */
+
+        const initializePickers = () => {
+            const commonConfig = {
+                minDate: "today",
+                altInput: true,
+                altFormat: "Y-m-d",
+                dateFormat: "Y-m-d",
+                allowInput: true,
+                disableMobile: true,
+                placeholder: placeholderTexts[lang] || "YYYY-MM-DD",
+                altInputClass: "flatpickr-input-custom",
+                onReady: function(selectedDates, dateStr, instance) {
+                    maskDateInput(instance.altInput || instance.input);
+                    // Explicitly set placeholder on altInput if it exists
+                    if (instance.altInput) {
+                        instance.altInput.placeholder = placeholderTexts[lang] || "YYYY-MM-DD";
+                        // Clear placeholder on focus for better UX
+                        instance.altInput.addEventListener('focus', function() {
+                            this.placeholder = '';
+                        });
+                        // Restore placeholder on blur
+                        instance.altInput.addEventListener('blur', function() {
+                            this.placeholder = placeholderTexts[lang] || "YYYY-MM-DD";
+                        });
+                    }
+                }
+            };
+
+            const checkOutPicker = flatpickr(checkOut, {
+                ...commonConfig
+            });
+
+            const checkInPicker = flatpickr(checkIn, {
+                ...commonConfig,
+                onChange: function(selectedDates, dateStr, instance) {
+                    checkOutPicker.set('minDate', dateStr || "today");
+                    if (checkOut.value && checkOut.value < dateStr) {
+                        checkOutPicker.clear();
+                    }
+                }
+            });
+        };
 
 /* =================================================
    7. SCROLL TOP & DYNAMIC MENU LOGIC
@@ -2929,48 +2970,156 @@ function initDatePickers() {
     const checkOut = document.getElementById('checkOutDate');
 
     if (checkIn && checkOut) {
-        // 1. Set minimum date to today (Using Local Time to avoid timezone issues)
-        const d = new Date();
-        const year = d.getFullYear();
-        const month = String(d.getMonth() + 1).padStart(2, '0');
-        const day = String(d.getDate()).padStart(2, '0');
-        const today = `${year}-${month}-${day}`;
+        // Load Flatpickr CSS
+        if (!document.getElementById('flatpickr-css')) {
+            const css = document.createElement('link');
+            css.id = 'flatpickr-css';
+            css.rel = 'stylesheet';
+            css.href = 'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css';
+            document.head.appendChild(css);
+        }
 
-        checkIn.setAttribute('min', today);
-        checkOut.setAttribute('min', today);
+        // Custom Theme for luxury look
+        if (!document.getElementById('flatpickr-theme')) {
+            const theme = document.createElement('style');
+            theme.id = 'flatpickr-theme';
+            theme.innerHTML = `
+                .flatpickr-calendar { box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2) !important; border: 1px solid rgba(212,175,55,0.3) !important; padding: 10px; border-radius: 12px !important; font-family: 'Inter', sans-serif; }
+                .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay { background: #D4AF37 !important; border-color: #D4AF37 !important; }
+                .flatpickr-day.today { border-color: #D4AF37 !important; }
+                .flatpickr-input { font-family: 'Inter', sans-serif !important; cursor: pointer !important; background-color: #fafafa; }
+                /* Hide native date icon */
+                input[type="date"]::-webkit-inner-spin-button,
+                input[type="date"]::-webkit-calendar-picker-indicator { display: none; -webkit-appearance: none; }
+            `;
+            document.head.appendChild(theme);
+        }
 
-        // 2. Update Check-out minimum when Check-in changes
-        checkIn.addEventListener('change', function () {
-            validateDateInput(this, today);
-
-            if (this.value) {
-                checkOut.setAttribute('min', this.value);
-
-                // If check-out is before new check-in, clear it
-                if (checkOut.value && checkOut.value < this.value) {
-                    checkOut.value = "";
-                }
-            }
-        });
-
-        checkOut.addEventListener('change', function () {
-            // For checkout, min date is checkIn date OR today
-            const minDate = checkIn.value || today;
-            validateDateInput(this, minDate);
-        });
-    }
-}
-
-function validateDateInput(input, minDate) {
-    if (input.value && input.value < minDate) {
         const lang = localStorage.getItem('selectedLang') || 'en';
-        const messages = {
-            en: "You cannot select a past date.",
-            uz: "O'tib ketgan sanani tanlay olmaysiz.",
-            ru: "Вы не можете выбрать прошедшую дату."
+        
+        let placeholderTexts = {
+            'en': 'YYYY-MM-DD (Year-Month-Day)',
+            'uz': 'YYYY-MM-DD (Yil-Oy-Kun)',
+            'ru': 'ГГГГ-ММ-ДД (Год-Месяц-День)'
         };
-        alert(messages[lang] || messages['en']);
-        input.value = ""; // Clear invalid input
+
+        let warningTexts = {
+            'en': 'The date you entered does not exist or is in the past. Please enter a valid date.',
+            'uz': 'Siz kiritgan sana mavjud emas yoki o\'tib ketgan. Iltimos, to\'g\'ri sana kiriting.',
+            'ru': 'Введенная вами дата не существует или уже прошла. Пожалуйста, введите правильную дату.'
+        };
+
+        const maskDateInput = (input) => {
+            input.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, '');
+                let formatted = '';
+                if (value.length > 0) {
+                    formatted = value.substring(0, 4);
+                    if (value.length > 4) {
+                        formatted += '-' + value.substring(4, 6);
+                    }
+                    if (value.length > 6) {
+                        formatted += '-' + value.substring(6, 8);
+                    }
+                }
+                e.target.value = formatted;
+                // Store exactly what the user typed to prevent Flatpickr's auto-fix
+                e.target.dataset.lastTyped = formatted;
+            });
+        };
+
+        const initializePickers = () => {
+            const todayStr = new Date().toISOString().split('T')[0];
+
+            const validateDate = (instance) => {
+                // Use the raw typed value if available, else the input value
+                const typedVal = instance.altInput ? instance.altInput.dataset.lastTyped : instance.input.value;
+                const finalVal = instance.input.value;
+                
+                if (!typedVal && !finalVal) return;
+
+                // Check if the typed value was an impossible date (like month 23)
+                // If typedVal is different from finalVal, Flatpickr already "corrected" it
+                let isInvalid = false;
+                if (typedVal && typedVal.length === 10) {
+                    const parts = typedVal.split('-');
+                    const m = parseInt(parts[1], 10);
+                    const d = parseInt(parts[2], 10);
+                    const y = parseInt(parts[0], 10);
+                    if (m < 1 || m > 12 || d < 1 || d > 31) isInvalid = true;
+                    if (!isInvalid) {
+                        const daysInMonth = new Date(y, m, 0).getDate();
+                        if (d > daysInMonth) isInvalid = true;
+                    }
+                }
+
+                // If invalid or in the past
+                if (isInvalid || (finalVal && finalVal < todayStr)) {
+                    alert(warningTexts[lang] || warningTexts['en']);
+                    instance.clear();
+                    if (instance.altInput) {
+                        instance.altInput.value = '';
+                        instance.altInput.dataset.lastTyped = '';
+                    }
+                }
+            };
+
+            const commonConfig = {
+                minDate: "today",
+                altInput: true,
+                altFormat: "Y-m-d",
+                dateFormat: "Y-m-d",
+                allowInput: true,
+                disableMobile: true,
+                static: true, // Render inside the form-group instead of floating globally
+                placeholder: placeholderTexts[lang] || "YYYY-MM-DD",
+                altInputClass: "flatpickr-input-custom",
+                onReady: function(selectedDates, dateStr, instance) {
+                    maskDateInput(instance.altInput || instance.input);
+                    if (instance.altInput) {
+                        instance.altInput.placeholder = placeholderTexts[lang] || "YYYY-MM-DD";
+                        instance.altInput.addEventListener('focus', function() { this.placeholder = ''; });
+                        instance.altInput.addEventListener('blur', function() { 
+                            if(!this.value) this.placeholder = placeholderTexts[lang] || "YYYY-MM-DD";
+                            validateDate(instance);
+                        });
+                    }
+                },
+                onClose: function(selectedDates, dateStr, instance) {
+                    validateDate(instance);
+                }
+            };
+
+            window.checkOutPickerInstance = flatpickr(checkOut, {
+                ...commonConfig
+            });
+
+            window.checkInPickerInstance = flatpickr(checkIn, {
+                ...commonConfig,
+                onChange: function(selectedDates, dateStr, instance) {
+                    const minOutDate = dateStr || "today";
+                    if (window.checkOutPickerInstance) {
+                        window.checkOutPickerInstance.set('minDate', minOutDate);
+                        // If Check-out date is already selected and it's before new Check-in, clear it
+                        const currentOut = window.checkOutPickerInstance.input.value;
+                        if (currentOut && currentOut < dateStr) {
+                            window.checkOutPickerInstance.clear();
+                            if (window.checkOutPickerInstance.altInput) window.checkOutPickerInstance.altInput.value = '';
+                        }
+                    }
+                }
+            });
+        };
+
+        // Load flatpickr script
+        if (typeof flatpickr === 'undefined') {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/flatpickr';
+            script.onload = initializePickers;
+            document.head.appendChild(script);
+        } else {
+            initializePickers();
+        }
     }
 }
 
