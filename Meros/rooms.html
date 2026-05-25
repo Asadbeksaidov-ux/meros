@@ -1,7 +1,17 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7RBD2GXNJE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-7RBD2GXNJE');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meros B&B - Rooms</title>
@@ -127,12 +137,12 @@
             </div>
             <div class="form-group">
                 <label for="checkInDate" data-i18n="form.check_in">Check-in Date *</label>
-                <input type="date" id="checkInDate" name="checkInDate" required>
+                <input type="text" id="checkInDate" name="checkInDate" required>
             </div>
 
             <div class="form-group">
                 <label for="checkOutDate" data-i18n="form.check_out">Check-out Date *</label>
-                <input type="date" id="checkOutDate" name="checkOutDate" required>
+                <input type="text" id="checkOutDate" name="checkOutDate" required>
             </div>
 
             <div class="form-row">
