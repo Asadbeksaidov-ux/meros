@@ -2359,7 +2359,7 @@ function initReviews() {
                     name,
                     rating: parseInt(rating),
                     text,
-                    date: new Date().toLocaleDateString(),
+                    date: new Date().toLocaleDateString('ru-RU'), // Fixed format: DD.MM.YYYY
                     avatar: avatarUrl,
                     image: imageBase64 || null,
                     timestamp: firebase.firestore.FieldValue.serverTimestamp() // Order by time
@@ -2443,7 +2443,7 @@ function loadReviews() {
                 <p class="review-text">"${review.text}"</p>
                 <div class="review-author">
                     <img src="${userAvatar}" alt="${review.name}" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
-                    <span>${review.name}</span> <span style="font-size: 0.8em; color: #888; font-weight: normal; margin-left:5px;">вЂў ${review.date}</span>
+                    <span>${review.name}</span> <span style="font-size: 0.8em; color: #888; font-weight: normal; margin-left:5px;">&bull; ${review.date}</span>
                 </div>
             `;
                 container.appendChild(card);
@@ -2984,11 +2984,17 @@ function initDatePickers() {
             const theme = document.createElement('style');
             theme.id = 'flatpickr-theme';
             theme.innerHTML = `
-                .flatpickr-calendar { box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2) !important; border: 1px solid rgba(212,175,55,0.3) !important; padding: 10px; border-radius: 12px !important; font-family: 'Inter', sans-serif; }
-                .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay { background: #D4AF37 !important; border-color: #D4AF37 !important; }
+                .flatpickr-calendar { 
+                    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2) !important; 
+                    border: 1px solid rgba(212,175,55,0.3) !important; 
+                    border-radius: 12px !important; 
+                    font-family: 'Inter', sans-serif; 
+                    width: 315px !important; /* Fixed width to prevent clipping */
+                }
+                .flatpickr-innerContainer { padding: 5px !important; }
+                .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange { background: #D4AF37 !important; border-color: #D4AF37 !important; }
                 .flatpickr-day.today { border-color: #D4AF37 !important; }
                 .flatpickr-input { font-family: 'Inter', sans-serif !important; cursor: pointer !important; background-color: #fafafa; }
-                /* Hide native date icon */
                 input[type="date"]::-webkit-inner-spin-button,
                 input[type="date"]::-webkit-calendar-picker-indicator { display: none; -webkit-appearance: none; }
             `;
@@ -3071,7 +3077,8 @@ function initDatePickers() {
                 dateFormat: "Y-m-d",
                 allowInput: true,
                 disableMobile: true,
-                static: true, // Render inside the form-group instead of floating globally
+                static: false, // Make it float to avoid being cut off by containers
+                position: "auto", 
                 placeholder: placeholderTexts[lang] || "YYYY-MM-DD",
                 altInputClass: "flatpickr-input-custom",
                 onReady: function(selectedDates, dateStr, instance) {
