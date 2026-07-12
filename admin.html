@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,28 +8,253 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-7RBD2GXNJE');
     </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meros B&B - Admin</title>
+    <title>Meros B&B - Admin Panel</title>
     <link rel="icon" type="image/png" href="logo-v2.png">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ── Admin panel specific styles ── */
+        :root {
+            --admin-bg: #f0f4f8;
+            --card-bg: #ffffff;
+            --accent: #1abc9c;
+            --accent-dark: #16a085;
+            --danger: #e74c3c;
+            --warning: #e67e22;
+            --info: #3498db;
+            --text: #2c3e50;
+            --text-muted: #7f8c8d;
+            --border: #dce1e7;
+            --radius: 10px;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        body { background: var(--admin-bg); }
+
+        /* ── Login overlay ── */
+        #admin-login-overlay {
+            position: fixed; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(15,20,35,0.85);
+            backdrop-filter: blur(6px);
+            z-index: 9000;
+        }
+        #admin-login-overlay.hidden { display: none; }
+
+        .login-box {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            padding: 48px 44px;
+            width: 100%; max-width: 420px;
+            text-align: center;
+        }
+        .login-box .login-logo { font-size: 48px; margin-bottom: 12px; }
+        .login-box h2 { margin: 0 0 6px; font-size: 24px; color: var(--text); }
+        .login-box p  { margin: 0 0 28px; color: var(--text-muted); font-size: 14px; }
+        .login-box input {
+            width: 100%; padding: 12px 16px; margin-bottom: 14px;
+            border: 1.5px solid var(--border); border-radius: 8px;
+            font-size: 15px; box-sizing: border-box;
+            transition: border-color .2s;
+        }
+        .login-box input:focus { outline: none; border-color: var(--accent); }
+        .login-box .btn-login {
+            width: 100%; padding: 13px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #fff; border: none; border-radius: 8px;
+            font-size: 16px; font-weight: 600; cursor: pointer;
+            transition: opacity .2s;
+        }
+        .login-box .btn-login:hover { opacity: .9; }
+        #login-error {
+            color: var(--danger); font-size: 13px;
+            margin-top: 10px; display: none;
+        }
+
+        /* ── Dashboard layout ── */
+        #admin-dashboard { display: none; }
+        .dashboard-header {
+            display: flex; align-items: center; justify-content: space-between;
+            background: var(--card-bg);
+            padding: 16px 28px; margin-bottom: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        .dashboard-header h1 { margin: 0; font-size: 22px; color: var(--text); }
+        .dashboard-header .admin-email { color: var(--text-muted); font-size: 13px; }
+        .btn-logout {
+            background: var(--danger); color: #fff;
+            border: none; border-radius: 7px;
+            padding: 8px 18px; cursor: pointer; font-size: 14px;
+            transition: opacity .2s;
+        }
+        .btn-logout:hover { opacity: .85; }
+
+        /* ── Stats ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px; margin-bottom: 28px;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px; text-align: center;
+            border-left: 4px solid var(--info);
+        }
+        .stat-card h3 { margin: 0 0 8px; font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; }
+        .stat-card p  { margin: 0; font-size: 30px; font-weight: 700; color: var(--text); }
+
+        /* ── Tab bar ── */
+        .admin-tab-bar {
+            display: flex; gap: 6px; flex-wrap: wrap;
+            background: var(--card-bg);
+            padding: 10px 16px; border-radius: var(--radius);
+            box-shadow: var(--shadow); margin-bottom: 20px;
+        }
+        .tab-btn {
+            padding: 8px 18px; border: none; border-radius: 6px;
+            cursor: pointer; font-size: 14px; font-weight: 500;
+            background: #ecf0f1; color: var(--text);
+            transition: background .2s, color .2s;
+        }
+        .tab-btn.active {
+            background: var(--accent); color: #fff;
+        }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* ── Admin cards ── */
+        .admin-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px; margin-bottom: 20px;
+        }
+        .admin-card h3 {
+            margin: 0 0 16px;
+            font-size: 16px; color: var(--text);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 8px;
+        }
+
+        /* ── Edit field rows ── */
+        .edit-group { margin-bottom: 18px; }
+        .edit-group label {
+            display: block; margin-bottom: 5px;
+            font-size: 13px; font-weight: 600; color: var(--text-muted);
+        }
+        .edit-group .lang-badge {
+            display: inline-block;
+            font-size: 10px; padding: 1px 6px;
+            border-radius: 4px; margin-left: 6px;
+            background: #d5f0ea; color: var(--accent-dark);
+            font-weight: 700; text-transform: uppercase;
+        }
+        .edit-group input[type="text"],
+        .edit-group textarea {
+            width: 100%; padding: 9px 12px;
+            border: 1.5px solid var(--border); border-radius: 7px;
+            font-size: 14px; box-sizing: border-box;
+            transition: border-color .2s;
+            resize: vertical;
+        }
+        .edit-group input[type="text"]:focus,
+        .edit-group textarea:focus {
+            outline: none; border-color: var(--accent);
+        }
+
+        /* ── Image upload ── */
+        .img-upload-row {
+            display: flex; gap: 10px; align-items: flex-start; flex-wrap: wrap;
+        }
+        .img-upload-row input[type="text"] { flex: 1; min-width: 200px; }
+        .img-upload-label {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 9px 16px;
+            background: var(--info); color: #fff;
+            border-radius: 7px; cursor: pointer; font-size: 13px;
+            white-space: nowrap;
+            transition: opacity .2s;
+        }
+        .img-upload-label:hover { opacity: .88; }
+        .img-upload-label input[type="file"] { display: none; }
+        .img-status { font-size: 12px; margin-top: 4px; }
+
+        /* ── Save bar ── */
+        .save-bar {
+            display: flex; align-items: center; gap: 16px;
+            flex-wrap: wrap; margin-top: 20px;
+        }
+        .btn-save {
+            padding: 11px 30px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #fff; border: none; border-radius: 8px;
+            font-size: 15px; font-weight: 600; cursor: pointer;
+            transition: opacity .2s;
+        }
+        .btn-save:hover { opacity: .9; }
+        .btn-save:disabled { opacity: .55; cursor: not-allowed; }
+        .save-status { font-size: 14px; font-weight: 500; }
+        .last-saved { font-size: 12px; color: var(--text-muted); }
+
+        /* ── Review list ── */
+        .review-item {
+            background: #f8fafb; border-radius: 8px;
+            padding: 14px 18px; margin-bottom: 12px;
+            border: 1px solid var(--border);
+        }
+        .review-item .review-meta { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+        .review-item .review-actions { margin-top: 8px; display: flex; gap: 8px; }
+        .btn-approve { background: #27ae60; color: #fff; border: none; border-radius: 6px; padding: 5px 14px; cursor: pointer; font-size: 13px; }
+        .btn-delete  { background: var(--danger); color: #fff; border: none; border-radius: 6px; padding: 5px 14px; cursor: pointer; font-size: 13px; }
+
+        /* ── Price table in editor ── */
+        .price-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 6px; align-items: center;
+        }
+        .price-grid-header {
+            font-size: 11px; font-weight: 700;
+            text-transform: uppercase; color: var(--text-muted);
+            padding: 4px 6px;
+        }
+        .price-grid input[type="text"] { padding: 7px 10px; }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .price-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Backup restore */
+        .btn-restore {
+            background: #8e44ad; color: #fff; border: none;
+            border-radius: 6px; padding: 8px 16px; cursor: pointer;
+            font-size: 13px; transition: opacity .2s;
+        }
+        .btn-restore:hover { opacity: .85; }
+    </style>
 </head>
 
 <body>
+
     <header>
         <div class="header-left">
             <div class="logo">
-                <a href="index.html"
-                    style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
                     <img src="logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
                     <span>Meros B&B</span>
                 </a>
             </div>
-            <!-- Globe Language Switcher -->
             <div class="globe-lang-container">
                 <button class="globe-btn" id="lang-toggle" aria-label="Select Language">
                     <i class="fas fa-globe"></i>
@@ -42,9 +267,7 @@
             </div>
         </div>
         <div class="hamburger" id="hamburger-btn">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
         <nav id="nav-menu">
             <a href="index.html" data-i18n="nav.home">Home</a>
@@ -56,61 +279,1286 @@
         </nav>
     </header>
 
-
-    <main class="container" style="padding-top: 50px; min-height: 60vh;">
-        <h1 style="text-align: center; margin-bottom: 30px;">Admin Panel</h1>
-
-        <!-- Login Section -->
-        <div id="admin-login" style="max-width: 400px; margin: 0 auto; text-align: center;">
-            <input type="password" id="admin-password" placeholder="Enter Admin Password"
-                style="padding: 10px; width: 70%; margin-bottom: 10px;">
-            <button onclick="checkAdminPassword()" class="btn" style="padding: 10px 20px;">Login</button>
-            <p id="login-error" style="color: red; display: none;">Incorrect Password</p>
+    <!-- ──────────────────── LOGIN OVERLAY ──────────────────── -->
+    <div id="admin-login-overlay">
+        <div class="login-box">
+            <div class="login-logo">🏨</div>
+            <h2>Admin Login</h2>
+            <p>Meros B&B Admin Panel</p>
+            <input type="email" id="admin-email" placeholder="Email address" autocomplete="username">
+            <input type="password" id="admin-password" placeholder="Password" autocomplete="current-password">
+            <button class="btn-login" onclick="doAdminLogin()">
+                <i class="fas fa-sign-in-alt"></i> Sign In
+            </button>
+            <p id="login-error"></p>
         </div>
+    </div>
 
-        <!-- Dashboard (Hidden by default) -->
-        <div id="admin-dashboard" style="display: none;">
-            <!-- Statistics Section -->
-            <div class="stats-grid"
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px;">
-                <!-- Global Visits -->
-                <div class="stat-card"
-                    style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; border-left: 4px solid #3498db;">
-                    <h3 style="margin: 0; color: #7f8c8d; font-size: 14px;">Total Visitors</h3>
-                    <p id="stat-total-visits"
-                        style="margin: 5px 0 0; font-size: 24px; font-weight: bold; color: #2c3e50;">0</p>
-                </div>
-            </div>
+    <!-- ──────────────────── DASHBOARD ──────────────────── -->
+    <main class="container" style="padding-top: 40px; min-height: 60vh;">
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <div class="tabs" style="display: flex; gap: 10px;">
-                    <button id="btn-approved" onclick="showTab('approved')" class="btn"
-                        style="background: #27ae60;">Live Reviews</button>
-                    <button id="btn-pending" onclick="showTab('pending')" class="btn"
-                        style="background: #e67e22;">Archive/Pending</button>
+        <div id="admin-dashboard">
+
+            <!-- Header bar -->
+            <div class="dashboard-header">
+                <div>
+                    <h1><i class="fas fa-shield-alt" style="color: var(--accent);"></i> Admin Panel</h1>
+                    <div class="admin-email" id="admin-user-email"></div>
                 </div>
-                <button onclick="logoutAdmin()" class="btn"
-                    style="background: #c0392b; padding: 5px 15px; font-size: 14px;">
+                <button class="btn-logout" onclick="doAdminLogout()">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
             </div>
 
-            <!-- Pending Reviews -->
-            <div id="pending-reviews-tab" style="display: none;">
-                <h3>Archive / Pending Approval</h3>
-                <div id="pending-reviews-list"></div>
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Visitors</h3>
+                    <p id="stat-total-visits">…</p>
+                </div>
             </div>
 
-            <!-- Approved Reviews -->
-            <div id="approved-reviews-tab">
-                <h3>Live on Website</h3>
-                <div id="approved-reviews-list"></div>
+            <!-- Tab bar -->
+            <div class="admin-tab-bar">
+                <button class="tab-btn active" id="tab-btn-reviews" onclick="switchAdminTab('reviews')">
+                    <i class="fas fa-comments"></i> Reviews
+                </button>
+                <button class="tab-btn" id="tab-btn-rooms" onclick="switchAdminTab('rooms')">
+                    <i class="fas fa-bed"></i> Rooms & Prices
+                </button>
+                <button class="tab-btn" id="tab-btn-tours" onclick="switchAdminTab('tours')">
+                    <i class="fas fa-map-marked-alt"></i> Tours & Transfers
+                </button>
+                <button class="tab-btn" id="tab-btn-homepage" onclick="switchAdminTab('homepage')">
+                    <i class="fas fa-home"></i> Homepage Text
+                </button>
+                <button class="tab-btn" id="tab-btn-pages" onclick="switchAdminTab('pages')">
+                    <i class="fas fa-image"></i> Banners & Images
+                </button>
+                <button class="tab-btn" id="tab-btn-dining" onclick="switchAdminTab('dining')">
+                    <i class="fas fa-utensils"></i> Rooftop Dining
+                </button>
             </div>
-        </div>
+
+            <!-- ── REVIEWS TAB ── -->
+            <div class="tab-panel active" id="panel-reviews">
+                <div class="admin-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; gap: 10px;">
+                            <button class="tab-btn active" id="reviews-btn-live"   onclick="showReviewsTab('approved')">Live Reviews</button>
+                            <button class="tab-btn"        id="reviews-btn-archive" onclick="showReviewsTab('pending')">Archive</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-card" id="pending-reviews-tab" style="display:none;">
+                    <h3>Archive / Pending Approval</h3>
+                    <div id="pending-reviews-list"></div>
+                </div>
+                <div class="admin-card" id="approved-reviews-tab">
+                    <h3>Live on Website</h3>
+                    <div id="approved-reviews-list"></div>
+                </div>
+            </div>
+
+            <!-- ── ROOMS TAB ── -->
+            <div class="tab-panel" id="panel-rooms">
+                <!-- Room Prices -->
+                <div class="admin-card">
+                    <h3>🛏️ Room Prices (List Page)</h3>
+                    <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">
+                        Price shown on the Rooms listing page. These are language-specific — fill in all three tabs.
+                    </p>
+                    <!-- Double -->
+                    <div class="edit-group">
+                        <label>Double Room Price <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="rooms.price_double" data-edit-lang="en" data-edit-category="rooms" placeholder="e.g. $50 / $35 (Single)">
+                    </div>
+                    <div class="edit-group">
+                        <label>Double Room Price <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="rooms.price_double" data-edit-lang="uz" data-edit-category="rooms" placeholder="e.g. $50 / $35 (Yakka)">
+                    </div>
+                    <div class="edit-group">
+                        <label>Double Room Price <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="rooms.price_double" data-edit-lang="ru" data-edit-category="rooms" placeholder="e.g. $50 / $35 (Одноместное)">
+                    </div>
+
+                    <!-- Twin -->
+                    <div class="edit-group">
+                        <label>Twin Room Price <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="rooms.price_twin" data-edit-lang="en" data-edit-category="rooms">
+                    </div>
+                    <div class="edit-group">
+                        <label>Twin Room Price <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="rooms.price_twin" data-edit-lang="uz" data-edit-category="rooms">
+                    </div>
+                    <div class="edit-group">
+                        <label>Twin Room Price <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="rooms.price_twin" data-edit-lang="ru" data-edit-category="rooms">
+                    </div>
+
+                    <!-- Triple -->
+                    <div class="edit-group">
+                        <label>Triple Room Price <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="rooms.price_triple" data-edit-lang="en" data-edit-category="rooms">
+                    </div>
+                    <div class="edit-group">
+                        <label>Triple Room Price <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="rooms.price_triple" data-edit-lang="uz" data-edit-category="rooms">
+                    </div>
+                    <div class="edit-group">
+                        <label>Triple Room Price <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="rooms.price_triple" data-edit-lang="ru" data-edit-category="rooms">
+                    </div>
+
+                    <!-- Balcony rooms -->
+                    <div class="edit-group">
+                        <label>Twin Balcony Price <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="rooms.price_twin_balcony" data-edit-lang="en" data-edit-category="rooms">
+                    </div>
+                    <div class="edit-group">
+                        <label>Twin Balcony Price <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="rooms.price_twin_balcony" data-edit-lang="uz" data-edit-category="rooms">
+                    </div>
+                    <div class="edit-group">
+                        <label>Twin Balcony Price <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="rooms.price_twin_balcony" data-edit-lang="ru" data-edit-category="rooms">
+                    </div>
+                    <div class="edit-group">
+                        <label>Double Balcony Price <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="rooms.price_double_balcony" data-edit-lang="en" data-edit-category="rooms">
+                    </div>
+                    <div class="edit-group">
+                        <label>Double Balcony Price <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="rooms.price_double_balcony" data-edit-lang="uz" data-edit-category="rooms">
+                    </div>
+                    <div class="edit-group">
+                        <label>Double Balcony Price <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="rooms.price_double_balcony" data-edit-lang="ru" data-edit-category="rooms">
+                    </div>
+                </div>
+
+                <!-- Room Images -->
+                <div class="admin-card">
+                    <h3>🖼️ Room Cover Images</h3>
+                    <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">
+                        Upload new photos (JPG/PNG/WebP, max 2MB). The URL will be saved automatically after upload.
+                    </p>
+
+                    <!-- Double Room Image -->
+                    <div class="edit-group">
+                        <label>Double Room – Cover Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-rooms_img_double"
+                                data-edit-key="rooms.img_double" data-edit-category="rooms"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-rooms_img_double', 'rooms.img_double')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-rooms_img_double"></div>
+                    </div>
+
+                    <!-- Twin Room Image -->
+                    <div class="edit-group">
+                        <label>Twin Room – Cover Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-rooms_img_twin"
+                                data-edit-key="rooms.img_twin" data-edit-category="rooms"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-rooms_img_twin', 'rooms.img_twin')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-rooms_img_twin"></div>
+                    </div>
+
+                    <!-- Triple Room Image -->
+                    <div class="edit-group">
+                        <label>Triple Room – Cover Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-rooms_img_triple"
+                                data-edit-key="rooms.img_triple" data-edit-category="rooms"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-rooms_img_triple', 'rooms.img_triple')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-rooms_img_triple"></div>
+                    </div>
+
+                    <!-- Twin Balcony Image -->
+                    <div class="edit-group">
+                        <label>Twin Balcony – Cover Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-rooms_img_twin_balcony"
+                                data-edit-key="rooms.img_twin_balcony" data-edit-category="rooms"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-rooms_img_twin_balcony', 'rooms.img_twin_balcony')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-rooms_img_twin_balcony"></div>
+                    </div>
+
+                    <!-- Double Balcony Image -->
+                    <div class="edit-group">
+                        <label>Double Balcony – Cover Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-rooms_img_double_balcony"
+                                data-edit-key="rooms.img_double_balcony" data-edit-category="rooms"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-rooms_img_double_balcony', 'rooms.img_double_balcony')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-rooms_img_double_balcony"></div>
+                    </div>
+                </div>
+
+                <!-- Save bar -->
+                <div class="save-bar">
+                    <button class="btn-save" id="content-save-btn" onclick="saveAdminContentOverrides('rooms')">
+                        <i class="fas fa-save"></i> Save Room Changes
+                    </button>
+                    <span class="save-status" id="content-save-status"></span>
+                    <span class="last-saved" id="content-last-saved"></span>
+                    <button class="btn-restore" onclick="restoreLastBackup()">
+                        <i class="fas fa-undo"></i> Restore Backup
+                    </button>
+                </div>
+            </div>
+
+            <!-- ── TOURS TAB ── -->
+            <div class="tab-panel" id="panel-tours">
+
+                <!-- Day trip prices -->
+                <div class="admin-card">
+                    <h3>🏰 Day Trip Prices (Fortresses)</h3>
+                    <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">
+                        Prices shown in the tour table on <em>private_day.html</em>. Enter amounts with currency symbol, e.g. <code>$50</code>.
+                    </p>
+
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+                            <thead>
+                                <tr style="background:#f0f4f8;">
+                                    <th style="padding:8px 10px;text-align:left;color:var(--text-muted);">Tour</th>
+                                    <th style="padding:8px 10px;text-align:center;color:var(--text-muted);">Sedan</th>
+                                    <th style="padding:8px 10px;text-align:center;color:var(--text-muted);">SUV</th>
+                                    <th style="padding:8px 10px;text-align:center;color:var(--text-muted);">Minivan</th>
+                                    <th style="padding:8px 10px;text-align:center;color:var(--text-muted);">Minibus</th>
+                                </tr>
+                            </thead>
+                            <tbody id="price-table-tours"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Transfer prices -->
+                <div class="admin-card">
+                    <h3>🚗 Transfer Prices</h3>
+                    <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">
+                        Prices shown in the transfer table on <em>private_transfer.html</em>.
+                    </p>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+                            <thead>
+                                <tr style="background:#f0f4f8;">
+                                    <th style="padding:8px 10px;text-align:left;color:var(--text-muted);">Route</th>
+                                    <th style="padding:8px 10px;text-align:center;color:var(--text-muted);">Sedan</th>
+                                    <th style="padding:8px 10px;text-align:center;color:var(--text-muted);">SUV</th>
+                                    <th style="padding:8px 10px;text-align:center;color:var(--text-muted);">Minivan</th>
+                                    <th style="padding:8px 10px;text-align:center;color:var(--text-muted);">Minibus</th>
+                                </tr>
+                            </thead>
+                            <tbody id="price-table-transfers"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Khiva tour -->
+                <div class="admin-card">
+                    <h3>🚶 Khiva Walking Tour Price</h3>
+                    <div class="edit-group"><label>Guide Price <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="khiva.price_val" data-edit-lang="en" data-edit-category="tours" placeholder="e.g. $50 (Guide Service)">
+                    </div>
+                    <div class="edit-group"><label>Guide Price <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="khiva.price_val" data-edit-lang="uz" data-edit-category="tours">
+                    </div>
+                    <div class="edit-group"><label>Guide Price <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="khiva.price_val" data-edit-lang="ru" data-edit-category="tours">
+                    </div>
+                </div>
+
+                <div class="save-bar">
+                    <button class="btn-save" id="content-save-btn" onclick="saveAdminContentOverrides('tours')">
+                        <i class="fas fa-save"></i> Save Tour Changes
+                    </button>
+                    <span class="save-status" id="content-save-status"></span>
+                    <button class="btn-restore" onclick="restoreLastBackup()">
+                        <i class="fas fa-undo"></i> Restore Backup
+                    </button>
+                </div>
+            </div>
+
+            <!-- ── HOMEPAGE TAB ── -->
+            <div class="tab-panel" id="panel-homepage">
+                <div class="admin-card">
+                    <h3>🏠 Hero Section</h3>
+                    <div class="edit-group"><label>Hero Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="home.hero_title" data-edit-lang="en" data-edit-category="homepage">
+                    </div>
+                    <div class="edit-group"><label>Hero Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="home.hero_title" data-edit-lang="uz" data-edit-category="homepage">
+                    </div>
+                    <div class="edit-group"><label>Hero Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="home.hero_title" data-edit-lang="ru" data-edit-category="homepage">
+                    </div>
+                    <div class="edit-group"><label>Hero Subtitle <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="hero.title" data-edit-lang="en" data-edit-category="homepage">
+                    </div>
+                    <div class="edit-group"><label>Hero Subtitle <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="hero.title" data-edit-lang="uz" data-edit-category="homepage">
+                    </div>
+                    <div class="edit-group"><label>Hero Subtitle <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="hero.title" data-edit-lang="ru" data-edit-category="homepage">
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3>ℹ️ About Section</h3>
+                    <div class="edit-group"><label>About – Paragraph 1 <span class="lang-badge">EN</span></label>
+                        <textarea rows="4" data-edit-key="about_main.p1" data-edit-lang="en" data-edit-category="homepage"></textarea>
+                    </div>
+                    <div class="edit-group"><label>About – Paragraph 1 <span class="lang-badge">UZ</span></label>
+                        <textarea rows="4" data-edit-key="about_main.p1" data-edit-lang="uz" data-edit-category="homepage"></textarea>
+                    </div>
+                    <div class="edit-group"><label>About – Paragraph 1 <span class="lang-badge">RU</span></label>
+                        <textarea rows="4" data-edit-key="about_main.p1" data-edit-lang="ru" data-edit-category="homepage"></textarea>
+                    </div>
+                    <div class="edit-group"><label>About – Paragraph 2 <span class="lang-badge">EN</span></label>
+                        <textarea rows="4" data-edit-key="about_main.p2" data-edit-lang="en" data-edit-category="homepage"></textarea>
+                    </div>
+                    <div class="edit-group"><label>About – Paragraph 2 <span class="lang-badge">UZ</span></label>
+                        <textarea rows="4" data-edit-key="about_main.p2" data-edit-lang="uz" data-edit-category="homepage"></textarea>
+                    </div>
+                    <div class="edit-group"><label>About – Paragraph 2 <span class="lang-badge">RU</span></label>
+                        <textarea rows="4" data-edit-key="about_main.p2" data-edit-lang="ru" data-edit-category="homepage"></textarea>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3>🛎️ Our Services</h3>
+                    <div class="edit-group"><label>Services Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="about.title" data-edit-lang="en" data-edit-category="homepage">
+                    </div>
+                    <div class="edit-group"><label>Services Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="about.title" data-edit-lang="uz" data-edit-category="homepage">
+                    </div>
+                    <div class="edit-group"><label>Services Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="about.title" data-edit-lang="ru" data-edit-category="homepage">
+                    </div>
+                    <div class="edit-group"><label>Services Text <span class="lang-badge">EN</span></label>
+                        <textarea rows="3" data-edit-key="about.text" data-edit-lang="en" data-edit-category="homepage"></textarea>
+                    </div>
+                    <div class="edit-group"><label>Services Text <span class="lang-badge">UZ</span></label>
+                        <textarea rows="3" data-edit-key="about.text" data-edit-lang="uz" data-edit-category="homepage"></textarea>
+                    </div>
+                    <div class="edit-group"><label>Services Text <span class="lang-badge">RU</span></label>
+                        <textarea rows="3" data-edit-key="about.text" data-edit-lang="ru" data-edit-category="homepage"></textarea>
+                    </div>
+                </div>
+
+                <div class="save-bar">
+                    <button class="btn-save" onclick="saveAdminContentOverrides('homepage')">
+                        <i class="fas fa-save"></i> Save Homepage Changes
+                    </button>
+                    <span class="save-status" id="content-save-status"></span>
+                    <button class="btn-restore" onclick="restoreLastBackup()">
+                        <i class="fas fa-undo"></i> Restore Backup
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- ── PAGES TAB ── -->
+            <div class="tab-panel" id="panel-pages">
+                <div class="admin-card">
+                    <h3>🖼️ Page Banners & Main Images</h3>
+                    <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">
+                        Upload new photos (JPG/PNG/WebP, max 2MB). The URL will be saved automatically after upload.
+                    </p>
+
+                    <div class="edit-group">
+                        <label>Homepage – Main Background Hero</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-page_img_home_hero"
+                                data-edit-key="page.img_home_hero" data-edit-category="pages"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-page_img_home_hero', 'page.img_home_hero')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-page_img_home_hero"></div>
+                    </div>
+                    <div class="edit-group">
+                        <label>Homepage – About Us Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-page_img_about"
+                                data-edit-key="page.img_about" data-edit-category="pages"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-page_img_about', 'page.img_about')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-page_img_about"></div>
+                    </div>
+                    <div class="edit-group">
+                        <label>Accommodation – Banner</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-page_img_rooms_hero"
+                                data-edit-key="page.img_rooms_hero" data-edit-category="pages"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-page_img_rooms_hero', 'page.img_rooms_hero')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-page_img_rooms_hero"></div>
+                    </div>
+                    <div class="edit-group">
+                        <label>Tours – Banner</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-page_img_tours_hero"
+                                data-edit-key="page.img_tours_hero" data-edit-category="pages"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-page_img_tours_hero', 'page.img_tours_hero')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-page_img_tours_hero"></div>
+                    </div>
+                    <div class="edit-group">
+                        <label>Day Trips – Banner</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-page_img_day_hero"
+                                data-edit-key="page.img_day_hero" data-edit-category="pages"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-page_img_day_hero', 'page.img_day_hero')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-page_img_day_hero"></div>
+                    </div>
+                    <div class="edit-group">
+                        <label>Transfers – Banner</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-page_img_transfer_hero"
+                                data-edit-key="page.img_transfer_hero" data-edit-category="pages"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-page_img_transfer_hero', 'page.img_transfer_hero')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-page_img_transfer_hero"></div>
+                    </div>
+                    <div class="edit-group">
+                        <label>Restaurant – Banner</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-page_img_restaurant_hero"
+                                data-edit-key="page.img_restaurant_hero" data-edit-category="pages"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-page_img_restaurant_hero', 'page.img_restaurant_hero')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-page_img_restaurant_hero"></div>
+                    </div>
+                    <div class="edit-group">
+                        <label>Gallery – Banner</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-page_img_gallery_hero"
+                                data-edit-key="page.img_gallery_hero" data-edit-category="pages"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-page_img_gallery_hero', 'page.img_gallery_hero')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-page_img_gallery_hero"></div>
+                    </div>
+                </div>
+                <div class="save-bar">
+                    <button class="btn-save" onclick="saveAdminContentOverrides('pages')">
+                        <i class="fas fa-save"></i> Save Page Changes
+                    </button>
+                    <span class="save-status" id="content-save-status"></span>
+                    <button class="btn-restore" onclick="restoreLastBackup()">
+                        <i class="fas fa-undo"></i> Restore Backup
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- ── DINING TAB ── -->
+            <div class="tab-panel" id="panel-dining">
+
+                <div class="admin-card">
+                    <h3>🍽️ Shivit Oshi</h3>
+                    <div class="edit-group">
+                        <label>Shivit Oshi – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_shivit"
+                                data-edit-key="menu.img_shivit" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_shivit', 'menu.img_shivit')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_shivit"></div>
+                    </div>
+                    <div class="edit-group"><label>Shivit Oshi – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.shivit" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shivit Oshi – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.shivit" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shivit Oshi – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.shivit" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shivit Oshi – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_shivit" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shivit Oshi – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_shivit" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shivit Oshi – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_shivit" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shivit Oshi – Price <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="dining.shivit_price" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shivit Oshi – Price <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="dining.shivit_price" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shivit Oshi – Price <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="dining.shivit_price" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Tuxum Barak</h3>
+                    <div class="edit-group">
+                        <label>Tuxum Barak – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_tuxum_barak"
+                                data-edit-key="menu.img_tuxum_barak" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_tuxum_barak', 'menu.img_tuxum_barak')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_tuxum_barak"></div>
+                    </div>
+                    <div class="edit-group"><label>Tuxum Barak – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.tuxum_barak" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tuxum Barak – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.tuxum_barak" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tuxum Barak – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.tuxum_barak" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tuxum Barak – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_tuxum_barak" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tuxum Barak – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_tuxum_barak" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tuxum Barak – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_tuxum_barak" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Plov</h3>
+                    <div class="edit-group">
+                        <label>Plov – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_palov"
+                                data-edit-key="menu.img_palov" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_palov', 'menu.img_palov')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_palov"></div>
+                    </div>
+                    <div class="edit-group"><label>Plov – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.palov" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Plov – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.palov" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Plov – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.palov" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Plov – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_palov" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Plov – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_palov" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Plov – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_palov" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Plov – Price <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="dining.plov_price" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Plov – Price <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="dining.plov_price" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Plov – Price <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="dining.plov_price" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Manti</h3>
+                    <div class="edit-group">
+                        <label>Manti – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_manti"
+                                data-edit-key="menu.img_manti" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_manti', 'menu.img_manti')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_manti"></div>
+                    </div>
+                    <div class="edit-group"><label>Manti – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.manti" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Manti – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.manti" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Manti – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.manti" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Manti – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_manti" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Manti – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_manti" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Manti – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_manti" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Gumma</h3>
+                    <div class="edit-group">
+                        <label>Gumma – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_gumma"
+                                data-edit-key="menu.img_gumma" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_gumma', 'menu.img_gumma')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_gumma"></div>
+                    </div>
+                    <div class="edit-group"><label>Gumma – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.gumma" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Gumma – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.gumma" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Gumma – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.gumma" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Gumma – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_gumma" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Gumma – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_gumma" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Gumma – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_gumma" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Qapshirma</h3>
+                    <div class="edit-group">
+                        <label>Qapshirma – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_qapshirma"
+                                data-edit-key="menu.img_qapshirma" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_qapshirma', 'menu.img_qapshirma')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_qapshirma"></div>
+                    </div>
+                    <div class="edit-group"><label>Qapshirma – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.qapshirma" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Qapshirma – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.qapshirma" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Qapshirma – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.qapshirma" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Qapshirma – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_qapshirma" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Qapshirma – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_qapshirma" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Qapshirma – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_qapshirma" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Shashlik</h3>
+                    <div class="edit-group">
+                        <label>Shashlik – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_shashlik"
+                                data-edit-key="menu.img_shashlik" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_shashlik', 'menu.img_shashlik')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_shashlik"></div>
+                    </div>
+                    <div class="edit-group"><label>Shashlik – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.shashlik" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shashlik – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.shashlik" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shashlik – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.shashlik" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shashlik – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_shashlik" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shashlik – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_shashlik" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shashlik – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_shashlik" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Somsa</h3>
+                    <div class="edit-group">
+                        <label>Somsa – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_somsa"
+                                data-edit-key="menu.img_somsa" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_somsa', 'menu.img_somsa')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_somsa"></div>
+                    </div>
+                    <div class="edit-group"><label>Somsa – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.somsa" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Somsa – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.somsa" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Somsa – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.somsa" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Somsa – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_somsa" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Somsa – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_somsa" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Somsa – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_somsa" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Soup Barak</h3>
+                    <div class="edit-group">
+                        <label>Soup Barak – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_soup_barak"
+                                data-edit-key="menu.img_soup_barak" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_soup_barak', 'menu.img_soup_barak')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_soup_barak"></div>
+                    </div>
+                    <div class="edit-group"><label>Soup Barak – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.soup_barak" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Soup Barak – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.soup_barak" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Soup Barak – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.soup_barak" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Soup Barak – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_soup_barak" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Soup Barak – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_soup_barak" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Soup Barak – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_soup_barak" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Tefteli</h3>
+                    <div class="edit-group">
+                        <label>Tefteli – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_tefteli"
+                                data-edit-key="menu.img_tefteli" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_tefteli', 'menu.img_tefteli')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_tefteli"></div>
+                    </div>
+                    <div class="edit-group"><label>Tefteli – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.tefteli" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tefteli – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.tefteli" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tefteli – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.tefteli" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tefteli – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_tefteli" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tefteli – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_tefteli" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tefteli – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_tefteli" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Special Soup</h3>
+                    <div class="edit-group">
+                        <label>Special Soup – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_special_soup"
+                                data-edit-key="menu.img_special_soup" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_special_soup', 'menu.img_special_soup')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_special_soup"></div>
+                    </div>
+                    <div class="edit-group"><label>Special Soup – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.special_soup" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Special Soup – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.special_soup" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Special Soup – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.special_soup" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Special Soup – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_special_soup" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Special Soup – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_special_soup" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Special Soup – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_special_soup" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Galubsi</h3>
+                    <div class="edit-group">
+                        <label>Galubsi – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_galubsi"
+                                data-edit-key="menu.img_galubsi" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_galubsi', 'menu.img_galubsi')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_galubsi"></div>
+                    </div>
+                    <div class="edit-group"><label>Galubsi – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.galubsi" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Galubsi – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.galubsi" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Galubsi – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.galubsi" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Galubsi – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_galubsi" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Galubsi – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_galubsi" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Galubsi – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_galubsi" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Achichuk</h3>
+                    <div class="edit-group">
+                        <label>Achichuk – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_achichuk"
+                                data-edit-key="menu.img_achichuk" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_achichuk', 'menu.img_achichuk')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_achichuk"></div>
+                    </div>
+                    <div class="edit-group"><label>Achichuk – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.achichuk" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Achichuk – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.achichuk" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Achichuk – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.achichuk" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Achichuk – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_achichuk" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Achichuk – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_achichuk" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Achichuk – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_achichuk" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Garden Salad</h3>
+                    <div class="edit-group">
+                        <label>Garden Salad – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_garden_salad"
+                                data-edit-key="menu.img_garden_salad" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_garden_salad', 'menu.img_garden_salad')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_garden_salad"></div>
+                    </div>
+                    <div class="edit-group"><label>Garden Salad – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.garden_salad" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Garden Salad – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.garden_salad" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Garden Salad – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.garden_salad" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Garden Salad – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_garden_salad" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Garden Salad – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_garden_salad" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Garden Salad – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_garden_salad" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Caesar Salad</h3>
+                    <div class="edit-group">
+                        <label>Caesar Salad – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_caesar"
+                                data-edit-key="menu.img_caesar" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_caesar', 'menu.img_caesar')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_caesar"></div>
+                    </div>
+                    <div class="edit-group"><label>Caesar Salad – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.caesar" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Caesar Salad – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.caesar" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Caesar Salad – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.caesar" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Caesar Salad – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_caesar" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Caesar Salad – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_caesar" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Caesar Salad – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_caesar" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Eggplant Salad</h3>
+                    <div class="edit-group">
+                        <label>Eggplant Salad – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_eggplant"
+                                data-edit-key="menu.img_eggplant" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_eggplant', 'menu.img_eggplant')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_eggplant"></div>
+                    </div>
+                    <div class="edit-group"><label>Eggplant Salad – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.eggplant" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Eggplant Salad – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.eggplant" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Eggplant Salad – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.eggplant" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Eggplant Salad – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_eggplant" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Eggplant Salad – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_eggplant" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Eggplant Salad – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_eggplant" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Tea</h3>
+                    <div class="edit-group">
+                        <label>Tea – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_tea"
+                                data-edit-key="menu.img_tea" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_tea', 'menu.img_tea')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_tea"></div>
+                    </div>
+                    <div class="edit-group"><label>Tea – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.tea" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tea – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.tea" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tea – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.tea" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tea – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_tea" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tea – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_tea" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Tea – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_tea" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Juice</h3>
+                    <div class="edit-group">
+                        <label>Juice – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_juice"
+                                data-edit-key="menu.img_juice" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_juice', 'menu.img_juice')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_juice"></div>
+                    </div>
+                    <div class="edit-group"><label>Juice – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.juice" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Juice – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.juice" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Juice – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.juice" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Juice – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_juice" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Juice – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_juice" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Juice – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_juice" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Wine</h3>
+                    <div class="edit-group">
+                        <label>Wine – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_wine"
+                                data-edit-key="menu.img_wine" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_wine', 'menu.img_wine')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_wine"></div>
+                    </div>
+                    <div class="edit-group"><label>Wine – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.wine" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Wine – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.wine" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Wine – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.wine" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Wine – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_wine" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Wine – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_wine" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Wine – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_wine" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍽️ Cocktail</h3>
+                    <div class="edit-group">
+                        <label>Cocktail – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_cocktail"
+                                data-edit-key="menu.img_cocktail" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_cocktail', 'menu.img_cocktail')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_cocktail"></div>
+                    </div>
+                    <div class="edit-group"><label>Cocktail – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.cocktail" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cocktail – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.cocktail" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cocktail – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.cocktail" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cocktail – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_cocktail" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cocktail – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_cocktail" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cocktail – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_cocktail" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="save-bar">
+                    <button class="btn-save" onclick="saveAdminContentOverrides('dining')">
+                        <i class="fas fa-save"></i> Save Dining Changes
+                    </button>
+                    <span class="save-status" id="content-save-status"></span>
+                    <button class="btn-restore" onclick="restoreLastBackup()">
+                        <i class="fas fa-undo"></i> Restore Backup
+                    </button>
+                </div>
+            </div>
+
+        </div><!-- /#admin-dashboard -->
     </main>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
 
     <!-- Footer -->
     <footer>
@@ -126,23 +1574,167 @@
                     <i class="fab fa-whatsapp"></i>
                 </a>
             </div>
-
             <div class="footer-contacts">
                 <a href="tel:+998943153700"><i class="fas fa-phone-alt"></i> +998 94 315 37 00</a>
                 <a href="tel:+998887903293"><i class="fas fa-phone-alt"></i> +998 88 790 32 93</a>
             </div>
-
             <div class="copyright" data-i18n="footer.copyright">
                 &copy; 2026 Meros B&B. All Rights Reserved.
             </div>
         </div>
     </footer>
 
-    <!-- Firebase SDKs -->
+    <!-- Firebase SDKs (v9 compat) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
     <script src="main.js"></script>
-</body>
 
+    <script>
+    /* ============================================================
+       ADMIN PANEL PAGE SCRIPT
+       Depends on: main.js (db, auth, storage, loadAdminContentEditor,
+                   saveAdminContentOverrides, uploadAdminImage, restoreLastBackup,
+                   loadAdminStats, loadAdminReviews, deleteReview, showTab)
+       ============================================================ */
+
+    /* ─────────── AUTH ─────────── */
+
+    // Observe auth state on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!auth) {
+            // If auth SDK not loaded show error
+            document.getElementById('login-error').textContent = 'Firebase Auth unavailable. Check console.';
+            document.getElementById('login-error').style.display = 'block';
+            return;
+        }
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                showDashboard(user);
+            } else {
+                showLoginOverlay();
+            }
+        });
+    });
+
+    async function doAdminLogin() {
+        const email    = document.getElementById('admin-email').value.trim();
+        const password = document.getElementById('admin-password').value;
+        const errEl    = document.getElementById('login-error');
+        errEl.style.display = 'none';
+
+        if (!email || !password) {
+            errEl.textContent = 'Please enter email and password.';
+            errEl.style.display = 'block'; return;
+        }
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+            // onAuthStateChanged will call showDashboard
+        } catch (err) {
+            errEl.textContent = err.message || 'Login failed.';
+            errEl.style.display = 'block';
+        }
+    }
+
+    async function doAdminLogout() {
+        await auth.signOut();
+        // onAuthStateChanged will call showLoginOverlay
+    }
+
+    function showLoginOverlay() {
+        document.getElementById('admin-login-overlay').classList.remove('hidden');
+        document.getElementById('admin-dashboard').style.display = 'none';
+    }
+
+    function showDashboard(user) {
+        document.getElementById('admin-login-overlay').classList.add('hidden');
+        document.getElementById('admin-dashboard').style.display = 'block';
+        document.getElementById('admin-user-email').textContent = user.email;
+
+        // Load data
+        try { loadAdminStats(); } catch(e) { console.error(e); }
+        try { loadAdminReviews(); } catch(e) { console.error(e); }
+        buildPriceTable();
+        buildTransferTable();
+        try { loadAdminContentEditor(); } catch(e) { console.error(e); }
+    }
+
+    /* ─────────── TAB SWITCHING ─────────── */
+
+    function switchAdminTab(tab) {
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn[id^="tab-btn-"]').forEach(b => b.classList.remove('active'));
+        document.getElementById('panel-' + tab).classList.add('active');
+        document.getElementById('tab-btn-' + tab).classList.add('active');
+    }
+
+    function showReviewsTab(type) {
+        const isPending  = type === 'pending';
+        document.getElementById('pending-reviews-tab').style.display  = isPending ? 'block' : 'none';
+        document.getElementById('approved-reviews-tab').style.display = isPending ? 'none'  : 'block';
+        document.getElementById('reviews-btn-live').classList.toggle('active',    !isPending);
+        document.getElementById('reviews-btn-archive').classList.toggle('active', isPending);
+    }
+
+    /* ─────────── PRICE TABLES BUILDER ─────────── */
+
+    const DAY_TOUR_ROWS = [
+        { label: '3 Fortresses',              prefix: 'tour_day.price_3f' },
+        { label: '5 Fortresses',              prefix: 'tour_day.price_5f' },
+        { label: '7 Fortresses',              prefix: 'tour_day.price_7f' },
+        { label: '9 Fortresses',              prefix: 'tour_day.price_9f' },
+        { label: 'Badai Tugai + 3 Fortresses',prefix: 'tour_day.price_badai' },
+        { label: 'Nukus Museum',              prefix: 'tour_day.price_nukus' },
+        { label: 'Nukus + Mizdakhan',         prefix: 'tour_day.price_nukus_miz' },
+        { label: 'Muynak Ship Cemetery',      prefix: 'tour_day.price_muynak' },
+        { label: 'Nukus via Fortresses',      prefix: 'tour_day.price_nukus_fort' },
+    ];
+
+    const TRANSFER_ROWS = [
+        { label: 'Khiva Station – Hotel',    prefix: 'transfers.price_railway' },
+        { label: 'Khiva – Urgench Airport',  prefix: 'transfers.price_urgench' },
+        { label: 'Khiva – Shavat (Border)',  prefix: 'transfers.price_shavat' },
+        { label: 'Khiva ↔ Nukus',           prefix: 'transfers.price_nukus' },
+        { label: 'Khiva ↔ Bukhara',         prefix: 'transfers.price_bukhara' },
+    ];
+
+    const VEHICLE_SUFFIXES = ['sedan', 'suv', 'minivan', 'minibus'];
+
+    function buildPriceTable() {
+        const tbody = document.getElementById('price-table-tours');
+        if (!tbody) return;
+        tbody.innerHTML = DAY_TOUR_ROWS.map(row => buildPriceRow(row, 'tours')).join('');
+    }
+
+    function buildTransferTable() {
+        const tbody = document.getElementById('price-table-transfers');
+        if (!tbody) return;
+        tbody.innerHTML = TRANSFER_ROWS.map(row => buildPriceRow(row, 'tours')).join('');
+    }
+
+    function buildPriceRow(row, category) {
+        const cells = VEHICLE_SUFFIXES.map(suffix => {
+            const key = row.prefix + '_' + suffix;
+            const defaultVal = (translations && translations.en) ? (translations.en[key] || '') : '';
+            return `<td style="padding:6px 10px;">
+                <input type="text" data-edit-key="${key}" data-edit-lang="en" data-edit-category="${category}"
+                    value="${defaultVal}" style="width:80px;padding:5px 8px;border:1.5px solid #dce1e7;border-radius:6px;font-size:13px;">
+            </td>`;
+        }).join('');
+        return `<tr style="border-bottom:1px solid #eee;">
+            <td style="padding:8px 10px;font-weight:500;color:var(--text);">${row.label}</td>
+            ${cells}
+        </tr>`;
+    }
+
+    /* Allow Enter key for login */
+    document.addEventListener('DOMContentLoaded', () => {
+        const pwInput = document.getElementById('admin-password');
+        if (pwInput) pwInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') doAdminLogin();
+        });
+    });
+    </script>
+</body>
 </html>

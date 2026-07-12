@@ -803,9 +803,41 @@ const translations = {
         // COMMON & FORM
         "rooms.section_title": "Our Rooms",
         "rooms.price_from": "$50  ($35 Single Use)",
-        "rooms.price_triple": "$80  ($60 Double Use),($40 Single Use)",
-        "rooms.price_balcony": "$60  ($45 Single Use)",
         "rooms.per_night": "night",
+
+        // --- ADMIN-EDITABLE ROOM PRICES (list page) ---
+        "rooms.price_double":         "$50 / $35 (Single)",
+        "rooms.price_twin":           "$50 / $35 (Single)",
+        "rooms.price_triple":         "$80 / $60 (Double) / $40 (Single)",
+        "rooms.price_twin_balcony":   "$60 / $45 (Single)",
+        "rooms.price_double_balcony": "$60 / $45 (Single)",
+
+
+        // --- ADMIN-EDITABLE ROOM COVER IMAGES (data-i18n-src) ---
+        "rooms.img_double": "doubleroom1.jpg",
+        "rooms.img_twin": "twinroom1.jpg",
+        "rooms.img_triple": "tripleroom1.jpg",
+        "rooms.img_twin_balcony": "twinbalcony1.jpg",
+        "rooms.img_double_balcony": "Dbalcony.jpg",
+
+
+        // --- ADMIN-EDITABLE DAY TRIP PRICES ---
+        "tour_day.price_3f_sedan":   "$50",  "tour_day.price_3f_suv":   "$80",  "tour_day.price_3f_minivan":   "$105", "tour_day.price_3f_minibus":   "$115",
+        "tour_day.price_5f_sedan":   "$65",  "tour_day.price_5f_suv":   "$90",  "tour_day.price_5f_minivan":   "$125", "tour_day.price_5f_minibus":   "$145",
+        "tour_day.price_7f_sedan":   "$75",  "tour_day.price_7f_suv":   "$100", "tour_day.price_7f_minivan":   "$140", "tour_day.price_7f_minibus":   "$160",
+        "tour_day.price_9f_sedan":   "$90",  "tour_day.price_9f_suv":   "$120", "tour_day.price_9f_minivan":   "$160", "tour_day.price_9f_minibus":   "$185",
+        "tour_day.price_badai_sedan":"$70",  "tour_day.price_badai_suv":"$115", "tour_day.price_badai_minivan":"$150","tour_day.price_badai_minibus":"$170",
+        "tour_day.price_nukus_sedan":"$70",  "tour_day.price_nukus_suv":"$110", "tour_day.price_nukus_minivan":"$150","tour_day.price_nukus_minibus":"$170",
+        "tour_day.price_nukus_miz_sedan":"$80","tour_day.price_nukus_miz_suv":"$130","tour_day.price_nukus_miz_minivan":"$170","tour_day.price_nukus_miz_minibus":"$190",
+        "tour_day.price_muynak_sedan":"$120","tour_day.price_muynak_suv":"$190","tour_day.price_muynak_minivan":"$255","tour_day.price_muynak_minibus":"$275",
+        "tour_day.price_nukus_fort_sedan":"$90","tour_day.price_nukus_fort_suv":"$140","tour_day.price_nukus_fort_minivan":"$175","tour_day.price_nukus_fort_minibus":"$195",
+
+        // --- ADMIN-EDITABLE TRANSFER PRICES ---
+        "transfers.price_railway_sedan":"$5",  "transfers.price_railway_suv":"$10",  "transfers.price_railway_minivan":"$15",  "transfers.price_railway_minibus":"$20",
+        "transfers.price_urgench_sedan":"$15", "transfers.price_urgench_suv":"$25",  "transfers.price_urgench_minivan":"$35",  "transfers.price_urgench_minibus":"$50",
+        "transfers.price_shavat_sedan": "$30", "transfers.price_shavat_suv": "$45",  "transfers.price_shavat_minivan": "$60",  "transfers.price_shavat_minibus": "$80",
+        "transfers.price_nukus_sedan":  "$60", "transfers.price_nukus_suv":  "$90",  "transfers.price_nukus_minivan":  "$130", "transfers.price_nukus_minibus":  "$150",
+        "transfers.price_bukhara_sedan":"$80", "transfers.price_bukhara_suv":"$130", "transfers.price_bukhara_minivan":"$190", "transfers.price_bukhara_minibus":"$210",
         "form.details_title": "Enter Your Contact Details & Booking",
         "form.full_name": "Full Name",
         "form.email": "Email Address",
@@ -886,7 +918,40 @@ const translations = {
         "menu.desc_wine": "Selection of local and imported beverages.",
         "menu.cocktail": "Cocktails",
         "menu.desc_cocktail": "Mojito, Gin Tonic, and other refreshing mixes.",
-        "menu.page_indicator": "Page of "
+        "menu.page_indicator": "Page of ",
+
+        // --- PAGE BANNERS & MAIN IMAGES ---
+        // Defaults are handled by style.css. When an admin uploads an image,
+        // it will be fetched from Firestore and applied dynamically.
+        "page.img_home_hero": "gallery10.jpg",
+        "page.img_about": "Things-to-do-in-Khiva-Travel-Guide.webp",
+        "page.img_rooms_hero": "gallery2.jpg",
+        "page.img_tours_hero": "khiva-city-tour-11.jpg",
+        "page.img_day_hero": "private_day_hero.jpg",
+        "page.img_transfer_hero": "private_transfer_hero.jpg",
+        "page.img_restaurant_hero": "rooftop-dining.png",
+        "page.img_gallery_hero": "galerry1.jpg",
+        // --- RESTAURANT MENU IMAGES ---
+        "menu.img_shivit": "shivit_oshi.jpg",
+        "menu.img_tuxum_barak": "tuxum_barak.jpg",
+        "menu.img_palov": "plov.jpg",
+        "menu.img_manti": "manti.jpg",
+        "menu.img_gumma": "gumma.jpg",
+        "menu.img_qapshirma": "qapshirma.jpg",
+        "menu.img_shashlik": "shashlik.jpg",
+        "menu.img_somsa": "somsa.jpg",
+        "menu.img_soup_barak": "soup_barak.jpg",
+        "menu.img_tefteli": "tefteli.jpg",
+        "menu.img_special_soup": "special_soup.jpg",
+        "menu.img_galubsi": "galubsi.jpg",
+        "menu.img_achichuk": "achichuk.jpg",
+        "menu.img_garden_salad": "garden_salad.jpg",
+        "menu.img_caesar": "caesar.jpg",
+        "menu.img_eggplant": "egplant salad.jpg",
+        "menu.img_tea": "Cups_of_green_and_black_tea_with_mint_on_rustic_table_1000x.webp",
+        "menu.img_juice": "Featured_Image_1_1.webp",
+        "menu.img_wine": "images (1).jpg",
+        "menu.img_cocktail": "images.jpg"
     },
 
 
@@ -2205,72 +2270,81 @@ function initLanguageSwitcher() {
     const langToggleBtn = document.getElementById('lang-toggle');
     const langDropdown = document.getElementById('lang-dropdown');
 
-    // Check saved language or default 'en'
+    // Check saved language or default 'en' — no longer reloads for English
     let currentLang = localStorage.getItem('selectedLang') || 'en';
     applyLanguage(currentLang);
 
     if (langToggleBtn && langDropdown) {
-        // Toggle Dropdown
         langToggleBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             langDropdown.classList.toggle('show');
         });
 
-        // Close when clicking outside
         document.addEventListener('click', (e) => {
             if (!langToggleBtn.contains(e.target) && !langDropdown.contains(e.target)) {
                 langDropdown.classList.remove('show');
             }
         });
 
-        // Handle Language Selection
-        const langLinks = langDropdown.querySelectorAll('a');
-        langLinks.forEach(link => {
+        langDropdown.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const lang = link.getAttribute('data-lang');
-
-                // If English is selected, reload the page to restore original HTML content
-                if (lang === 'en') {
-                    localStorage.setItem('selectedLang', 'en');
-                    location.reload();
-                    return;
-                }
-
-                currentLang = lang;
-                localStorage.setItem('selectedLang', lang);
-                applyLanguage(lang);
-                langDropdown.classList.remove('show'); // Close dropdown
+                currentLang = link.getAttribute('data-lang');
+                localStorage.setItem('selectedLang', currentLang);
+                applyLanguage(currentLang);
+                langDropdown.classList.remove('show');
             });
         });
     }
 }
 
 function applyLanguage(lang) {
-    const elements = document.querySelectorAll('[data-i18n]');
+    const t = translations[lang] || translations['en'];
 
-    elements.forEach(el => {
+    // 1. Text elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-            el.innerHTML = translations[lang][key];
+        const val = t[key];
+        if (val !== undefined) {
+            el.innerHTML = val;
+            el.removeAttribute('data-i18n-pending');
+        } else if (translations['en'] && translations['en'][key] !== undefined) {
+            el.innerHTML = translations['en'][key];
+            el.removeAttribute('data-i18n-pending');
         }
     });
 
-    // 2. Handle Placeholders (New)
-    const placeholders = document.querySelectorAll('[data-i18n-ph]');
-    placeholders.forEach(el => {
+    // 2. Placeholders
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
         const key = el.getAttribute('data-i18n-ph');
-        if (translations[lang] && translations[lang][key]) {
-            el.setAttribute('placeholder', translations[lang][key]);
+        const val = t[key] || (translations['en'] && translations['en'][key]);
+        if (val) el.setAttribute('placeholder', val);
+    });
+
+    // 3. Select Options
+    document.querySelectorAll('option[data-i18n-opt]').forEach(el => {
+        const key = el.getAttribute('data-i18n-opt');
+        const val = t[key] || (translations['en'] && translations['en'][key]);
+        if (val) el.innerText = val;
+    });
+
+    // 4. Image sources (data-i18n-src) — language-neutral, use 'en' key
+    document.querySelectorAll('[data-i18n-src]').forEach(el => {
+        const key = el.getAttribute('data-i18n-src');
+        const src = (translations['en'] && translations['en'][key]);
+        if (src) {
+            el.src = src;
+            el.removeAttribute('data-i18n-pending');
         }
     });
 
-    // 3. Handle Select Options (New) - for Rating
-    const options = document.querySelectorAll('option[data-i18n-opt]');
-    options.forEach(el => {
-        const key = el.getAttribute('data-i18n-opt');
-        if (translations[lang] && translations[lang][key]) {
-            el.innerText = translations[lang][key];
+    // 5. Background Images (data-i18n-bg) — language-neutral, use 'en' key
+    document.querySelectorAll('[data-i18n-bg]').forEach(el => {
+        const key = el.getAttribute('data-i18n-bg');
+        const src = (translations['en'] && translations['en'][key]);
+        if (src) {
+            el.style.backgroundImage = `url('${src}')`;
+            el.removeAttribute('data-i18n-pending');
         }
     });
 }
@@ -2293,17 +2367,299 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase (Safe Mode)
-let db = null; // Global db variable
+let db = null;
+let storage = null;
+let auth = null;
+
 if (typeof firebase !== 'undefined') {
     try {
-        firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
         console.log("Firebase Initialized");
         db = firebase.firestore();
+        if (typeof firebase.storage !== 'undefined') storage = firebase.storage();
+        if (typeof firebase.auth !== 'undefined') auth = firebase.auth();
     } catch (e) {
         console.error("Firebase Init Error:", e);
     }
 } else {
     console.log("Firebase SDK not found on this page. Skipping DB init.");
+}
+
+/* =================================================
+   FIRESTORE CONTENT OVERRIDES — loaded on every page
+   ================================================= */
+(function loadContentOverrides() {
+    if (!db) return;
+
+    // Mark all i18n elements as pending (skeleton state)
+    document.querySelectorAll('[data-i18n],[data-i18n-src]').forEach(el => {
+        el.setAttribute('data-i18n-pending', '1');
+    });
+
+    const TIMEOUT_MS = 4000;
+    let resolved = false;
+
+    // Fallback: if Firestore takes too long, apply local defaults
+    const fallbackTimer = setTimeout(() => {
+        if (!resolved) {
+            resolved = true;
+            const lang = localStorage.getItem('selectedLang') || 'en';
+            applyLanguage(lang);
+            console.warn('[Content] Firestore timeout — using local defaults.');
+        }
+    }, TIMEOUT_MS);
+
+    db.collection('settings').doc('custom_translations').get().then(docSnap => {
+        clearTimeout(fallbackTimer);
+        if (!resolved) {
+            resolved = true;
+            if (docSnap.exists) {
+                const overrides = docSnap.data();
+                // Merge overrides into every language in translations
+                ['en', 'uz', 'ru'].forEach(lang => {
+                    if (!translations[lang]) translations[lang] = {};
+                    Object.keys(overrides).forEach(key => {
+                        const val = overrides[key];
+                        // Value may be a direct string (image/price) or an object {en, uz, ru}
+                        if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
+                            if (val[lang] !== undefined) translations[lang][key] = val[lang];
+                        } else {
+                            // language-neutral key (e.g. image src)
+                            translations['en'][key] = val;
+                        }
+                    });
+                });
+                console.log('[Content] Firestore overrides applied:', Object.keys(overrides).length, 'keys');
+            } else {
+                console.log('[Content] No custom_translations doc found — using defaults.');
+            }
+            const lang = localStorage.getItem('selectedLang') || 'en';
+            applyLanguage(lang);
+        }
+    }).catch(err => {
+        clearTimeout(fallbackTimer);
+        if (!resolved) {
+            resolved = true;
+            console.error('[Content] Firestore fetch failed — using local defaults.', err);
+            const lang = localStorage.getItem('selectedLang') || 'en';
+            applyLanguage(lang);
+        }
+    });
+})();
+
+/* =================================================
+   ADMIN CONTENT EDITOR FUNCTIONS
+   ================================================= */
+
+/**
+ * Load current translation values into the visual editor form fields.
+ * Merges default translations with any Firestore overrides already in memory.
+ */
+async function loadAdminContentEditor() {
+    if (!db) return;
+    const docSnap = await db.collection('settings').doc('custom_translations').get().catch(() => null);
+    const overrides = docSnap && docSnap.exists ? docSnap.data() : {};
+
+    // Build effective values: default + overrides
+    const effective = {};
+    ['en','uz','ru'].forEach(lang => {
+        effective[lang] = Object.assign({}, translations[lang] || {});
+    });
+    Object.keys(overrides).forEach(key => {
+        const val = overrides[key];
+        if (typeof val === 'object' && val !== null) {
+            ['en','uz','ru'].forEach(lang => {
+                if (val[lang] !== undefined) effective[lang][key] = val[lang];
+            });
+        } else {
+            effective['en'][key] = val;
+        }
+    });
+
+    // Populate form fields that have data-edit-key attribute
+    document.querySelectorAll('[data-edit-key]').forEach(input => {
+        const key  = input.getAttribute('data-edit-key');
+        const lang = input.getAttribute('data-edit-lang') || 'en';
+        if (effective[lang] && effective[lang][key] !== undefined) {
+            input.value = effective[lang][key];
+        }
+    });
+
+    // Show "last saved" timestamp if available
+    if (overrides._savedAt) {
+        const el = document.getElementById('content-last-saved');
+        if (el) {
+            const d = overrides._savedAt.toDate ? overrides._savedAt.toDate() : new Date(overrides._savedAt);
+            el.textContent = 'Last saved: ' + d.toLocaleString() + (overrides._savedBy ? ' by ' + overrides._savedBy : '');
+        }
+    }
+}
+
+/**
+ * Save only the changed fields for the given category tab to Firestore.
+ * Also creates a backup before writing.
+ * @param {string} category - e.g. 'rooms', 'tours', 'homepage', 'dining'
+ */
+async function saveAdminContentOverrides(category) {
+    if (!db) { alert('Firebase not connected.'); return; }
+
+    const saveBtn = document.getElementById('content-save-btn');
+    const statusEl = document.getElementById('content-save-status');
+    if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Saving…'; }
+    if (statusEl) statusEl.textContent = '';
+
+    try {
+        const docRef = db.collection('settings').doc('custom_translations');
+
+        // 1. Back up current document before writing
+        const current = await docRef.get().catch(() => null);
+        if (current && current.exists) {
+            const ts = new Date().toISOString().replace(/[:.]/g, '-');
+            await db.collection('settings').doc('custom_translations_history').collection('backups').doc(ts)
+                .set(current.data()).catch(e => console.warn('Backup failed (non-fatal):', e));
+        }
+
+        // 2. Collect only the fields changed in the current category
+        const updates = {};
+        document.querySelectorAll(`[data-edit-key][data-edit-category="${category}"]`).forEach(input => {
+            const key  = input.getAttribute('data-edit-key');
+            const lang = input.getAttribute('data-edit-lang') || null;
+            const val  = input.value.trim();
+
+            if (lang) {
+                // Multi-lang field: store as nested object {en: ..., uz: ..., ru: ...}
+                if (!updates[key]) updates[key] = {};
+                updates[key][lang] = val;
+            } else {
+                // Language-neutral field (image src)
+                updates[key] = val;
+            }
+        });
+
+        // 3. Add audit metadata
+        const adminUser = auth && auth.currentUser ? auth.currentUser.email : 'admin';
+        updates._savedAt = firebase.firestore.FieldValue.serverTimestamp();
+        updates._savedBy = adminUser;
+
+        // 4. Partial update — only writes the touched fields
+        await docRef.set(updates, { merge: true });
+
+        // 5. Merge changes into live translations so page reflects instantly
+        Object.keys(updates).forEach(key => {
+            const val = updates[key];
+            if (typeof val === 'object' && val !== null && !val.toDate) {
+                ['en','uz','ru'].forEach(lang => {
+                    if (val[lang] !== undefined) {
+                        if (!translations[lang]) translations[lang] = {};
+                        translations[lang][key] = val[lang];
+                    }
+                });
+            } else if (typeof val === 'string') {
+                translations['en'][key] = val;
+            }
+        });
+        const activeLang = localStorage.getItem('selectedLang') || 'en';
+        applyLanguage(activeLang);
+
+        if (statusEl) statusEl.textContent = '✅ Saved successfully!';
+        if (statusEl) statusEl.style.color = '#27ae60';
+    } catch (err) {
+        console.error('[Admin] Save failed:', err);
+        if (statusEl) statusEl.textContent = '❌ Save failed: ' + err.message;
+        if (statusEl) statusEl.style.color = '#e74c3c';
+    } finally {
+        if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = 'Save Changes'; }
+    }
+}
+
+/**
+ * Upload an image file to Firebase Storage and update the corresponding input field.
+ * Validates type/size, compresses via canvas, deletes old file if any.
+ * @param {File} file - selected File object
+ * @param {string} inputId - id of the <input> whose value should be updated with the new URL
+ * @param {string} storageKey - the translation key used to look up any existing stored path
+ */
+async function uploadAdminImage(file, inputId, storageKey) {
+    const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+    const MAX_BYTES = 2 * 1024 * 1024; // 2MB
+
+    const statusEl = document.getElementById('img-upload-status-' + inputId);
+    const setStatus = (msg, color) => { if (statusEl) { statusEl.textContent = msg; statusEl.style.color = color || '#333'; } };
+
+    if (!storage) { setStatus('Firebase Storage not available.', '#e74c3c'); return; }
+    if (!ALLOWED_TYPES.includes(file.type)) { setStatus('❌ Invalid file type. Use JPG, PNG, or WebP.', '#e74c3c'); return; }
+    if (file.size > MAX_BYTES) { setStatus('❌ File too large (max 2MB). Please compress first.', '#e74c3c'); return; }
+
+    setStatus('⏳ Uploading…', '#e67e22');
+
+    try {
+        // Client-side compress via canvas
+        const compressedBlob = await compressImage(file, 1200, 0.85);
+        const ext = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg';
+        const filename = `site_images/${storageKey.replace(/\./g, '_')}_${Date.now()}.${ext}`;
+        const ref = storage.ref().child(filename);
+
+        // Delete old file if one exists for this key
+        const oldInputEl = document.getElementById(inputId);
+        const oldPath = oldInputEl && oldInputEl.getAttribute('data-storage-path');
+        if (oldPath) {
+            storage.ref().child(oldPath).delete().catch(() => {}); // non-fatal
+        }
+
+        // Upload new file
+        await ref.put(compressedBlob);
+        const downloadURL = await ref.getDownloadURL();
+
+        // Update input
+        const input = document.getElementById(inputId);
+        if (input) {
+            input.value = downloadURL;
+            input.setAttribute('data-storage-path', filename);
+        }
+        setStatus('✅ Uploaded!', '#27ae60');
+    } catch (err) {
+        console.error('[Admin] Image upload failed:', err);
+        setStatus('❌ Upload failed: ' + err.message, '#e74c3c');
+    }
+}
+
+/** Compress image to max width via canvas */
+function compressImage(file, maxWidth, quality) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+            const scale = Math.min(1, maxWidth / img.width);
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.round(img.width * scale);
+            canvas.height = Math.round(img.height * scale);
+            canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+            URL.revokeObjectURL(url);
+            canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('Canvas toBlob failed')),
+                file.type === 'image/png' ? 'image/png' : 'image/jpeg', quality);
+        };
+        img.onerror = reject;
+        img.src = url;
+    });
+}
+
+/** Restore the most recent backup for settings/custom_translations */
+async function restoreLastBackup() {
+    if (!db) return;
+    if (!confirm('Restore from the most recent backup? This will overwrite current settings.')) return;
+    try {
+        const backups = await db.collection('settings').doc('custom_translations_history')
+            .collection('backups').orderBy(firebase.firestore.FieldPath.documentId(), 'desc').limit(1).get();
+        if (backups.empty) { alert('No backup found.'); return; }
+        const backupData = backups.docs[0].data();
+        await db.collection('settings').doc('custom_translations').set(backupData);
+        alert('Restored from backup: ' + backups.docs[0].id);
+        loadAdminContentEditor();
+    } catch (err) {
+        alert('Restore failed: ' + err.message);
+    }
 }
 
 
@@ -2717,44 +3073,44 @@ const menuData = [
     {
         category_key: "menu.cat_national",
         items: [
-            { img: "shivit_oshi.jpg", title_key: "menu.shivit", desc_key: "menu.desc_shivit", price_key: "dining.shivit_price" },
-            { img: "tuxum_barak.jpg", title_key: "menu.tuxum_barak", desc_key: "menu.desc_tuxum_barak" },
-            { img: "plov.jpg", title_key: "menu.palov", desc_key: "menu.desc_palov", price_key: "dining.plov_price" },
-            { img: "manti.jpg", title_key: "menu.manti", desc_key: "menu.desc_manti" },
-            { img: "gumma.jpg", title_key: "menu.gumma", desc_key: "menu.desc_gumma" },
-            { img: "qapshirma.jpg", title_key: "menu.qapshirma", desc_key: "menu.desc_qapshirma" },
-            { img: "shashlik.jpg", title_key: "menu.shashlik", desc_key: "menu.desc_shashlik" },
-            { img: "somsa.jpg", title_key: "menu.somsa", desc_key: "menu.desc_somsa" }
+            { img_key: "menu.img_shivit", title_key: "menu.shivit", desc_key: "menu.desc_shivit", price_key: "dining.shivit_price" },
+            { img_key: "menu.img_tuxum_barak", title_key: "menu.tuxum_barak", desc_key: "menu.desc_tuxum_barak" },
+            { img_key: "menu.img_palov", title_key: "menu.palov", desc_key: "menu.desc_palov", price_key: "dining.plov_price" },
+            { img_key: "menu.img_manti", title_key: "menu.manti", desc_key: "menu.desc_manti" },
+            { img_key: "menu.img_gumma", title_key: "menu.gumma", desc_key: "menu.desc_gumma" },
+            { img_key: "menu.img_qapshirma", title_key: "menu.qapshirma", desc_key: "menu.desc_qapshirma" },
+            { img_key: "menu.img_shashlik", title_key: "menu.shashlik", desc_key: "menu.desc_shashlik" },
+            { img_key: "menu.img_somsa", title_key: "menu.somsa", desc_key: "menu.desc_somsa" }
         ]
     },
     // PAGE 2
     {
         category_key: "menu.cat_soups",
         items: [
-            { img: "soup_barak.jpg", title_key: "menu.soup_barak", desc_key: "menu.desc_soup_barak" },
-            { img: "tefteli.jpg", title_key: "menu.tefteli", desc_key: "menu.desc_tefteli" },
-            { img: "special_soup.jpg", title_key: "menu.special_soup", desc_key: "menu.desc_special_soup" },
-            { img: "galubsi.jpg", title_key: "menu.galubsi", desc_key: "menu.desc_galubsi" }
+            { img_key: "menu.img_soup_barak", title_key: "menu.soup_barak", desc_key: "menu.desc_soup_barak" },
+            { img_key: "menu.img_tefteli", title_key: "menu.tefteli", desc_key: "menu.desc_tefteli" },
+            { img_key: "menu.img_special_soup", title_key: "menu.special_soup", desc_key: "menu.desc_special_soup" },
+            { img_key: "menu.img_galubsi", title_key: "menu.galubsi", desc_key: "menu.desc_galubsi" }
         ]
     },
     // PAGE 3
     {
         category_key: "menu.cat_salads",
         items: [
-            { img: "achichuk.jpg", title_key: "menu.achichuk", desc_key: "menu.desc_achichuk" },
-            { img: "garden_salad.jpg", title_key: "menu.garden_salad", desc_key: "menu.desc_garden_salad" },
-            { img: "caesar.jpg", title_key: "menu.caesar", desc_key: "menu.desc_caesar" },
-            { img: "egplant salad.jpg", fallback_img: "eggplant.jpg", title_key: "menu.eggplant", desc_key: "menu.desc_eggplant" }
+            { img_key: "menu.img_achichuk", title_key: "menu.achichuk", desc_key: "menu.desc_achichuk" },
+            { img_key: "menu.img_garden_salad", title_key: "menu.garden_salad", desc_key: "menu.desc_garden_salad" },
+            { img_key: "menu.img_caesar", title_key: "menu.caesar", desc_key: "menu.desc_caesar" },
+            { img_key: "menu.img_eggplant", title_key: "menu.eggplant", desc_key: "menu.desc_eggplant" }
         ]
     },
     // PAGE 4
     {
         category_key: "menu.cat_drinks",
         items: [
-            { img: "Cups_of_green_and_black_tea_with_mint_on_rustic_table_1000x.webp", fallback_img: "tea.jpg", title_key: "menu.tea", desc_key: "menu.desc_tea" },
-            { img: "Featured_Image_1_1.webp", fallback_img: "juice.jpg", title_key: "menu.juice", desc_key: "menu.desc_juice" },
-            { img: "images (1).jpg", fallback_img: "wine.jpg", title_key: "menu.wine", desc_key: "menu.desc_wine" },
-            { img: "images.jpg", fallback_img: "cocktail.jpg", title_key: "menu.cocktail", desc_key: "menu.desc_cocktail" }
+            { img_key: "menu.img_tea", title_key: "menu.tea", desc_key: "menu.desc_tea" },
+            { img_key: "menu.img_juice", title_key: "menu.juice", desc_key: "menu.desc_juice" },
+            { img_key: "menu.img_wine", title_key: "menu.wine", desc_key: "menu.desc_wine" },
+            { img_key: "menu.img_cocktail", title_key: "menu.cocktail", desc_key: "menu.desc_cocktail" }
         ]
     }
 ];
@@ -2762,7 +3118,6 @@ const menuData = [
 function initScrollAndMenu() {
     /* --- 1. Global Scroll to Top Button --- */
     console.log("initScrollAndMenu started");
-    // alert("Code Updated: Dynamic Menu Active. Please wait for menu to load."); // Temporary check
 
     // Check if menuData exists
     if (typeof menuData === 'undefined') {
@@ -2800,7 +3155,7 @@ function initScrollAndMenu() {
 
         // Function to create HTML for a menu item
         function createMenuItem(item) {
-            let imgHtml = item.img ? `<img src="${item.img}" alt="Menu Item" onerror="this.src='${item.fallback_img || 'images/logo-placeholder.png'}'">` : '';
+            let imgHtml = item.img_key ? `<img data-i18n-src="${item.img_key}" alt="Menu Item">` : '';
             return `
                 <div class="menu-item-card">
                     ${imgHtml}
