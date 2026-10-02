@@ -169,61 +169,26 @@
             rooftop terrace for sunset/sunrise, free wifi and free parking around the house.</p>
     </section>
 
-    <!-- REVIEWS SECTION -->
-    <section class="reviews-section">
-        <h2 class="section-title" data-i18n="reviews.title">What Our Guests Say</h2>
-        <p class="section-subtitle" data-i18n="reviews.subtitle">Real experiences from travelers around the world</p>
-
-
-
-        <!-- Dynamic User Reviews (Loaded from JS) -->
-        <div id="dynamic-reviews-container" class="reviews-grid" style="margin-top: 20px;"></div>
-
-        <!-- Review Submission Form -->
-        <div class="review-form-container"
-            style="max-width: 600px; margin: 50px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
-            <h3 style="text-align: center; margin-bottom: 20px; color: #2c3e50;" data-i18n="reviews.write_title">Write a
-                Review</h3>
-            <form id="submission-review-form">
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label data-i18n="reviews.label_name"
-                        style="display:block; margin-bottom:5px; font-weight:600;">Your Name</label>
-                    <input type="text" id="review-name" required placeholder="John Doe" data-i18n-ph="reviews.ph_name"
-                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+    <!-- Google Reviews CTA -->
+    <section class="reviews-section" id="reviews">
+        <div class="container" style="max-width: 800px; margin: 0 auto;">
+            <div class="review-cta-card">
+                <div class="review-cta-icon">
+                    <i class="fa-brands fa-google"></i>
                 </div>
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label data-i18n="reviews.label_rating"
-                        style="display:block; margin-bottom:5px; font-weight:600;">Rating</label>
-                    <select id="review-rating"
-                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
-                        <option value="5" data-i18n-opt="reviews.opt_excellent">⭐⭐⭐⭐⭐ (Excellent)</option>
-                        <option value="4" data-i18n-opt="reviews.opt_good">⭐⭐⭐⭐ (Good)</option>
-                        <option value="3" data-i18n-opt="reviews.opt_average">⭐⭐⭐ (Average)</option>
-                        <option value="2" data-i18n-opt="reviews.opt_poor">⭐⭐ (Poor)</option>
-                        <option value="1" data-i18n-opt="reviews.opt_terrible">⭐ (Terrible)</option>
-                    </select>
+                <h2 data-i18n="reviews.title">Share Your Experience</h2>
+                <p class="review-cta-text" data-i18n="reviews.cta_text">Enjoyed your stay? We'd love to hear about your experience.<br>Your feedback helps fellow travelers discover Khiva.</p>
+                <div class="review-cta-stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
                 </div>
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label data-i18n="reviews.label_comment"
-                        style="display:block; margin-bottom:5px; font-weight:600;">Your Review</label>
-                    <textarea id="review-text" rows="4" required placeholder="Share your experience..."
-                        data-i18n-ph="reviews.ph_comment"
-                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit;"></textarea>
-                </div>
-                <!-- Photo Upload Section -->
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label data-i18n="reviews.label_photo"
-                        style="display:block; margin-bottom:5px; font-weight:600;">Attach Photo (Optional)</label>
-                    <input type="file" id="review-photo" accept="image/*"
-                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; background: #f9f9f9;">
-                    <div id="review-photo-preview" style="margin-top: 10px; display: none;">
-                        <img id="preview-img" src="" alt="Preview"
-                            style="max-width: 100px; max-height: 100px; border-radius: 4px; border: 1px solid #ddd; object-fit: cover;">
-                    </div>
-                </div>
-                <button type="submit" class="btn" style="width: 100%; border: none; cursor: pointer;"
-                    data-i18n="reviews.btn_submit">Submit Review</button>
-            </form>
+                <a href="https://g.page/r/CWUwhtX0N9CjEBM/review" class="btn-cta" target="_blank">
+                    <i class="fa-brands fa-google"></i> <span data-i18n="reviews.btn_google">Leave a Review on Google</span>
+                </a>
+            </div>
         </div>
     </section>
 

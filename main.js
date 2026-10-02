@@ -441,6 +441,8 @@ const translations = {
         "reviews.title": "What Our Guests Say",
         "reviews.subtitle": "Real experiences from travelers around the world",
         "reviews.write_title": "Write a Review",
+        "reviews.cta_text": "Enjoyed your stay? We'd love to hear about your experience.<br>Your feedback helps fellow travelers discover Khiva.",
+        "reviews.btn_google": "Leave a Review on Google",
         "reviews.label_name": "Your Name",
         "reviews.label_rating": "Rating",
         "reviews.label_comment": "Your Review",
@@ -1299,6 +1301,8 @@ const translations = {
         "reviews.title": "Mehmonlarimiz Fikri",
         "reviews.subtitle": "Dunyo bo'ylab sayyohlarning haqiqiy taassurotlari",
         "reviews.write_title": "Izoh Qoldirish",
+        "reviews.cta_text": "Mehmonxonamiz sizga yoqdimi? Taassurotlaringiz bilan o'rtoqlashing.<br>Fikringiz boshqa sayohatchilarga Xivani kashf qilishga yordam beradi.",
+        "reviews.btn_google": "Google'da izoh qoldirish",
         "reviews.label_name": "Ismingiz",
         "reviews.label_rating": "Baholash",
         "reviews.label_comment": "Sizning Fikringiz",
@@ -1810,6 +1814,8 @@ const translations = {
         "reviews.title": "Отзывы Гостей",
         "reviews.subtitle": "Реальные впечатления путешественников со всего мира",
         "reviews.write_title": "Написать Отзыв",
+        "reviews.cta_text": "Понравилось у нас? Будем рады, если поделитесь своими впечатлениями.<br>Ваш отзыв поможет другим путешественникам открыть для себя Хиву.",
+        "reviews.btn_google": "Оставить отзыв в Google",
         "reviews.label_name": "Ваше Имя",
         "reviews.label_rating": "Рейтинг",
         "reviews.label_comment": "Ваш Отзыв",
@@ -2670,103 +2676,25 @@ function initReviews() {
     // If db is not initialized, we can't do reviews
     if (!db) return;
 
-    // 1. Handle Photo Preview
-    const photoInput = document.getElementById('review-photo');
-    const photoPreview = document.getElementById('review-photo-preview');
-    const previewImg = document.getElementById('preview-img');
-
-    if (photoInput && photoPreview && previewImg) {
-        photoInput.addEventListener('change', function () {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    previewImg.src = e.target.result;
-                    photoPreview.style.display = 'block';
-                }
-                reader.readAsDataURL(file);
-            } else {
-                photoPreview.style.display = 'none';
-                previewImg.src = '';
-            }
-        });
-    }
-
-    // 2. Handle Review Submission
-    const reviewForm = document.getElementById('submission-review-form');
-    if (reviewForm) {
-        reviewForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('review-name').value;
-            const rating = document.getElementById('review-rating').value;
-            const text = document.getElementById('review-text').value;
-            const submitBtn = reviewForm.querySelector('button[type="submit"]');
-
-            // Helper to save review
-            const processReview = (imageBase64) => {
-                if (submitBtn) {
-                    submitBtn.disabled = true;
-                    submitBtn.textContent = "Sending...";
-                }
-
-                const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&color=fff&rounded=true&size=128`;
-
-                const newReview = {
-                    name,
-                    rating: parseInt(rating),
-                    text,
-                    date: new Date().toLocaleDateString('ru-RU'), // Fixed format: DD.MM.YYYY
-                    avatar: avatarUrl,
-                    image: imageBase64 || null,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp() // Order by time
-                };
-
-                // Add to Firestore 'approved_reviews' (Public Immediately)
-                db.collection("approved_reviews").add(newReview)
-                    .then((docRef) => {
-                        console.log("Review written with ID: ", docRef.id);
-                        // Localized Success Message
-                        const currentLang = localStorage.getItem('selectedLang') || 'en';
-                        alert(translations[currentLang]?.['reviews.alert_success'] || translations['en']['reviews.alert_success']);
-                        reviewForm.reset();
-                        if (photoPreview) photoPreview.style.display = 'none';
-                        loadReviews(); // Refresh the list immediately
-                    })
-                    .catch((error) => {
-                        console.error("Error adding review: ", error);
-                        const currentLang = localStorage.getItem('selectedLang') || 'en';
-                        alert(translations[currentLang]?.['reviews.alert_error'] || translations['en']['reviews.alert_error']);
-                    })
-                    .finally(() => {
-                        if (submitBtn) {
-                            submitBtn.disabled = false;
-                            submitBtn.textContent = submitBtn.getAttribute('data-i18n') === 'reviews.btn_submit' ? "Submit Review" : "Yuborish";
-                        }
-                    });
-            };
-
-            // Check for file
-            if (photoInput && photoInput.files && photoInput.files[0]) {
-                const file = photoInput.files[0];
-                if (file.size > 1 * 1024 * 1024) { // 1MB Limit
-                    alert("Image file is too large (Max 1MB).");
-                    return;
-                }
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    processReview(e.target.result);
-                };
-                reader.onerror = function () {
-                    alert("Error reading file");
-                };
-                reader.readAsDataURL(file);
-            } else {
-                processReview(null);
-            }
-        });
-    }
-
+    // Load reviews on initial load
     loadReviews();
+
+    // Setup Carousel Navigation
+    const track = document.getElementById('dynamic-reviews-container');
+    const prevBtn = document.getElementById('reviews-prev');
+    const nextBtn = document.getElementById('reviews-next');
+
+    if (track && prevBtn && nextBtn) {
+        const scrollAmount = 370; // Approximated card width + gap
+        
+        prevBtn.addEventListener('click', () => {
+            track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+    }
 }
 
 function loadReviews() {
@@ -2782,24 +2710,40 @@ function loadReviews() {
             }
             querySnapshot.forEach((doc) => {
                 const review = doc.data();
-                const stars = '<i class="fas fa-star"></i>'.repeat(review.rating);
-                const userAvatar = review.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(review.name)}&background=random&color=fff&rounded=true`;
+                // Google format: 5 stars (with empty stars for below 5)
+                const starsHtml = '<i class="fas fa-star"></i>'.repeat(review.rating) + '<i class="far fa-star"></i>'.repeat(5 - review.rating);
+                // Standard Google generic avatar or custom
+                const userAvatar = review.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(review.name)}&background=random&color=fff&rounded=true&size=128`;
 
                 const uploadedImage = review.image
-                    ? `<div class="review-image-container" style="margin-bottom:10px; border-radius:8px; overflow:hidden;">
-                     <img src="${review.image}" alt="Review Photo" style="width:auto; max-width:100%; height:150px; object-fit:cover; display:block; border-radius: 4px;">
-                   </div>`
+                    ? `<div class="review-image-container">
+                         <img src="${review.image}" alt="Review Photo">
+                       </div>`
                     : '';
 
                 const card = document.createElement('div');
-                card.className = 'review-card';
+                card.className = 'google-review-card';
                 card.innerHTML = `
-                <div class="review-stars">${stars}</div>
-                ${uploadedImage}
-                <p class="review-text">"${review.text}"</p>
-                <div class="review-author">
-                    <img src="${userAvatar}" alt="${review.name}" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
-                    <span>${review.name}</span> <span style="font-size: 0.8em; color: #888; font-weight: normal; margin-left:5px;">&bull; ${review.date}</span>
+                <div>
+                    <div class="review-card-header">
+                        <img src="${userAvatar}" alt="${review.name}" class="review-avatar">
+                        <div class="review-author-info">
+                            <h4 class="review-author-name">${review.name}</h4>
+                            <p class="review-date">${review.date}</p>
+                        </div>
+                    </div>
+                    <div class="review-stars">${starsHtml}</div>
+                    ${uploadedImage}
+                    <p class="review-text">"${review.text}"</p>
+                </div>
+                <div class="google-attr">
+                    <svg viewBox="0 0 48 48" width="16" height="16">
+                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                    </svg>
+                    <span>Posted on Google</span>
                 </div>
             `;
                 container.appendChild(card);
