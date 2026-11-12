@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,10 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meros B&B - Rooms</title>
     <title>Meros B&B - Accommodation</title>
-    <link rel="icon" type="image/png" href="logo-v2.png">
+    <link rel="icon" type="image/png" href="images/logo-v2.png">
     <meta name="description"
         content="Choose from our range of comfortable double, twin, and triple rooms. Authentic Khiva style with modern amenities. Book directly for the best rates.">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=5.8">
 </head>
 
 <body>
@@ -29,7 +29,7 @@
             <div class="logo">
                 <a href="index.html"
                     style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
-                    <img src="logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
+                    <img src="images/logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
                     <span>Meros B&B</span>
                 </a>
             </div>
@@ -75,7 +75,7 @@
         <div class="rooms-container">
             <a href="double.html" class="room-card-link">
                 <div class="room-card">
-                    <img src="doubleroom1.jpg" data-i18n-src="rooms.img_double" data-i18n-pending="1" alt="Double Room">
+                    <img src="images/doubleroom1.jpg" data-i18n-src="rooms.img_double" data-i18n-pending="1" alt="Double Room">
                     <h3 data-i18n="rooms.double_title">Double Room</h3>
                     <span class="price"><span data-i18n="rooms.price_double" data-i18n-pending="1">$50 / $35 (Single)</span>/<span
                             data-i18n="rooms.per_night">night</span></span>
@@ -84,7 +84,7 @@
 
             <a href="twin.html" class="room-card-link">
                 <div class="room-card">
-                    <img src="twinroom1.jpg" data-i18n-src="rooms.img_twin" data-i18n-pending="1" alt="Twin Room">
+                    <img src="images/twinroom1.jpg" data-i18n-src="rooms.img_twin" data-i18n-pending="1" alt="Twin Room">
                     <h3 data-i18n="rooms.twin_title">Twin Room</h3>
                     <span class="price"><span data-i18n="rooms.price_twin" data-i18n-pending="1">$50 / $35 (Single)</span>/<span
                             data-i18n="rooms.per_night">night</span></span>
@@ -92,7 +92,7 @@
             </a>
             <a href="triple.html" class="room-card-link">
                 <div class="room-card">
-                    <img src="tripleroom1.jpg" data-i18n-src="rooms.img_triple" data-i18n-pending="1" alt="Triple Room">
+                    <img src="images/tripleroom1.jpg" data-i18n-src="rooms.img_triple" data-i18n-pending="1" alt="Triple Room">
                     <h3 data-i18n="rooms.triple_title">Triple Room</h3>
                     <span class="price"><span data-i18n="rooms.price_triple" data-i18n-pending="1">$80 / $60 (Double) / $40 (Single)</span>/<span
                             data-i18n="rooms.per_night">night</span></span>
@@ -101,7 +101,7 @@
 
             <a href="Tbalcony.html" class="room-card-link">
                 <div class="room-card">
-                    <img src="twinbalcony1.jpg" data-i18n-src="rooms.img_twin_balcony" data-i18n-pending="1" alt="Twin Balcony Room">
+                    <img src="images/twinbalcony1.jpg" data-i18n-src="rooms.img_twin_balcony" data-i18n-pending="1" alt="Twin Balcony Room">
                     <h3 data-i18n="rooms.twin_balcony_title">Twin Balcony Room</h3>
                     <span class="price"><span data-i18n="rooms.price_twin_balcony" data-i18n-pending="1">$60 / $45 (Single)</span>/<span
                             data-i18n="rooms.per_night">night</span></span>
@@ -109,7 +109,7 @@
             </a>
             <a href="Dbalcony.html" class="room-card-link">
                 <div class="room-card">
-                    <img src="Dbalcony.jpg" data-i18n-src="rooms.img_double_balcony" data-i18n-pending="1" alt="Double Balcony Room">
+                    <img src="images/Dbalcony.jpg" data-i18n-src="rooms.img_double_balcony" data-i18n-pending="1" alt="Double Balcony Room">
                     <h3 data-i18n="rooms.double_balcony_title">Double Balcony Room</h3>
                     <span class="price"><span data-i18n="rooms.price_double_balcony" data-i18n-pending="1">$60 / $45 (Single)</span>/<span
                             data-i18n="rooms.per_night">night</span></span>
@@ -290,7 +290,13 @@
                 <a href="tel:+998943153700"><i class="fas fa-phone-alt"></i> +998 94 315 37 00</a>
                 <a href="tel:+998887903293"><i class="fas fa-phone-alt"></i> +998 88 790 32 93</a>
             </div>
-
+<div class="payment-methods-box">
+                <div class="pm-icon"><i class="fas fa-credit-card"></i></div>
+                <div class="pm-text">
+                    <span class="pm-title" data-i18n="footer.payment_accepted">Accepted payment methods</span>
+                    <div class="pm-cards"><img src="images/visa.svg?v=5.8" alt="Visa" class="pm-card-logo"><img src="images/mastercard.svg" alt="Mastercard" class="pm-card-logo"><span class="pm-cash" data-i18n="footer.payment_cash">Cash</span></div>
+                </div>
+            </div>
             <div class="copyright" data-i18n="footer.copyright">
                 &copy; 2026 Meros B&B. All Rights Reserved.
             </div>
@@ -308,8 +314,16 @@
     </script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="main.js"></script>
+    <script src="main.js?v=5.8"></script>
 
 </body>
 
 </html>
+
+
+
+
+
+
+
+

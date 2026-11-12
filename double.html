@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,8 +15,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Standard Room - Meros B&B</title>
-    <link rel="icon" type="image/png" href="logo-v2.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/logo-v2.png">
+    <link rel="stylesheet" href="style.css?v=5.8">
 
 </head>
 
@@ -30,7 +30,7 @@
             <div class="logo">
                 <a href="index.html"
                     style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
-                    <img src="logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
+                    <img src="images/logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
                     <span>Meros B&B</span>
                 </a>
             </div>
@@ -78,7 +78,7 @@
         <h2>Double Room Details</h2>
 
         <div class="room-detail-container">
-            <img src="doubleroom1.jpg" data-i18n-src="rooms.img_double_detail" data-i18n-pending="1"
+            <img src="images/doubleroom1.jpg" data-i18n-src="rooms.img_double_detail" data-i18n-pending="1"
                 alt="Large Double Room Image" class="main-room-image">
 
             <div class="room-info">
@@ -106,9 +106,9 @@
         </div>
 
         <div class="gallery-container">
-            <img src="doubleroom2.jpg" alt="Traditional Uzbek Room Interior" class="gallery-image">
-            <img src="doubleroom5.jpg" alt="Room Detail View" class="gallery-image">
-            <img src="doubleroom4.jpg" alt="Room Detail View" class="gallery-image">
+            <img src="images/doubleroom2.jpg" alt="Traditional Uzbek Room Interior" class="gallery-image">
+            <img src="images/doubleroom5.jpg" alt="Room Detail View" class="gallery-image">
+            <img src="images/doubleroom4.jpg" alt="Room Detail View" class="gallery-image">
         </div>
 
     </section>
@@ -308,7 +308,13 @@
                 <a href="tel:+998943153700"><i class="fas fa-phone-alt"></i> +998 94 315 37 00</a>
                 <a href="tel:+998887903293"><i class="fas fa-phone-alt"></i> +998 88 790 32 93</a>
             </div>
-
+<div class="payment-methods-box">
+                <div class="pm-icon"><i class="fas fa-credit-card"></i></div>
+                <div class="pm-text">
+                    <span class="pm-title" data-i18n="footer.payment_accepted">Accepted payment methods</span>
+                    <div class="pm-cards"><img src="images/visa.svg?v=5.8" alt="Visa" class="pm-card-logo"><img src="images/mastercard.svg" alt="Mastercard" class="pm-card-logo"><span class="pm-cash" data-i18n="footer.payment_cash">Cash</span></div>
+                </div>
+            </div>
             <div class="copyright" data-i18n="footer.copyright">
                 &copy; 2026 Meros B&B. All Rights Reserved.
             </div>
@@ -320,7 +326,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="main.js"></script>
+    <script src="main.js?v=5.8"></script>
 
 
 
@@ -328,3 +334,11 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+

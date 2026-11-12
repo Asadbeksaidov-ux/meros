@@ -166,9 +166,18 @@ const TRANSLATION_KEYS = [
   { key: 'menu.img_achichuk',       label: 'Achichuk – Image',       type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
   { key: 'menu.img_garden_salad',   label: 'Garden Salad – Image',   type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
   { key: 'menu.img_caesar',         label: 'Caesar Salad – Image',   type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
+  { key: 'menu.img_salad_beef',     label: 'Beef Salad – Image',     type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
+  { key: 'menu.img_salad_beetroot', label: 'Beetroot Salad – Image', type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
+  { key: 'menu.img_salad_vitamin',  label: 'Vitamin Salad – Image',  type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
+  { key: 'menu.img_cabbage_salad',  label: 'Cabbage Salad – Image',  type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
+  { key: 'menu.img_olivier_salad',  label: 'Olivier Salad – Image',  type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
+  { key: 'menu.img_shuba_salad',    label: 'Shuba Salad – Image',    type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
   { key: 'menu.img_eggplant',       label: 'Eggplant Salad – Image', type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
+  { key: 'menu.img_rice',           label: 'Boiled Rice – Image',    type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
   { key: 'menu.img_tea',            label: 'Tea – Image',            type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
+  { key: 'menu.img_coffee',         label: 'Coffee – Image',         type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
   { key: 'menu.img_juice',          label: 'Juice – Image',          type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
+  { key: 'menu.img_cold_drinks',    label: 'Cold Drinks – Image',    type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
   { key: 'menu.img_wine',           label: 'Wine – Image',           type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
   { key: 'menu.img_cocktail',       label: 'Cocktail – Image',       type: 'image', editable: true, langs: [], category: 'dining', group: 'Menu Items', pages: ['restaurant.html'] },
 
@@ -219,6 +228,27 @@ const TRANSLATION_KEYS = [
 
   { key: 'menu.caesar',             label: 'Caesar Salad – Title',      type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
   { key: 'menu.desc_caesar',        label: 'Caesar Salad – Desc',       type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+  
+  { key: 'menu.salad_beef',         label: 'Beef Salad – Title',        type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+  { key: 'menu.desc_salad_beef',    label: 'Beef Salad – Desc',         type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+
+  { key: 'menu.salad_beetroot',     label: 'Beetroot Salad – Title',    type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+  { key: 'menu.desc_salad_beetroot',label: 'Beetroot Salad – Desc',     type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+
+  { key: 'menu.salad_vitamin',      label: 'Vitamin Salad – Title',     type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+  { key: 'menu.desc_salad_vitamin', label: 'Vitamin Salad – Desc',      type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+
+  { key: 'menu.cabbage_salad',      label: 'Cabbage Salad – Title',     type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+  { key: 'menu.desc_cabbage_salad', label: 'Cabbage Salad – Desc',      type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+
+  { key: 'menu.olivier_salad',      label: 'Olivier Salad – Title',     type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+  { key: 'menu.desc_olivier_salad', label: 'Olivier Salad – Desc',      type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+
+  { key: 'menu.shuba_salad',        label: 'Shuba Salad – Title',       type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+  { key: 'menu.desc_shuba_salad',   label: 'Shuba Salad – Desc',        type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+
+  { key: 'menu.rice',               label: 'Boiled Rice – Title',       type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+  { key: 'menu.desc_rice',          label: 'Boiled Rice – Desc',        type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
 
   { key: 'menu.eggplant',           label: 'Eggplant Salad – Title',    type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
   { key: 'menu.desc_eggplant',      label: 'Eggplant Salad – Desc',     type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
@@ -226,8 +256,14 @@ const TRANSLATION_KEYS = [
   { key: 'menu.tea',                label: 'Tea – Title',               type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
   { key: 'menu.desc_tea',           label: 'Tea – Desc',                type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
 
+  { key: 'menu.coffee',             label: 'Coffee – Title',            type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+  { key: 'menu.desc_coffee',        label: 'Coffee – Desc',             type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+
   { key: 'menu.juice',              label: 'Juice – Title',             type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
   { key: 'menu.desc_juice',         label: 'Juice – Desc',              type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+
+  { key: 'menu.cold_drinks',        label: 'Cold Drinks – Title',       type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
+  { key: 'menu.desc_cold_drinks',   label: 'Cold Drinks – Desc',        type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
 
   { key: 'menu.wine',               label: 'Wine – Title',              type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },
   { key: 'menu.desc_wine',          label: 'Wine – Desc',               type: 'text', editable: true, langs: ['en','uz','ru'], category: 'dining', group: 'Menu Content', pages: ['restaurant.html'] },

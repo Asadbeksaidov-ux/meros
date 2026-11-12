@@ -1,4 +1,39 @@
 /* =================================================
+   IMAGE PATH NORMALIZER & FALLBACK HANDLER
+   ================================================= */
+function fixImgPath(p) {
+    if (!p || typeof p !== 'string') return p;
+    p = p.trim();
+    if (p.startsWith('http://') || p.startsWith('https://') || p.startsWith('data:') || p.startsWith('images/') || p.startsWith('/images/')) {
+        return p;
+    }
+    return 'images/' + p;
+}
+
+// XSS Sanitizer: safely escape user-generated HTML content
+function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+// Auto-recover any image that fails to load if it was requested without 'images/' prefix
+window.addEventListener('error', function (e) {
+    if (e.target && e.target.tagName === 'IMG') {
+        const img = e.target;
+        const currentSrc = img.getAttribute('src');
+        if (currentSrc && !currentSrc.startsWith('images/') && !currentSrc.startsWith('http') && !currentSrc.startsWith('data:') && !img.dataset.retried) {
+            img.dataset.retried = 'true';
+            img.src = 'images/' + currentSrc.split('/').pop();
+        }
+    }
+}, true);
+
+/* =================================================
    EMAILJS INITIALIZATION
    ================================================= */
 (function () {
@@ -415,6 +450,8 @@ const translations = {
         "about_main.p2": "Saadulla Matkarimov (1936-1993) father of the owner Kuranbay Matkarimov, worked for more than 20 years on the restoration of Khiva during the Soviet Union. Kuranbay Matkarimov (1957-2018), was a master of pattern design and restoration. He worked on restoration projects in the World Heritage centres of Khiva, Bukhara and Shaxrisabz. He was chief restorer of the decorated ceilings of Khiva. The ceilings in the MEROS guest rooms and verandahs are painted in this classical Khorezmian style.",
         "map.full_address": "<strong>Meros B&B</strong><br>A. Boltaev Street 57, Ichan Kala<br>Khiva, Uzbekistan",
         "footer.copyright": "© " + new Date().getFullYear() + " Meros B&B. All Rights Reserved.",
+        "footer.payment_accepted": "Accepted payment methods",
+        "footer.payment_cash": "Cash",
 
         // ROOM DETAILS GENERICS
         "detail.price_prefix": "Price:",
@@ -808,38 +845,38 @@ const translations = {
         "rooms.per_night": "night",
 
         // --- ADMIN-EDITABLE ROOM PRICES (list page) ---
-        "rooms.price_double":         "$50 / $35 (Single)",
-        "rooms.price_twin":           "$50 / $35 (Single)",
-        "rooms.price_triple":         "$80 / $60 (Double) / $40 (Single)",
-        "rooms.price_twin_balcony":   "$60 / $45 (Single)",
+        "rooms.price_double": "$50 / $35 (Single)",
+        "rooms.price_twin": "$50 / $35 (Single)",
+        "rooms.price_triple": "$80 / $60 (Double) / $40 (Single)",
+        "rooms.price_twin_balcony": "$60 / $45 (Single)",
         "rooms.price_double_balcony": "$60 / $45 (Single)",
 
 
         // --- ADMIN-EDITABLE ROOM COVER IMAGES (data-i18n-src) ---
-        "rooms.img_double": "doubleroom1.jpg",
-        "rooms.img_twin": "twinroom1.jpg",
-        "rooms.img_triple": "tripleroom1.jpg",
-        "rooms.img_twin_balcony": "twinbalcony1.jpg",
-        "rooms.img_double_balcony": "Dbalcony.jpg",
+        "rooms.img_double": "images/doubleroom1.jpg",
+        "rooms.img_twin": "images/twinroom1.jpg",
+        "rooms.img_triple": "images/tripleroom1.jpg",
+        "rooms.img_twin_balcony": "images/twinbalcony1.jpg",
+        "rooms.img_double_balcony": "images/Dbalcony.jpg",
 
 
         // --- ADMIN-EDITABLE DAY TRIP PRICES ---
-        "tour_day.price_3f_sedan":   "$50",  "tour_day.price_3f_suv":   "$80",  "tour_day.price_3f_minivan":   "$105", "tour_day.price_3f_minibus":   "$115",
-        "tour_day.price_5f_sedan":   "$65",  "tour_day.price_5f_suv":   "$90",  "tour_day.price_5f_minivan":   "$125", "tour_day.price_5f_minibus":   "$145",
-        "tour_day.price_7f_sedan":   "$75",  "tour_day.price_7f_suv":   "$100", "tour_day.price_7f_minivan":   "$140", "tour_day.price_7f_minibus":   "$160",
-        "tour_day.price_9f_sedan":   "$90",  "tour_day.price_9f_suv":   "$120", "tour_day.price_9f_minivan":   "$160", "tour_day.price_9f_minibus":   "$185",
-        "tour_day.price_badai_sedan":"$70",  "tour_day.price_badai_suv":"$115", "tour_day.price_badai_minivan":"$150","tour_day.price_badai_minibus":"$170",
-        "tour_day.price_nukus_sedan":"$70",  "tour_day.price_nukus_suv":"$110", "tour_day.price_nukus_minivan":"$150","tour_day.price_nukus_minibus":"$170",
-        "tour_day.price_nukus_miz_sedan":"$80","tour_day.price_nukus_miz_suv":"$130","tour_day.price_nukus_miz_minivan":"$170","tour_day.price_nukus_miz_minibus":"$190",
-        "tour_day.price_muynak_sedan":"$120","tour_day.price_muynak_suv":"$190","tour_day.price_muynak_minivan":"$255","tour_day.price_muynak_minibus":"$275",
-        "tour_day.price_nukus_fort_sedan":"$90","tour_day.price_nukus_fort_suv":"$140","tour_day.price_nukus_fort_minivan":"$175","tour_day.price_nukus_fort_minibus":"$195",
+        "tour_day.price_3f_sedan": "$50", "tour_day.price_3f_suv": "$80", "tour_day.price_3f_minivan": "$105", "tour_day.price_3f_minibus": "$115",
+        "tour_day.price_5f_sedan": "$65", "tour_day.price_5f_suv": "$90", "tour_day.price_5f_minivan": "$125", "tour_day.price_5f_minibus": "$145",
+        "tour_day.price_7f_sedan": "$75", "tour_day.price_7f_suv": "$100", "tour_day.price_7f_minivan": "$140", "tour_day.price_7f_minibus": "$160",
+        "tour_day.price_9f_sedan": "$90", "tour_day.price_9f_suv": "$120", "tour_day.price_9f_minivan": "$160", "tour_day.price_9f_minibus": "$185",
+        "tour_day.price_badai_sedan": "$70", "tour_day.price_badai_suv": "$115", "tour_day.price_badai_minivan": "$150", "tour_day.price_badai_minibus": "$170",
+        "tour_day.price_nukus_sedan": "$70", "tour_day.price_nukus_suv": "$110", "tour_day.price_nukus_minivan": "$150", "tour_day.price_nukus_minibus": "$170",
+        "tour_day.price_nukus_miz_sedan": "$80", "tour_day.price_nukus_miz_suv": "$130", "tour_day.price_nukus_miz_minivan": "$170", "tour_day.price_nukus_miz_minibus": "$190",
+        "tour_day.price_muynak_sedan": "$120", "tour_day.price_muynak_suv": "$190", "tour_day.price_muynak_minivan": "$255", "tour_day.price_muynak_minibus": "$275",
+        "tour_day.price_nukus_fort_sedan": "$90", "tour_day.price_nukus_fort_suv": "$140", "tour_day.price_nukus_fort_minivan": "$175", "tour_day.price_nukus_fort_minibus": "$195",
 
         // --- ADMIN-EDITABLE TRANSFER PRICES ---
-        "transfers.price_railway_sedan":"$5",  "transfers.price_railway_suv":"$10",  "transfers.price_railway_minivan":"$15",  "transfers.price_railway_minibus":"$20",
-        "transfers.price_urgench_sedan":"$15", "transfers.price_urgench_suv":"$25",  "transfers.price_urgench_minivan":"$35",  "transfers.price_urgench_minibus":"$50",
-        "transfers.price_shavat_sedan": "$30", "transfers.price_shavat_suv": "$45",  "transfers.price_shavat_minivan": "$60",  "transfers.price_shavat_minibus": "$80",
-        "transfers.price_nukus_sedan":  "$60", "transfers.price_nukus_suv":  "$90",  "transfers.price_nukus_minivan":  "$130", "transfers.price_nukus_minibus":  "$150",
-        "transfers.price_bukhara_sedan":"$80", "transfers.price_bukhara_suv":"$130", "transfers.price_bukhara_minivan":"$190", "transfers.price_bukhara_minibus":"$210",
+        "transfers.price_railway_sedan": "$5", "transfers.price_railway_suv": "$10", "transfers.price_railway_minivan": "$15", "transfers.price_railway_minibus": "$20",
+        "transfers.price_urgench_sedan": "$15", "transfers.price_urgench_suv": "$25", "transfers.price_urgench_minivan": "$35", "transfers.price_urgench_minibus": "$50",
+        "transfers.price_shavat_sedan": "$30", "transfers.price_shavat_suv": "$45", "transfers.price_shavat_minivan": "$60", "transfers.price_shavat_minibus": "$80",
+        "transfers.price_nukus_sedan": "$60", "transfers.price_nukus_suv": "$90", "transfers.price_nukus_minivan": "$130", "transfers.price_nukus_minibus": "$150",
+        "transfers.price_bukhara_sedan": "$80", "transfers.price_bukhara_suv": "$130", "transfers.price_bukhara_minivan": "$190", "transfers.price_bukhara_minibus": "$210",
         "form.details_title": "Enter Your Contact Details & Booking",
         "form.full_name": "Full Name",
         "form.email": "Email Address",
@@ -893,67 +930,115 @@ const translations = {
         "menu.soup_barak": "Soup Barak",
         "menu.desc_soup_barak": "Miniature dumplings served in a rich, comforting broth.",
         "menu.tefteli": "Tefteli Soup",
-        "menu.desc_tefteli": "Hearty vegetable soup with large meatballs.",
+        "menu.desc_tefteli": "Hearty traditional soup with tender seasoned meatballs, potato, and sweet carrot in clear aromatic broth.",
         "menu.special_soup": "Traditional Boiled Soup (Qaynatma)",
         "menu.desc_special_soup": "Rich and clear broth with tender meat and vegetables, cooked to perfection.",
         "menu.shashlik": "Shashlik Assortment",
         "menu.desc_shashlik": "Juicy grilled skewers: Beef, Lamb, or Chicken served with onions.",
-        "menu.galubsi": "Galubsi (Stuffed Cabbage)",
-        "menu.desc_galubsi": "Cabbage leaves or peppers stuffed with meat and rice.",
-        "menu.somsa": "Somsa",
-        "menu.desc_somsa": "Oven-baked layered pastry filled with meat or pumpkin.",
-        "menu.achichuk": "Achchiq-chuchuk (tomato salad)",
-        "menu.desc_achichuk": "Traditional salad of thinly sliced tomatoes and onions (spicy).",
-        "menu.garden_salad": "Garden Salad",
-        "menu.desc_garden_salad": "Fresh mix of cucumbers, tomatoes, and local greens.",
+        "menu.shashlik_qiyma": "Minced Meat Shashlik (Lula Kebab)",
+        "menu.desc_shashlik_qiyma": "Tender ground beef and lamb skewers seasoned with aromatic spices, served with marinated onions and lavash.",
+        "menu.shashlik_kuskovoy": "Beef Shashlik (Tender Chunks)",
+        "menu.desc_shashlik_kuskovoy": "Charcoal-grilled tender chunks of marinated beef and lamb fat, served with fresh onions and tomato slices.",
+        "menu.shashlik_tovuq": "Chicken Shashlik",
+        "menu.desc_shashlik_tovuq": "Tender and juicy grilled chicken skewers seasoned with special spices, served with fresh tomato and onion salad.",
+        "menu.galubsi": "Galubsi Soup (Stuffed Pepper)",
+        "menu.desc_galubsi": "Traditional soup with sweet bell pepper stuffed with seasoned meat, served with tender beef and potato in clear broth.",
+        "menu.mastava": "Mastava (Uzbek Rice & Beef Soup)",
+        "menu.desc_mastava": "Traditional hearty soup with tender beef cubes, rice, sweet vegetables, and fresh herbs.",
+        "menu.lentil_soup": "Lentil Cream Soup (Mercimek)",
+        "menu.desc_lentil_soup": "Silky smooth, aromatic cream soup made from red lentils and fine spices, served with fresh lemon.",
+        "menu.somsa": "Meat Somsa",
+        "menu.desc_somsa": "Crispy oven-baked layered pastry filled with juicy seasoned beef and onions.",
+        "menu.somsa_qovoq": "Pumpkin Somsa (Vegetarian)",
+        "menu.desc_somsa_qovoq": "Traditional oven-baked flaky pastry filled with sweet spiced pumpkin and onions, served with tomato sauce.",
+        "menu.achichuk": "Achchiq-Chuchuk (Tomato & Onion Salad)",
+        "menu.desc_achichuk": "Traditional Uzbek salad of thinly sliced ripe tomatoes, crisp red onions, hot green peppers, and fragrant purple basil.",
+        "menu.garden_salad": "Fresh Garden Salad",
+        "menu.desc_garden_salad": "Crisp cucumbers, juicy sweet tomatoes, and fresh garden herbs tossed in light dressing.",
         "menu.caesar": "Caesar Salad",
-        "menu.desc_caesar": "Classic salad with croutons, parmesan, and creamy dressing.",
-        "menu.eggplant": "Eggplant Salad + boiled rice",
-        "menu.desc_eggplant": "Roasted eggplants with garlic and herbs.",
+        "menu.desc_caesar": "Crisp iceberg lettuce, tender chicken breast, juicy tomatoes, golden croutons, and grated cheese under creamy caesar dressing.",
+        "menu.salad_beef": "Beef & Vegetable Salad",
+        "menu.desc_salad_beef": "Tender pan-seared beef chunks tossed with colorful sweet bell peppers, fresh cucumbers, tomatoes, and aromatic fresh coriander.",
+        "menu.salad_beetroot": "Beetroot & Walnut Salad",
+        "menu.desc_salad_beetroot": "Rich salad of tender sweet beetroot, cheese, and herbs in creamy dressing, topped with roasted crushed walnuts.",
+        "menu.salad_vitamin": "Vitamin Salad",
+        "menu.desc_salad_vitamin": "Vibrant and crunchy medley of red cabbage, sweet corn, bell peppers, fresh cucumbers, and green herbs.",
+        "menu.cabbage_salad": "Cabbage Salad",
+        "menu.desc_cabbage_salad": "Crispy fresh white cabbage tossed with sweet carrots, cucumbers, ripe tomatoes, and fragrant garden herbs.",
+        "menu.olivier_salad": "Olivier Salad",
+        "menu.desc_olivier_salad": "Traditional festive salad of tender beef, diced boiled potatoes, carrots, eggs, pickled cucumbers, and green peas in rich mayonnaise.",
+        "menu.shuba_salad": "Shuba Salad (Herring Under a Fur Coat)",
+        "menu.desc_shuba_salad": "Famous festive layered salad of tender herring fillet beneath layers of grated potatoes, sweet carrots, eggs, and ruby beetroot with mayo.",
+        "menu.eggplant": "Crispy Eggplant Rolls Salad",
+        "menu.desc_eggplant": "Crispy pan-fried eggplant rolls filled with savory garlic and herb filling, served on fresh lettuce with sweet balsamic glaze.",
+        "menu.rice": "Steamed Rice with Vegetables (Side Dish)",
+        "menu.desc_rice": "Fluffy steamed rice garnished with sweet corn and green peas, served with sliced fresh tomato and herbs.",
         "menu.qapshirma": "Qapshirma",
         "menu.desc_qapshirma": "Fried layered dough, a delicious local side snack.",
-        "menu.tea": "Tea (Green/Black)",
-        "menu.desc_tea": "Served in a pot with lemon or mint.",
-        "menu.juice": "Fresh Juices",
-        "menu.desc_juice": "Apple, Carrot, Orange, Watermelon (seasonal).",
-        "menu.wine": "Wines & Beers",
-        "menu.desc_wine": "Selection of local and imported beverages.",
-        "menu.cocktail": "Cocktails",
-        "menu.desc_cocktail": "Mojito, Gin Tonic, and other refreshing mixes.",
+        "menu.tea": "Artisan Teas & Fruit Infusions",
+        "menu.desc_tea": "Traditional green and black teas, herbal blends, and hot fruit infusions with citrus and spices served in glass teapot.",
+        "menu.coffee": "Espresso & Artisan Coffee",
+        "menu.desc_coffee": "Rich, aromatic freshly brewed espresso, Americano, cappuccino, and latte made from premium roasted coffee beans.",
+        "menu.juice": "Freshly Squeezed Juices",
+        "menu.desc_juice": "100% natural freshly pressed juices: Orange, Apple, Carrot, Beetroot, and seasonal specials.",
+        "menu.cold_drinks": "Cold Soft Drinks",
+        "menu.desc_cold_drinks": "Chilled and refreshing soft drinks: Coca-Cola, Fanta, Sprite, and sparkling mineral water served ice-cold.",
+        "menu.wine": "Red & White Wines",
+        "menu.desc_wine": "Selection of premium Uzbek and international red and white wines, served by the bottle or glass.",
+        "menu.cocktail": "Refreshing Cocktails & Mocktails",
+        "menu.desc_cocktail": "Mojito, Gin Tonic, Tequila Sunrise, Moscow Mule, and other refreshing alcoholic and non-alcoholic mixes.",
         "menu.page_indicator": "Page of ",
+        "menu.btn_prev": "Previous",
+        "menu.btn_next": "Next",
+        "menu.rooftop_badge": "Meros Rooftop Dining",
 
         // --- PAGE BANNERS & MAIN IMAGES ---
         // Defaults are handled by style.css. When an admin uploads an image,
         // it will be fetched from Firestore and applied dynamically.
-        "page.img_home_hero": "gallery10.jpg",
-        "page.img_about": "Things-to-do-in-Khiva-Travel-Guide.webp",
-        "page.img_rooms_hero": "gallery2.jpg",
-        "page.img_tours_hero": "khiva-city-tour-11.jpg",
-        "page.img_day_hero": "private_day_hero.jpg",
-        "page.img_transfer_hero": "private_transfer_hero.jpg",
-        "page.img_restaurant_hero": "rooftop-dining.png",
-        "page.img_gallery_hero": "galerry1.jpg",
+        "page.img_home_hero": "images/gallery10.jpg",
+        "page.img_about": "images/Things-to-do-in-Khiva-Travel-Guide.webp",
+        "page.img_rooms_hero": "images/gallery2.jpg",
+        "page.img_tours_hero": "images/khiva-city-tour-11.jpg",
+        "page.img_day_hero": "images/private_day_hero.jpg",
+        "page.img_transfer_hero": "images/private_transfer_hero.jpg",
+        "page.img_restaurant_hero": "images/rooftop-dining.png",
+        "page.img_gallery_hero": "images/galerry1.jpg",
         // --- RESTAURANT MENU IMAGES ---
-        "menu.img_shivit": "shivit_oshi.jpg",
-        "menu.img_tuxum_barak": "tuxum_barak.jpg",
-        "menu.img_palov": "plov.jpg",
-        "menu.img_manti": "manti.jpg",
-        "menu.img_gumma": "gumma.jpg",
-        "menu.img_qapshirma": "qapshirma.jpg",
-        "menu.img_shashlik": "shashlik.jpg",
-        "menu.img_somsa": "somsa.jpg",
-        "menu.img_soup_barak": "soup_barak.jpg",
-        "menu.img_tefteli": "tefteli.jpg",
-        "menu.img_special_soup": "special_soup.jpg",
-        "menu.img_galubsi": "galubsi.jpg",
-        "menu.img_achichuk": "achichuk.jpg",
-        "menu.img_garden_salad": "garden_salad.jpg",
-        "menu.img_caesar": "caesar.jpg",
-        "menu.img_eggplant": "egplant salad.jpg",
-        "menu.img_tea": "Cups_of_green_and_black_tea_with_mint_on_rustic_table_1000x.webp",
-        "menu.img_juice": "Featured_Image_1_1.webp",
-        "menu.img_wine": "images (1).jpg",
-        "menu.img_cocktail": "images.jpg"
+        "menu.img_shivit": "images/shivit_oshi.jpg?v=3.3",
+        "menu.img_tuxum_barak": "images/tuxum_barak.jpg?v=3.0",
+        "menu.img_palov": "images/plov.jpg?v=3.4",
+        "menu.img_manti": "images/manti.jpg?v=3.5",
+        "menu.img_gumma": "images/gumma.jpg?v=3.6",
+        "menu.img_qapshirma": "images/qapshirma.jpg?v=3.7",
+        "menu.img_shashlik": "images/shashlik.jpg",
+        "menu.img_shashlik_qiyma": "images/shashlik_qiyma.jpg?v=3.0",
+        "menu.img_shashlik_kuskovoy": "images/shashlik_kuskovoy.jpg?v=3.0",
+        "menu.img_shashlik_tovuq": "images/shashlik_tovuq.jpg?v=3.2",
+        "menu.img_somsa": "images/somsa.jpg?v=3.9",
+        "menu.img_somsa_qovoq": "images/somsa_qovoq.jpg?v=3.8",
+        "menu.img_soup_barak": "images/soup_barak.jpg?v=3.1",
+        "menu.img_tefteli": "images/tefteli.webp?v=4.9",
+        "menu.img_special_soup": "images/special_soup.jpg?v=4.3",
+        "menu.img_galubsi": "images/galubsi.jpg?v=4.1",
+        "menu.img_mastava": "images/soup_mastava.jpg?v=4.5",
+        "menu.img_lentil_soup": "images/soup_lentil.jpg?v=4.5",
+        "menu.img_achichuk": "images/achichuk.webp?v=5.0",
+        "menu.img_garden_salad": "images/garden_salad.webp?v=5.0",
+        "menu.img_caesar": "images/caesar.jpg?v=5.0",
+        "menu.img_salad_beef": "images/salad_beef.webp?v=5.0",
+        "menu.img_salad_beetroot": "images/salad_beetroot.webp?v=5.0",
+        "menu.img_salad_vitamin": "images/salad_vitamin.webp?v=5.0",
+        "menu.img_eggplant": "images/eggplant_salad.jpg?v=4.1",
+        "menu.img_rice": "images/boiled_rice.jpg?v=4.6",
+        "menu.img_cabbage_salad": "images/salad_cabbage.jpg?v=5.0",
+        "menu.img_olivier_salad": "images/salad_olivier.jpg?v=5.0",
+        "menu.img_shuba_salad": "images/salad_shuba.jpg?v=5.0",
+        "menu.img_tea": "images/tea.webp?v=5.4",
+        "menu.img_coffee": "images/coffee.webp?v=5.6",
+        "menu.img_juice": "images/fresh_juices.jpg?v=5.4",
+        "menu.img_cold_drinks": "images/cold_drinks.jpg?v=5.5",
+        "menu.img_wine": "images/wine.jpg?v=5.4",
+        "menu.img_cocktail": "images/cocktails.jpg?v=5.4"
     },
 
 
@@ -1275,6 +1360,8 @@ const translations = {
         "about_main.p2": "Mulk egasi Kuranbay Matkarimovning otasi Saadulla Matkarimov (1936-1993) Sovet Ittifoqi davrida Xivani restavratsiya qilishda 20 yildan ortiq mehnat qilgan. Kuranbay Matkarimov (1957-2018) naqsh dizayni va restavratsiya ustasi bo'lgan. U Xiva, Buxoro va Shahrisabz kabi Jahon merosi markazlarida restavratsiya loyihalarida ishlagan. U Xivaning naqshinkor shiftlarini ta'mirlash bo'yicha bosh ustasi bo'lgan. MEROS mehmonxonasining xonalari va ayvonlari shiftlari aynan shu klassik Xorazm uslubida bo'yalgan.",
         "map.full_address": "<strong>Meros B&B</strong><br>A.Boltayev ko'chasi, Ichan Qala<br>Xiva, O'zbekiston",
         "footer.copyright": "© " + new Date().getFullYear() + " Meros B&B. Barcha huquqlar himoyalangan.",
+        "footer.payment_accepted": "To'lov usullari (qabul qilinadi)",
+        "footer.payment_cash": "Naqd pul",
 
         // ROOM DETAILS GENERICS
         "detail.price_prefix": "Narx:",
@@ -1705,9 +1792,12 @@ const translations = {
         "dining.hero_subtitle": "Qadimiy shahar manzarasidan bahramand bo'lib, an'anaviy O'zbek taomlarini tatib ko'ring.",
         "dining.view_menu": "Menyuni Ko'rish",
         "menu.cat_national": "Milliy Taomlar (Xorazm)",
-        "menu.cat_soups": "Sho'rvalar va Quyouq Taomlar",
+        "menu.cat_soups": "Sho'rvalar va Quyuq Taomlar",
         "menu.cat_salads": "Salatlar va Gazaklar",
         "menu.cat_drinks": "Ichimliklar va Shirinliklar",
+        "menu.btn_prev": "Oldingi",
+        "menu.btn_next": "Keyingi",
+        "menu.rooftop_badge": "Meros Rooftop Restorani",
 
         "menu.shivit": "Shivit Oshi",
         "menu.desc_shivit": "Xivaning mashhur shivitli lag'moni, sabzavotli qayla va qatiq bilan.",
@@ -1723,33 +1813,65 @@ const translations = {
         "menu.soup_barak": "Suyuq Osh (Barak)",
         "menu.desc_soup_barak": "Boy va mazali bulyonda pishirilgan kichik chuchvaralar.",
         "menu.tefteli": "Teftel Sho'rva",
-        "menu.desc_tefteli": "Yumshoq go'shtli koptokchalar bilan tayyorlangan to'yimli sabzavotli sho'rva.",
+        "menu.desc_tefteli": "Yumshoq sersuv go'shtli teftellar, butun kartoshka va shirin sabzi bilan shaffof xushbo'y sho'rvada tortiladi.",
         "menu.special_soup": "Qaynatma Sho'rva",
         "menu.desc_special_soup": "Yumshoq go'sht va sabzavotlar bilan uzoq qaynatilgan mazali va to'yimli sho'rva.",
         "menu.shashlik": "Shashlik Assorti",
         "menu.desc_shashlik": "Sersuv kaboblar: Mol, Qo'y yoki Tovuq go'shti, piyoz bilan tortiladi.",
-        "menu.galubsi": "Karam Do'lma (Golubsi)",
-        "menu.desc_galubsi": "Go'sht va guruch bilan to'ldirilgan karam yoki bulg'or qalampiri.",
+        "menu.shashlik_qiyma": "Qiyma Shashlik (Lyulya Kabob)",
+        "menu.desc_shashlik_qiyma": "Xushbo'y ziravorlar bilan maydalangan mol va qo'y go'shtidan sersuv kabob, piyoz va yupqa lavash bilan.",
+        "menu.shashlik_kuskovoy": "Kuskovoy Shashlik (Go'shtli Kabob)",
+        "menu.desc_shashlik_kuskovoy": "Dumba yog'i va marinadlangan lahm mol go'shtidan ko'mirda pishirilgan sersuv shashlik, piyoz va pomidor bilan.",
+        "menu.shashlik_tovuq": "Tovuq Shashlik",
+        "menu.desc_shashlik_tovuq": "Xushbo'y ziravorlar bilan mayin marinadlangan va ko'mirda pishirilgan sersuv tovuq go'shti kabobi, piyoz va pomidor bilan.",
+        "menu.galubsi": "Golubsi Sho'rva (Bulg'or Do'lma)",
+        "menu.desc_galubsi": "Sersuv qiymali go'sht bilan to'ldirilgan bulg'or qalampiri, lahm go'sht va kartoshka bilan shaffof sho'rvada tortiladi.",
+        "menu.mastava": "Mastava",
+        "menu.desc_mastava": "Yumshoq mol go'shti, guruch, sabzavotlar va xushbo'y yangi ko'katlar bilan pishirilgan to'yimli milliy sho'rva.",
+        "menu.lentil_soup": "Yasmiq Sho'rva (Chechevitsa)",
+        "menu.desc_lentil_soup": "Qizil yasmiqdan tayyorlangan mayin va baxmal krem-sho'rva, yangi limon bo'lagi bilan tortiladi.",
+        "menu.somsa": "Go'shtli Somsa",
+        "menu.desc_somsa": "Duxovkada pishirilgan, sersuv mol go'shti va piyoz bilan to'ldirilgan qarsildoq qatlama somsa.",
+        "menu.somsa_qovoq": "Qovoqli Somsa",
+        "menu.desc_somsa_qovoq": "Shirin qovoq, piyoz va xushbo'y ziravorlar bilan to'ldirilgan qatlama xamirdan pishirilgan somsa, sous bilan.",
 
         "menu.achichuk": "Achchiq-Chuchuk",
-        "menu.desc_achichuk": "Yupqa to'g'ralgan pomidor va piyoz salati (qalampirli).",
+        "menu.desc_achichuk": "Yupqa to'g'ralgan shirin pomidor, qizil piyoz, achchiq qalampir va xushbo'y rayhon barglari bilan tayyorlangan milliy salat.",
         "menu.garden_salad": "Mevsumiy Bog' Salati",
-        "menu.desc_garden_salad": "Bodring, pomidor va mahalliy ko'katlardan tayyorlangan yangi salat.",
+        "menu.desc_garden_salad": "Yangi qarsildoq bodring, sersuv pomidor va mayin oshko'katlar (ukrop) bilan tayyorlangan yengil tetiklantiruvchi salat.",
         "menu.caesar": "Sezar Salati",
-        "menu.desc_caesar": "Krutonlar, parmezan va qaymoqli sous bilan klassik salat.",
-        "menu.eggplant": "Baqlajonli Salat + qaynatilgan guruch",
-        "menu.desc_eggplant": "Sarimsoq va ko'katlar bilan qovurilgan baqlajon.",
+        "menu.desc_caesar": "Qarsildoq aysberg karami, mayin tovuq filesi, pomidor, qovurilgan krutonlar, pishloq va maxsus qaymoqli sezar sousi.",
+        "menu.salad_beef": "Go'shtli Sabzavotli Salat",
+        "menu.desc_salad_beef": "Tovada qovurilgan mayin mol go'shti bo'laklari, rang-barang bulg'or qalampirlari, yangi bodring, pomidor va kashnich ko'kati bilan tayyorlangan to'yimli iliq salat.",
+        "menu.salad_beetroot": "Lavlagi Salati (Yong'oqli)",
+        "menu.desc_salad_beetroot": "Shirin pishirilgan qizil lavlagi, pishloq, mayin ko'katlar va mayonez, ustidan maydalangan xushbo'y yong'oq sepilgan bayramona salat.",
+        "menu.salad_vitamin": "Vitamin Salati",
+        "menu.desc_salad_vitamin": "Qizil va oq qarsildoq karam, shirin makkajo'xori, bulg'or qalampiri, bodring va ko'k piyoz bilan tayyorlangan vitaminlarga boy yorqin salat.",
+        "menu.cabbage_salad": "Karam Salati",
+        "menu.desc_cabbage_salad": "Yangi qarsildoq karam, shirin sabzi, bodring, yangi pomidor va xushbo'y oshko'katlar bilan tayyorlangan yengil salat.",
+        "menu.olivier_salad": "Olivye Salati",
+        "menu.desc_olivier_salad": "Mayda to'g'ralgan lahm mol go'shti, kartoshka, sabzi, tuxum, tuzlangan bodring va no'xat bilan mayonezli an'anaviy bayramona salat.",
+        "menu.shuba_salad": "Shuba Salati",
+        "menu.desc_shuba_salad": "Qatlamli mashhur bayramona salat: mayin seld balig'i filesi, kartoshka, sabzi, tuxum va mayonez bilan qoplangan shirin lavlagi.",
+        "menu.eggplant": "Baqlajon Salati (Rulet)",
+        "menu.desc_eggplant": "Qarsildoq qovurilgan baqlajon ruletlari, sarimsoq va ko'katlar bilan to'ldirilgan va maxsus shirin sous bilan bezatilgan yangi salat.",
+        "menu.rice": "Qaynatilgan Guruch (Garnir)",
+        "menu.desc_rice": "Makkajo'xori va yashil no'xat donachalari bilan pishirilgan mayin guruch, yangi pomidor va ko'katlar bilan.",
         "menu.qapshirma": "Qapshirma",
         "menu.desc_qapshirma": "Qovurilgan qatlama xamir, mahalliy sevimli gazak.",
 
-        "menu.tea": "Choylar (Ko'k/Qora)",
-        "menu.desc_tea": "Limon yoki yalpiz bilan choynakda tortiladi.",
-        "menu.juice": "Yangi Siqilgan Sharbatlar",
-        "menu.desc_juice": "Olma, Sabzi, Apelsin, Tarvuz (mavsumiy).",
-        "menu.wine": "Mahalliy Sharob va Pivo",
-        "menu.desc_wine": "Mahalliy va import ichimliklar tanlovi.",
-        "menu.cocktail": "Kokteyllar",
-        "menu.desc_cocktail": "Moxito, Jin Tonik va boshqa tetiklantiruvchi ichimliklar.",
+        "menu.tea": "Choylar va Mevali Damlamalar",
+        "menu.desc_tea": "An'anaviy ko'k va qora choy, limon, yalpiz va tabiiy mevali damlamalar shisha choynakda tortiladi.",
+        "menu.coffee": "Espresso va Qahvalar (Kofe)",
+        "menu.desc_coffee": "Yangi tuyilgan sifatli qahva donalaridan tayyorlangan xushbo'y va quyuq espresso, amerikano, kapuchino va latte.",
+        "menu.juice": "Yangi Siqilgan Tabiiy Sharbatlar",
+        "menu.desc_juice": "100% tabiiy meva va sabzavotlardan yangi siqilgan sharbatlar: Apelsin, Olma, Sabzi, Lavlagi va mavsumiy ne'matlar.",
+        "menu.cold_drinks": "Salqin Ichimliklar (Kola, Fanta, Sprite)",
+        "menu.desc_cold_drinks": "Muzdek tetiklantiruvchi gazli va gazsiz ichimliklar: Coca-Cola, Fanta, Sprite hamda mineral suvlar.",
+        "menu.wine": "Qizil va Oq Vinolar (Sharob)",
+        "menu.desc_wine": "O'zbekistonning mashhur 'Bagizagan' va boshqa saralangan qizil hamda oq vinolari, shisha yoki bokalda tortiladi.",
+        "menu.cocktail": "Tetiklantiruvchi Kokteyllar",
+        "menu.desc_cocktail": "Moxito, Jin Tonik, Tekila Sanrayz, Moskva Myul va boshqa xushbo'y tetiklantiruvchi kokteyllar.",
     },
     ru: {
         "nav.home": "Главная",
@@ -1788,6 +1910,8 @@ const translations = {
         "about_main.p2": "Саадулла Маткаримов (1936-1993), отец владельца Куранбая Маткаримова, более 20 лет работал над реставрацией Хивы в советское время. Куранбай Маткаримов (1957-2018) был мастером орнамента и реставрации. Он работал над проектами реставрации в центрах Всемирного наследия Хивы, Бухары и Шахрисабза. Он был главным реставратором расписных потолков Хивы. Потолки в гостевых комнатах и на верандах MEROS расписаны именно в этом классическом хорезмском стиле.",
         "map.full_address": "<strong>Meros B&B</strong><br>Улица А.Болтаева, Ичан-Кала<br>Хива, Узбекистан",
         "footer.copyright": "© " + new Date().getFullYear() + " Meros B&B. Все права защищены.",
+        "footer.payment_accepted": "Принимаемые способы оплаты",
+        "footer.payment_cash": "Наличные",
 
         // ROOM DETAILS GENERICS
         "detail.price_prefix": "Цена:",
@@ -2221,6 +2345,9 @@ const translations = {
         "menu.cat_soups": "Супы и Сытные Блюда",
         "menu.cat_salads": "Салаты и Закуски",
         "menu.cat_drinks": "Напитки и Десерты",
+        "menu.btn_prev": "Назад",
+        "menu.btn_next": "Вперед",
+        "menu.rooftop_badge": "Meros Rooftop Ресторан",
 
         "menu.shivit": "Шивит Оши",
         "menu.desc_shivit": "Фирменная хивинская зеленая лапша с укропом, мясным рагу и йогуртом.",
@@ -2236,35 +2363,65 @@ const translations = {
         "menu.soup_barak": "Суп Барак",
         "menu.desc_soup_barak": "Миниатюрные пельмени в насыщенном бульоне.",
         "menu.tefteli": "Суп с Тефтелями",
-        "menu.desc_tefteli": "Сытный овощной суп с нежными фрикадельками.",
+        "menu.desc_tefteli": "Традиционный наваристый суп с нежными сочными тефтелями, цельным картофелем и сладкой морковью в прозрачном ароматном бульоне.",
         "menu.special_soup": "Кайнатма Шурва",
         "menu.desc_special_soup": "Традиционный наваристый суп с нежным мясом и овощами, приготовленный на медленном огне.",
         "menu.shashlik": "Ассорти Шашлыков",
         "menu.desc_shashlik": "Сочные шашлыки: Говядина, Баранина или Курица, подается с луком.",
-        "menu.galubsi": "Голубцы",
-        "menu.desc_galubsi": "Капустные листья или перец, фаршированные мясом и рисом.",
-        "menu.somsa": "Самса",
-        "menu.desc_somsa": "Запеченная в духовке слоеная выпечка с мясом или тыквой.",
+        "menu.shashlik_qiyma": "Шашлык из Фарша (Люля-Кебаб)",
+        "menu.desc_shashlik_qiyma": "Сочный шашлык из рубленой говядины и баранины с восточными специями, подается с луком и лавашом.",
+        "menu.shashlik_kuskovoy": "Кусковой Шашлык (Из Говядины)",
+        "menu.desc_shashlik_kuskovoy": "Сочные кусочки нежной маринованной говядины с курдюком, приготовленные на мангале, с луком и томатами.",
+        "menu.shashlik_tovuq": "Куриный Шашлык",
+        "menu.desc_shashlik_tovuq": "Нежные и сочные кусочки маринованной курочки, приготовленные на мангале, с томатами и свежим луком.",
+        "menu.galubsi": "Суп Голубцы (Фаршированный перец)",
+        "menu.desc_galubsi": "Традиционный наваристый суп со сладким перцем, фаршированным мясом, нежной говядиной и картофелем.",
+        "menu.mastava": "Мастава",
+        "menu.desc_mastava": "Традиционный наваристый узбекский суп с говядиной, рисом, овощами и ароматной зеленью.",
+        "menu.lentil_soup": "Чечевичный Крем-Суп",
+        "menu.desc_lentil_soup": "Нежный бархатистый крем-суп из красной чечевицы с восточными специями, подается с лимоном.",
+        "menu.somsa": "Мясная Самса",
+        "menu.desc_somsa": "Запеченная в духовке хрустящая слоеная самса с сочной говядиной и луком.",
+        "menu.somsa_qovoq": "Самса с Тыквой (Вегетарианская)",
+        "menu.desc_somsa_qovoq": "Хрустящая слоеная самса со сладкой тыквой, луком и восточными специями, подается с томатным соусом.",
 
-        "menu.achichuk": "аччик-чучук (салат из помидоров)",
-        "menu.desc_achichuk": "Традиционный салат из тонко нарезанных помидоров и лука (острый).",
-        "menu.garden_salad": "Сезонный Салат",
-        "menu.desc_garden_salad": "Свежая смесь огурцов, помидоров и местной зелени.",
-        "menu.caesar": "Цезарь",
-        "menu.desc_caesar": "Классический салат с сухариками, пармезаном и сливочным соусом.",
-        "menu.eggplant": "Салат из Баклажанов + вареный рис",
-        "menu.desc_eggplant": "Запеченные баклажаны с чесноком и травами.",
+        "menu.achichuk": "Аччик-Чучук (Салат из помидоров)",
+        "menu.desc_achichuk": "Традиционный узбекский салат из тонко нарезанных спелых томатов, сладкого красного лука, острого перца и ароматного фиолетового базилика.",
+        "menu.garden_salad": "Свежий Сезонный Салат",
+        "menu.desc_garden_salad": "Освежающий салат из хрустящих огурцов, сочных томатов и свежего укропа.",
+        "menu.caesar": "Салат Цезарь",
+        "menu.desc_caesar": "Хрустящий салат айсберг, нежное куриное филе, томаты, золотистые крутоны, тертый сыр и яйцо под фирменным сливочным соусом.",
+        "menu.salad_beef": "Мясной Салат с Овощами",
+        "menu.desc_salad_beef": "Теплый салат с кусочками обжаренной сочной говядины, разноцветным сладким перцем, свежими огурцами, томатами и кинзой.",
+        "menu.salad_beetroot": "Свекольный Салат с Орехами",
+        "menu.desc_salad_beetroot": "Нежный салат из отварной сладкой свеклы, сыра и домашнего соуса, посыпанный хрустящими грецкими орехами.",
+        "menu.salad_vitamin": "Витаминный Салат",
+        "menu.desc_salad_vitamin": "Яркий хрустящий салат из красной капусты, сладкой кукурузы, болгарского перца, огурцов и свежей зелени.",
+        "menu.cabbage_salad": "Салат из Капусты",
+        "menu.desc_cabbage_salad": "Свежий и хрустящий салат из белокочанной капусты, сладкой моркови, сочных огурцов, томатов и свежей зелени.",
+        "menu.olivier_salad": "Салат Оливье",
+        "menu.desc_olivier_salad": "Классический праздничный салат с отварной говядиной, картофелем, сочной морковью, яйцами, солеными огурчиками и зеленым горошком под майонезом.",
+        "menu.shuba_salad": "Сельдь под Шубой",
+        "menu.desc_shuba_salad": "Знаменитый слоеный салат из нежного филе сельди, отварного картофеля, моркови, яиц и сладкой свеклы под нежным майонезом.",
+        "menu.eggplant": "Салат из Баклажанов (Рулетики)",
+        "menu.desc_eggplant": "Хрустящие обжаренные рулетики из баклажанов с чесночно-зеленой начинкой, под кисло-сладким соусом на свежих листьях салата.",
+        "menu.rice": "Отварной Рис с Овощами (Гарнир)",
+        "menu.desc_rice": "Рассыпчатый отварной рис со сладкой кукурузой и зеленым горошком, подается со свежим томатом и зеленью.",
         "menu.qapshirma": "Капширма",
         "menu.desc_qapshirma": "Жареное слоеное тесто, вкусная местная закуска.",
 
-        "menu.tea": "Чай (Зеленый/Черный)",
-        "menu.desc_tea": "Подается в чайнике с лимоном или мятой.",
-        "menu.juice": "Свежевыжатые Соки",
-        "menu.desc_juice": "Яблоко, Морковь, Апельсин, Арбуз (сезонно).",
-        "menu.wine": "Вино и Пиво",
-        "menu.desc_wine": "Выбор местных и импортных напитков.",
-        "menu.cocktail": "Коктейли",
-        "menu.desc_cocktail": "Мохито, Джин-тоник и другие освежающие напитки.",
+        "menu.tea": "Чай и Фруктовые Настои",
+        "menu.desc_tea": "Традиционный зеленый и черный чай, травяные сборы и согревающие фруктовые настои с цитрусами в стеклянном чайнике.",
+        "menu.coffee": "Эспрессо и Свежесваренный Кофе",
+        "menu.desc_coffee": "Ароматный и насыщенный эспрессо, американо, капучино и латте, сваренные из отборных зерен свежей обжарки.",
+        "menu.juice": "Свежевыжатые Соки (Фреш)",
+        "menu.desc_juice": "100% натуральные свежевыжатые соки: Апельсиновый, Яблочный, Морковный, Свекольный и сезонные фрукты.",
+        "menu.cold_drinks": "Прохладительные Напитки (Кола, Фанта, Спрайт)",
+        "menu.desc_cold_drinks": "Охлажденные освежающие напитки: Coca-Cola, Fanta, Sprite и минеральная вода со льдом.",
+        "menu.wine": "Красные и Белые Вина",
+        "menu.desc_wine": "Коллекция лучших узбекских вин 'Багизаган' и зарубежных сортов, подается в бокалах или бутылках.",
+        "menu.cocktail": "Освежающие Коктейли",
+        "menu.desc_cocktail": "Мохито, Джин-тоник, Текила Санрайз, Московский мул и другие освежающие алкогольные и безалкогольные миксы.",
         "menu.page_indicator": "Страница %s из %s",
     },
 };
@@ -2310,12 +2467,38 @@ function applyLanguage(lang) {
     // 1. Text elements
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        const val = t[key];
-        if (val !== undefined) {
+        let val = t[key];
+        let enVal = (translations['en'] && translations['en'][key]);
+
+        // Clean legacy "+ boiled rice" from eggplant salad
+        if (key === 'menu.eggplant') {
+            if (typeof val === 'string') val = val.replace(/\s*\+\s*boiled rice/gi, '').replace(/\s*\+\s*qaynatilgan guruch/gi, '').replace(/\s*\+\s*вареный рис/gi, '').trim();
+            if (typeof enVal === 'string') enVal = enVal.replace(/\s*\+\s*boiled rice/gi, '').replace(/\s*\+\s*qaynatilgan guruch/gi, '').replace(/\s*\+\s*вареный рис/gi, '').trim();
+        }
+
+        // Clean legacy "Wines & Beers" from wine card
+        if (key === 'menu.wine') {
+            if (typeof val === 'string' && (val.includes('& Beer') || val.includes('va Pivo') || val.includes('и Пиво'))) {
+                val = (lang === 'uz') ? "Qizil va Oq Vinolar (Sharob)" : (lang === 'ru') ? "Красные и Белые Вина" : "Red & White Wines";
+            }
+            if (typeof enVal === 'string' && enVal.includes('& Beer')) {
+                enVal = "Red & White Wines";
+            }
+        }
+        if (key === 'menu.desc_wine') {
+            if (typeof val === 'string' && (val.includes('imported beverages') || val.includes('import ichimliklar') || val.includes('импортных напитков'))) {
+                val = (lang === 'uz') ? "O'zbekistonning mashhur 'Bagizagan' va boshqa saralangan qizil hamda oq vinolari, shisha yoki bokalda tortiladi." : (lang === 'ru') ? "Коллекция лучших узбекских вин 'Багизаган' и зарубежных сортов, подается в бокалах или бутылках." : "Selection of premium Uzbek and international red and white wines, served by the bottle or glass.";
+            }
+            if (typeof enVal === 'string' && enVal.includes('imported beverages')) {
+                enVal = "Selection of premium Uzbek and international red and white wines, served by the bottle or glass.";
+            }
+        }
+
+        if (val !== undefined && val !== null && String(val).trim() !== '') {
             el.innerHTML = val;
             el.removeAttribute('data-i18n-pending');
-        } else if (translations['en'] && translations['en'][key] !== undefined) {
-            el.innerHTML = translations['en'][key];
+        } else if (enVal !== undefined && enVal !== null && String(enVal).trim() !== '') {
+            el.innerHTML = enVal;
             el.removeAttribute('data-i18n-pending');
         }
     });
@@ -2337,21 +2520,43 @@ function applyLanguage(lang) {
     // 4. Image sources (data-i18n-src) — language-neutral, use 'en' key
     document.querySelectorAll('[data-i18n-src]').forEach(el => {
         const key = el.getAttribute('data-i18n-src');
-        const src = (translations['en'] && translations['en'][key]);
-        if (src) {
-            el.src = src;
-            el.removeAttribute('data-i18n-pending');
+        let src = (translations['en'] && translations['en'][key]);
+        if (key === 'menu.img_wine' && src && (src.includes('images (1).jpg') || src.includes('images%20(1).jpg'))) {
+            src = 'images/wine.jpg?v=5.2';
         }
+        if (key === 'menu.img_juice' && src && src.includes('Featured_Image_1_1.webp')) {
+            src = 'images/fresh_juices.jpg?v=5.3';
+        }
+        if (key === 'menu.img_cocktail' && src && (src.includes('images.jpg') || src === 'images/images.jpg')) {
+            src = 'images/cocktails.jpg?v=5.4';
+        }
+        if (key === 'menu.img_tea' && src && src.includes('Cups_of_green_and_black_tea')) {
+            src = 'images/tea.webp?v=5.4';
+        }
+        if (key === 'menu.img_coffee' && (!src || src.trim() === '')) {
+            src = 'images/coffee.webp?v=5.6';
+        }
+        if (key === 'menu.img_cold_drinks' && (!src || src.trim() === '')) {
+            src = 'images/cold_drinks.jpg?v=5.5';
+        }
+        if (src) {
+            src = fixImgPath(src);
+            el.src = src;
+        } else if (el.getAttribute('src')) {
+            el.src = fixImgPath(el.getAttribute('src'));
+        }
+        el.removeAttribute('data-i18n-pending');
     });
 
     // 5. Background Images (data-i18n-bg) — language-neutral, use 'en' key
     document.querySelectorAll('[data-i18n-bg]').forEach(el => {
         const key = el.getAttribute('data-i18n-bg');
-        const src = (translations['en'] && translations['en'][key]);
+        let src = (translations['en'] && translations['en'][key]);
         if (src) {
+            src = fixImgPath(src);
             el.style.backgroundImage = `url('${src}')`;
-            el.removeAttribute('data-i18n-pending');
         }
+        el.removeAttribute('data-i18n-pending');
     });
 }
 
@@ -2423,17 +2628,69 @@ if (typeof firebase !== 'undefined') {
             resolved = true;
             if (docSnap.exists) {
                 const overrides = docSnap.data();
-                // Merge overrides into every language in translations
+                // Merge overrides into every language in translations (ignoring empty/whitespace strings so defaults aren't wiped)
                 ['en', 'uz', 'ru'].forEach(lang => {
                     if (!translations[lang]) translations[lang] = {};
                     Object.keys(overrides).forEach(key => {
                         const val = overrides[key];
                         // Value may be a direct string (image/price) or an object {en, uz, ru}
                         if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
-                            if (val[lang] !== undefined) translations[lang][key] = val[lang];
+                            if (val[lang] !== undefined && val[lang] !== null && String(val[lang]).trim() !== '') {
+                                let cleanVal = val[lang];
+                                if (key === 'menu.eggplant' && typeof cleanVal === 'string') {
+                                    cleanVal = cleanVal
+                                        .replace(/\s*\+\s*boiled rice/gi, '')
+                                        .replace(/\s*\+\s*qaynatilgan guruch/gi, '')
+                                        .replace(/\s*\+\s*вареный рис/gi, '')
+                                        .trim();
+                                    if (cleanVal === 'Eggplant Salad' || !cleanVal) cleanVal = 'Crispy Eggplant Rolls Salad';
+                                    if (cleanVal === 'Baqlajonli Salat' || cleanVal === 'Baqlajon salati') cleanVal = 'Baqlajon Salati (Rulet)';
+                                    if (cleanVal === 'Салат из Баклажанов') cleanVal = 'Салат из Баклажанов (Рулетики)';
+                                }
+                                if (key === 'menu.wine' && typeof cleanVal === 'string' && (cleanVal.includes('Beer') || cleanVal.includes('Pivo') || cleanVal.includes('Пиво'))) {
+                                    return;
+                                }
+                                if (key === 'menu.desc_wine' && typeof cleanVal === 'string' && (cleanVal.includes('imported beverages') || cleanVal.includes('import ichimliklar') || cleanVal.includes('импортных напитков'))) {
+                                    return;
+                                }
+                                translations[lang][key] = cleanVal;
+                            }
                         } else {
                             // language-neutral key (e.g. image src)
-                            translations['en'][key] = val;
+                            let finalVal = val;
+                            if (typeof finalVal === 'string' && finalVal.trim() !== '') {
+                                if (key === 'menu.img_tefteli' && (finalVal.includes('tefteli.jpg') || finalVal.includes('v=4.2'))) {
+                                    finalVal = 'images/tefteli.webp?v=4.9';
+                                }
+                                if (key === 'menu.img_achichuk' && finalVal.includes('achichuk.jpg')) {
+                                    finalVal = 'images/achichuk.webp?v=5.0';
+                                }
+                                if (key === 'menu.img_garden_salad' && finalVal.includes('garden_salad.jpg')) {
+                                    finalVal = 'images/garden_salad.webp?v=5.0';
+                                }
+                                if (key === 'menu.img_wine' && (finalVal.includes('images (1).jpg') || finalVal.includes('images%20(1).jpg'))) {
+                                    finalVal = 'images/wine.jpg?v=5.2';
+                                }
+                                if (key === 'menu.img_juice' && finalVal.includes('Featured_Image_1_1.webp')) {
+                                    finalVal = 'images/fresh_juices.jpg?v=5.3';
+                                }
+                                if (key === 'menu.img_cocktail' && (finalVal.includes('images.jpg') || finalVal === 'images/images.jpg')) {
+                                    finalVal = 'images/cocktails.jpg?v=5.4';
+                                }
+                                if (key === 'menu.img_tea' && finalVal.includes('Cups_of_green_and_black_tea')) {
+                                    finalVal = 'images/tea.webp?v=5.4';
+                                }
+                                if (key === 'menu.img_coffee' && (!finalVal || finalVal.trim() === '')) {
+                                    finalVal = 'images/coffee.webp?v=5.6';
+                                }
+                                if (key === 'menu.img_cold_drinks' && (!finalVal || finalVal.trim() === '')) {
+                                    finalVal = 'images/cold_drinks.jpg?v=5.5';
+                                }
+                                if (key.includes('img') || /\.(jpg|jpeg|png|webp|svg|gif)$/i.test(finalVal)) {
+                                    finalVal = fixImgPath(finalVal);
+                                }
+                                translations['en'][key] = finalVal;
+                            }
                         }
                     });
                 });
@@ -2470,23 +2727,33 @@ async function loadAdminContentEditor() {
 
     // Build effective values: default + overrides
     const effective = {};
-    ['en','uz','ru'].forEach(lang => {
+    ['en', 'uz', 'ru'].forEach(lang => {
         effective[lang] = Object.assign({}, translations[lang] || {});
     });
     Object.keys(overrides).forEach(key => {
         const val = overrides[key];
         if (typeof val === 'object' && val !== null) {
-            ['en','uz','ru'].forEach(lang => {
-                if (val[lang] !== undefined) effective[lang][key] = val[lang];
+            ['en', 'uz', 'ru'].forEach(lang => {
+                if (val[lang] !== undefined && val[lang] !== null && String(val[lang]).trim() !== '') {
+                    let cleanVal = val[lang];
+                    if (key === 'menu.eggplant' && typeof cleanVal === 'string') {
+                        cleanVal = cleanVal.replace(/\s*\+\s*boiled rice/gi, '').replace(/\s*\+\s*qaynatilgan guruch/gi, '').replace(/\s*\+\s*вареный рис/gi, '').trim();
+                    }
+                    effective[lang][key] = cleanVal;
+                }
             });
         } else {
-            effective['en'][key] = val;
+            let finalVal = val;
+            if (typeof finalVal === 'string' && (key.includes('img') || /\.(jpg|jpeg|png|webp|svg|gif)$/i.test(finalVal))) {
+                finalVal = fixImgPath(finalVal);
+            }
+            effective['en'][key] = finalVal;
         }
     });
 
     // Populate form fields that have data-edit-key attribute
     document.querySelectorAll('[data-edit-key]').forEach(input => {
-        const key  = input.getAttribute('data-edit-key');
+        const key = input.getAttribute('data-edit-key');
         const lang = input.getAttribute('data-edit-lang') || 'en';
         if (effective[lang] && effective[lang][key] !== undefined) {
             input.value = effective[lang][key];
@@ -2530,9 +2797,9 @@ async function saveAdminContentOverrides(category) {
         // 2. Collect only the fields changed in the current category
         const updates = {};
         document.querySelectorAll(`[data-edit-key][data-edit-category="${category}"]`).forEach(input => {
-            const key  = input.getAttribute('data-edit-key');
+            const key = input.getAttribute('data-edit-key');
             const lang = input.getAttribute('data-edit-lang') || null;
-            const val  = input.value.trim();
+            const val = input.value.trim();
 
             if (lang) {
                 // Multi-lang field: store as nested object {en: ..., uz: ..., ru: ...}
@@ -2556,8 +2823,8 @@ async function saveAdminContentOverrides(category) {
         Object.keys(updates).forEach(key => {
             const val = updates[key];
             if (typeof val === 'object' && val !== null && !val.toDate) {
-                ['en','uz','ru'].forEach(lang => {
-                    if (val[lang] !== undefined) {
+                ['en', 'uz', 'ru'].forEach(lang => {
+                    if (val[lang] !== undefined && val[lang] !== null && String(val[lang]).trim() !== '') {
                         if (!translations[lang]) translations[lang] = {};
                         translations[lang][key] = val[lang];
                     }
@@ -2611,7 +2878,7 @@ async function uploadAdminImage(file, inputId, storageKey) {
         const oldInputEl = document.getElementById(inputId);
         const oldPath = oldInputEl && oldInputEl.getAttribute('data-storage-path');
         if (oldPath) {
-            storage.ref().child(oldPath).delete().catch(() => {}); // non-fatal
+            storage.ref().child(oldPath).delete().catch(() => { }); // non-fatal
         }
 
         // Upload new file
@@ -2686,7 +2953,7 @@ function initReviews() {
 
     if (track && prevBtn && nextBtn) {
         const scrollAmount = 370; // Approximated card width + gap
-        
+
         prevBtn.addEventListener('click', () => {
             track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         });
@@ -2710,14 +2977,16 @@ function loadReviews() {
             }
             querySnapshot.forEach((doc) => {
                 const review = doc.data();
-                // Google format: 5 stars (with empty stars for below 5)
-                const starsHtml = '<i class="fas fa-star"></i>'.repeat(review.rating) + '<i class="far fa-star"></i>'.repeat(5 - review.rating);
-                // Standard Google generic avatar or custom
-                const userAvatar = review.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(review.name)}&background=random&color=fff&rounded=true&size=128`;
+                const safeName = escapeHtml(review.name || 'Guest');
+                const safeDate = escapeHtml(review.date || '');
+                const safeText = escapeHtml(review.text || '');
+                const rating = Math.min(Math.max(parseInt(review.rating, 10) || 5, 1), 5);
+                const starsHtml = '<i class="fas fa-star"></i>'.repeat(rating) + '<i class="far fa-star"></i>'.repeat(5 - rating);
+                const userAvatar = review.avatar ? escapeHtml(review.avatar) : `https://ui-avatars.com/api/?name=${encodeURIComponent(review.name || 'User')}&background=random&color=fff&rounded=true&size=128`;
 
                 const uploadedImage = review.image
                     ? `<div class="review-image-container">
-                         <img src="${review.image}" alt="Review Photo">
+                         <img src="${escapeHtml(review.image)}" alt="Review Photo">
                        </div>`
                     : '';
 
@@ -2726,15 +2995,15 @@ function loadReviews() {
                 card.innerHTML = `
                 <div>
                     <div class="review-card-header">
-                        <img src="${userAvatar}" alt="${review.name}" class="review-avatar">
+                        <img src="${userAvatar}" alt="${safeName}" class="review-avatar">
                         <div class="review-author-info">
-                            <h4 class="review-author-name">${review.name}</h4>
-                            <p class="review-date">${review.date}</p>
+                            <h4 class="review-author-name">${safeName}</h4>
+                            <p class="review-date">${safeDate}</p>
                         </div>
                     </div>
                     <div class="review-stars">${starsHtml}</div>
                     ${uploadedImage}
-                    <p class="review-text">"${review.text}"</p>
+                    <p class="review-text">"${safeText}"</p>
                 </div>
                 <div class="google-attr">
                     <svg viewBox="0 0 48 48" width="16" height="16">
@@ -2757,47 +3026,11 @@ function loadReviews() {
 
 // --- ADMIN FUNCTIONS ---
 
-async function checkAdminPassword() {
-    const input = document.getElementById('admin-password').value;
-    const errorMsg = document.getElementById('login-error');
-    const loginSection = document.getElementById('admin-login');
-    const dashboard = document.getElementById('admin-dashboard');
-
-    // SHA-256 Hash of '123456'
-    const secretHash = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
-
-    try {
-        const msgBuffer = new TextEncoder().encode(input);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-        if (hashHex === secretHash) {
-            loginSection.style.display = 'none';
-            dashboard.style.display = 'block';
-            if (db) {
-                loadAdminReviews();
-                loadAdminStats(); // Load Stats
-            }
-        } else {
-            errorMsg.style.display = 'block';
-        }
-    } catch (e) {
-        console.error("Hashing error:", e);
-        errorMsg.textContent = "Security Error. Please use a modern browser.";
-        errorMsg.style.display = 'block';
-    }
-}
-
-function logoutAdmin() {
-    document.getElementById('admin-login').style.display = 'block';
-    document.getElementById('admin-dashboard').style.display = 'none';
-    document.getElementById('admin-password').value = '';
-}
-
 function showTab(tabName) {
-    document.getElementById('pending-reviews-tab').style.display = tabName === 'pending' ? 'block' : 'none';
-    document.getElementById('approved-reviews-tab').style.display = tabName === 'approved' ? 'block' : 'none';
+    const pendingTab = document.getElementById('pending-reviews-tab');
+    const approvedTab = document.getElementById('approved-reviews-tab');
+    if (pendingTab) pendingTab.style.display = tabName === 'pending' ? 'block' : 'none';
+    if (approvedTab) approvedTab.style.display = tabName === 'approved' ? 'block' : 'none';
 }
 
 function loadAdminReviews() {
@@ -2807,7 +3040,7 @@ function loadAdminReviews() {
     const pendingBtn = document.getElementById('btn-pending');
     const approvedBtn = document.getElementById('btn-approved');
 
-    const renderThumb = (img) => img ? `<img src="${img}" style="width:50px; height:50px; object-fit:cover; border-radius:4px; margin-right:10px; border:1px solid #eee;">` : '';
+    const renderThumb = (img) => img ? `<img src="${escapeHtml(img)}" style="width:50px; height:50px; object-fit:cover; border-radius:4px; margin-right:10px; border:1px solid #eee;">` : '';
 
     // Load Pending
     if (pendingList) {
@@ -2828,12 +3061,12 @@ function loadAdminReviews() {
                                 <div style="display:flex; align-items:center;">
                                     ${renderThumb(r.image)}
                                     <div>
-                                        <strong>${r.name} <span style="font-weight:normal; font-size:12px; color:#777;">(${r.date})</span></strong>
+                                        <strong>${escapeHtml(r.name || "Anonymous")} <span style="font-weight:normal; font-size:12px; color:#777;">(${escapeHtml(r.date || "")})</span></strong>
                                         <br><span style="color:#f1c40f;">${'в…'.repeat(r.rating)}</span>
                                     </div>
                                 </div>
                             </div>
-                            <p style="margin: 10px 0;">"${r.text}"</p>
+                            <p style="margin: 10px 0;">"${escapeHtml(r.text || "")}"</p>
                             <button onclick="approveReview('${id}')" class="btn" style="padding: 5px 10px; font-size: 14px; background: #27ae60;">Approve</button>
                             <button onclick="deleteReview('${id}', 'pending')" class="btn" style="padding: 5px 10px; font-size: 14px; background: #c0392b;">Delete</button>
                         </div>
@@ -2862,12 +3095,12 @@ function loadAdminReviews() {
                                 <div style="display:flex; align-items:center;">
                                     ${renderThumb(r.image)}
                                     <div>
-                                        <strong>${r.name} <span style="font-weight:normal; font-size:12px; color:#777;">(${r.date})</span></strong>
+                                        <strong>${escapeHtml(r.name || "Anonymous")} <span style="font-weight:normal; font-size:12px; color:#777;">(${escapeHtml(r.date || "")})</span></strong>
                                         <br><span style="color:#f1c40f;">${'в…'.repeat(r.rating)}</span>
                                     </div>
                                 </div>
                             </div>
-                            <p style="margin: 10px 0;">"${r.text}"</p>
+                            <p style="margin: 10px 0;">"${escapeHtml(r.text || "")}"</p>
                             <button onclick="deleteReview('${id}', 'approved')" class="btn" style="padding: 5px 10px; font-size: 14px; background: #c0392b;">Delete</button>
                         </div>
                     `;
@@ -2965,47 +3198,47 @@ function loadAdminStats() {
 /* === SCROLL TO TOP & MENU BOOKS LOGIC === */
 /* ================================================= */
 
-        const initializePickers = () => {
-            const commonConfig = {
-                minDate: "today",
-                altInput: true,
-                altFormat: "Y-m-d",
-                dateFormat: "Y-m-d",
-                allowInput: true,
-                disableMobile: true,
-                placeholder: placeholderTexts[lang] || "YYYY-MM-DD",
-                altInputClass: "flatpickr-input-custom",
-                onReady: function(selectedDates, dateStr, instance) {
-                    maskDateInput(instance.altInput || instance.input);
-                    // Explicitly set placeholder on altInput if it exists
-                    if (instance.altInput) {
-                        instance.altInput.placeholder = placeholderTexts[lang] || "YYYY-MM-DD";
-                        // Clear placeholder on focus for better UX
-                        instance.altInput.addEventListener('focus', function() {
-                            this.placeholder = '';
-                        });
-                        // Restore placeholder on blur
-                        instance.altInput.addEventListener('blur', function() {
-                            this.placeholder = placeholderTexts[lang] || "YYYY-MM-DD";
-                        });
-                    }
-                }
-            };
+const initializePickers = () => {
+    const commonConfig = {
+        minDate: "today",
+        altInput: true,
+        altFormat: "Y-m-d",
+        dateFormat: "Y-m-d",
+        allowInput: true,
+        disableMobile: true,
+        placeholder: placeholderTexts[lang] || "YYYY-MM-DD",
+        altInputClass: "flatpickr-input-custom",
+        onReady: function (selectedDates, dateStr, instance) {
+            maskDateInput(instance.altInput || instance.input);
+            // Explicitly set placeholder on altInput if it exists
+            if (instance.altInput) {
+                instance.altInput.placeholder = placeholderTexts[lang] || "YYYY-MM-DD";
+                // Clear placeholder on focus for better UX
+                instance.altInput.addEventListener('focus', function () {
+                    this.placeholder = '';
+                });
+                // Restore placeholder on blur
+                instance.altInput.addEventListener('blur', function () {
+                    this.placeholder = placeholderTexts[lang] || "YYYY-MM-DD";
+                });
+            }
+        }
+    };
 
-            const checkOutPicker = flatpickr(checkOut, {
-                ...commonConfig
-            });
+    const checkOutPicker = flatpickr(checkOut, {
+        ...commonConfig
+    });
 
-            const checkInPicker = flatpickr(checkIn, {
-                ...commonConfig,
-                onChange: function(selectedDates, dateStr, instance) {
-                    checkOutPicker.set('minDate', dateStr || "today");
-                    if (checkOut.value && checkOut.value < dateStr) {
-                        checkOutPicker.clear();
-                    }
-                }
-            });
-        };
+    const checkInPicker = flatpickr(checkIn, {
+        ...commonConfig,
+        onChange: function (selectedDates, dateStr, instance) {
+            checkOutPicker.set('minDate', dateStr || "today");
+            if (checkOut.value && checkOut.value < dateStr) {
+                checkOutPicker.clear();
+            }
+        }
+    });
+};
 
 /* =================================================
    7. SCROLL TOP & DYNAMIC MENU LOGIC
@@ -3016,45 +3249,63 @@ const menuData = [
     // PAGE 1
     {
         category_key: "menu.cat_national",
+        icon: "fa-utensils",
         items: [
-            { img_key: "menu.img_shivit", title_key: "menu.shivit", desc_key: "menu.desc_shivit", price_key: "dining.shivit_price" },
-            { img_key: "menu.img_tuxum_barak", title_key: "menu.tuxum_barak", desc_key: "menu.desc_tuxum_barak" },
-            { img_key: "menu.img_palov", title_key: "menu.palov", desc_key: "menu.desc_palov", price_key: "dining.plov_price" },
-            { img_key: "menu.img_manti", title_key: "menu.manti", desc_key: "menu.desc_manti" },
-            { img_key: "menu.img_gumma", title_key: "menu.gumma", desc_key: "menu.desc_gumma" },
-            { img_key: "menu.img_qapshirma", title_key: "menu.qapshirma", desc_key: "menu.desc_qapshirma" },
-            { img_key: "menu.img_shashlik", title_key: "menu.shashlik", desc_key: "menu.desc_shashlik" },
-            { img_key: "menu.img_somsa", title_key: "menu.somsa", desc_key: "menu.desc_somsa" }
+            { img_key: "menu.img_shivit", title_key: "menu.shivit", desc_key: "menu.desc_shivit", price_key: "dining.shivit_price", img_position: "center center" },
+            { img_key: "menu.img_tuxum_barak", title_key: "menu.tuxum_barak", desc_key: "menu.desc_tuxum_barak", img_position: "center 62%" },
+            { img_key: "menu.img_palov", title_key: "menu.palov", desc_key: "menu.desc_palov", price_key: "dining.plov_price", img_position: "center center" },
+            { img_key: "menu.img_manti", title_key: "menu.manti", desc_key: "menu.desc_manti", img_position: "center center" },
+            { img_key: "menu.img_gumma", title_key: "menu.gumma", desc_key: "menu.desc_gumma", img_position: "center center" },
+            { img_key: "menu.img_qapshirma", title_key: "menu.qapshirma", desc_key: "menu.desc_qapshirma", img_position: "center center" },
+            { img_key: "menu.img_shashlik_qiyma", title_key: "menu.shashlik_qiyma", desc_key: "menu.desc_shashlik_qiyma", img_position: "center 52%" },
+            { img_key: "menu.img_shashlik_kuskovoy", title_key: "menu.shashlik_kuskovoy", desc_key: "menu.desc_shashlik_kuskovoy", img_position: "center 60%" },
+            { img_key: "menu.img_shashlik_tovuq", title_key: "menu.shashlik_tovuq", desc_key: "menu.desc_shashlik_tovuq", img_position: "center center" },
+            { img_key: "menu.img_somsa", title_key: "menu.somsa", desc_key: "menu.desc_somsa", img_position: "center center" },
+            { img_key: "menu.img_somsa_qovoq", title_key: "menu.somsa_qovoq", desc_key: "menu.desc_somsa_qovoq", img_position: "center center" }
         ]
     },
     // PAGE 2
     {
         category_key: "menu.cat_soups",
+        icon: "fa-bowl-rice",
         items: [
-            { img_key: "menu.img_soup_barak", title_key: "menu.soup_barak", desc_key: "menu.desc_soup_barak" },
-            { img_key: "menu.img_tefteli", title_key: "menu.tefteli", desc_key: "menu.desc_tefteli" },
-            { img_key: "menu.img_special_soup", title_key: "menu.special_soup", desc_key: "menu.desc_special_soup" },
-            { img_key: "menu.img_galubsi", title_key: "menu.galubsi", desc_key: "menu.desc_galubsi" }
+            { img_key: "menu.img_soup_barak", title_key: "menu.soup_barak", desc_key: "menu.desc_soup_barak", img_position: "center 55%" },
+            { img_key: "menu.img_tefteli", title_key: "menu.tefteli", desc_key: "menu.desc_tefteli", img_position: "center 52%" },
+            { img_key: "menu.img_special_soup", title_key: "menu.special_soup", desc_key: "menu.desc_special_soup", img_position: "center center" },
+            { img_key: "menu.img_galubsi", title_key: "menu.galubsi", desc_key: "menu.desc_galubsi", img_position: "center center" },
+            { img_key: "menu.img_mastava", title_key: "menu.mastava", desc_key: "menu.desc_mastava", img_position: "center center" },
+            { img_key: "menu.img_lentil_soup", title_key: "menu.lentil_soup", desc_key: "menu.desc_lentil_soup", img_position: "center 60%" }
         ]
     },
     // PAGE 3
     {
         category_key: "menu.cat_salads",
+        icon: "fa-leaf",
         items: [
-            { img_key: "menu.img_achichuk", title_key: "menu.achichuk", desc_key: "menu.desc_achichuk" },
-            { img_key: "menu.img_garden_salad", title_key: "menu.garden_salad", desc_key: "menu.desc_garden_salad" },
-            { img_key: "menu.img_caesar", title_key: "menu.caesar", desc_key: "menu.desc_caesar" },
-            { img_key: "menu.img_eggplant", title_key: "menu.eggplant", desc_key: "menu.desc_eggplant" }
+            { img_key: "menu.img_caesar", title_key: "menu.caesar", desc_key: "menu.desc_caesar", img_position: "center 55%" },
+            { img_key: "menu.img_salad_beef", title_key: "menu.salad_beef", desc_key: "menu.desc_salad_beef", img_position: "center center" },
+            { img_key: "menu.img_eggplant", title_key: "menu.eggplant", desc_key: "menu.desc_eggplant", img_position: "center center" },
+            { img_key: "menu.img_achichuk", title_key: "menu.achichuk", desc_key: "menu.desc_achichuk", img_position: "center center" },
+            { img_key: "menu.img_garden_salad", title_key: "menu.garden_salad", desc_key: "menu.desc_garden_salad", img_position: "center center" },
+            { img_key: "menu.img_salad_vitamin", title_key: "menu.salad_vitamin", desc_key: "menu.desc_salad_vitamin", img_position: "center center" },
+            { img_key: "menu.img_cabbage_salad", title_key: "menu.cabbage_salad", desc_key: "menu.desc_cabbage_salad", img_position: "center 56%" },
+            { img_key: "menu.img_salad_beetroot", title_key: "menu.salad_beetroot", desc_key: "menu.desc_salad_beetroot", img_position: "center center" },
+            { img_key: "menu.img_olivier_salad", title_key: "menu.olivier_salad", desc_key: "menu.desc_olivier_salad", img_position: "center center" },
+            { img_key: "menu.img_shuba_salad", title_key: "menu.shuba_salad", desc_key: "menu.desc_shuba_salad", img_position: "center center" },
+            { img_key: "menu.img_rice", title_key: "menu.rice", desc_key: "menu.desc_rice", img_position: "center 58%" }
         ]
     },
     // PAGE 4
     {
         category_key: "menu.cat_drinks",
+        icon: "fa-glass-cheers",
         items: [
-            { img_key: "menu.img_tea", title_key: "menu.tea", desc_key: "menu.desc_tea" },
-            { img_key: "menu.img_juice", title_key: "menu.juice", desc_key: "menu.desc_juice" },
-            { img_key: "menu.img_wine", title_key: "menu.wine", desc_key: "menu.desc_wine" },
-            { img_key: "menu.img_cocktail", title_key: "menu.cocktail", desc_key: "menu.desc_cocktail" }
+            { img_key: "menu.img_tea", title_key: "menu.tea", desc_key: "menu.desc_tea", img_position: "center center" },
+            { img_key: "menu.img_coffee", title_key: "menu.coffee", desc_key: "menu.desc_coffee", img_position: "center center" },
+            { img_key: "menu.img_juice", title_key: "menu.juice", desc_key: "menu.desc_juice", img_position: "center center" },
+            { img_key: "menu.img_cold_drinks", title_key: "menu.cold_drinks", desc_key: "menu.desc_cold_drinks", img_position: "center center" },
+            { img_key: "menu.img_wine", title_key: "menu.wine", desc_key: "menu.desc_wine", img_position: "center 48%" },
+            { img_key: "menu.img_cocktail", title_key: "menu.cocktail", desc_key: "menu.desc_cocktail", img_position: "center center" }
         ]
     }
 ];
@@ -3099,13 +3350,63 @@ function initScrollAndMenu() {
 
         // Function to create HTML for a menu item
         function createMenuItem(item) {
-            let imgHtml = item.img_key ? `<img data-i18n-src="${item.img_key}" alt="Menu Item">` : '';
+            const curLang = localStorage.getItem('selectedLang') || 'en';
+            const t = translations[curLang] || translations['en'];
+            let titleVal = (t && t[item.title_key] && String(t[item.title_key]).trim() !== '') 
+                ? t[item.title_key] 
+                : ((translations['en'] && translations['en'][item.title_key]) || '');
+            let descVal = (t && t[item.desc_key] && String(t[item.desc_key]).trim() !== '') 
+                ? t[item.desc_key] 
+                : ((translations['en'] && translations['en'][item.desc_key]) || '');
+
+            if (item.title_key === 'menu.eggplant') {
+                titleVal = titleVal.replace(/\s*\+\s*boiled rice/gi, '').replace(/\s*\+\s*qaynatilgan guruch/gi, '').replace(/\s*\+\s*вареный рис/gi, '').trim();
+            }
+            if (item.title_key === 'menu.wine') {
+                if (typeof titleVal === 'string' && (titleVal.includes('& Beer') || titleVal.includes('va Pivo') || titleVal.includes('и Пиво'))) {
+                    titleVal = (curLang === 'uz') ? "Qizil va Oq Vinolar (Sharob)" : (curLang === 'ru') ? "Красные и Белые Вина" : "Red & White Wines";
+                }
+            }
+            if (item.desc_key === 'menu.desc_wine') {
+                if (typeof descVal === 'string' && (descVal.includes('imported beverages') || descVal.includes('import ichimliklar') || descVal.includes('импортных напитков'))) {
+                    descVal = (curLang === 'uz') ? "O'zbekistonning mashhur 'Bagizagan' va boshqa saralangan qizil hamda oq vinolari, shisha yoki bokalda tortiladi." : (curLang === 'ru') ? "Коллекция лучших узбекских вин 'Багизаган' и зарубежных сортов, подается в бокалах или бутылках." : "Selection of premium Uzbek and international red and white wines, served by the bottle or glass.";
+                }
+            }
+
+            let initialSrc = (translations['en'] && translations['en'][item.img_key]) || '';
+            if (item.img_key === 'menu.img_wine' && (initialSrc.includes('images (1).jpg') || initialSrc.includes('images%20(1).jpg'))) {
+                initialSrc = 'images/wine.jpg?v=5.2';
+            }
+            if (item.img_key === 'menu.img_juice' && initialSrc.includes('Featured_Image_1_1.webp')) {
+                initialSrc = 'images/fresh_juices.jpg?v=5.3';
+            }
+            if (item.img_key === 'menu.img_cocktail' && (initialSrc.includes('images.jpg') || initialSrc === 'images/images.jpg')) {
+                initialSrc = 'images/cocktails.jpg?v=5.4';
+            }
+            if (item.img_key === 'menu.img_tea' && initialSrc.includes('Cups_of_green_and_black_tea')) {
+                initialSrc = 'images/tea.webp?v=5.4';
+            }
+            if (item.img_key === 'menu.img_coffee' && (!initialSrc || initialSrc.trim() === '')) {
+                initialSrc = 'images/coffee.webp?v=5.6';
+            }
+            if (item.img_key === 'menu.img_cold_drinks' && (!initialSrc || initialSrc.trim() === '')) {
+                initialSrc = 'images/cold_drinks.jpg?v=5.5';
+            }
+            if (initialSrc) initialSrc = fixImgPath(initialSrc);
+            let posStyle = item.img_position ? `style="object-position: ${item.img_position};"` : '';
+            let imgHtml = item.img_key ? `
+                <div class="menu-item-img-wrapper">
+                    <img src="${initialSrc}" data-i18n-src="${item.img_key}" alt="Menu Item" loading="lazy" ${posStyle}>
+                    <div class="menu-item-overlay"></div>
+                </div>
+            ` : '';
             return `
                 <div class="menu-item-card">
                     ${imgHtml}
                     <div class="menu-item-info">
-                        <h4 data-i18n="${item.title_key}">Loading...</h4>
-                        <p data-i18n="${item.desc_key}">Loading...</p>
+                        <h4 data-i18n="${item.title_key}">${titleVal}</h4>
+                        <div class="menu-item-divider"></div>
+                        <p data-i18n="${item.desc_key}">${descVal}</p>
                     </div>
                 </div>
             `;
@@ -3116,22 +3417,47 @@ function initScrollAndMenu() {
             // Clear container
             menuContainer.innerHTML = '';
 
-            // Create Page Counter/Nav Container
-            const controlsDiv = document.createElement('div');
-            controlsDiv.className = 'menu-controls';
+            // 1. Category Navigation Tabs
+            const tabsNav = document.createElement('div');
+            tabsNav.className = 'menu-category-tabs';
+            tabsNav.setAttribute('role', 'tablist');
+            tabsNav.setAttribute('aria-label', 'Menu categories');
 
-            // Render Current Page Content
+            menuData.forEach((cat, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `menu-tab-btn ${idx === currentPage ? 'active' : ''}`;
+                btn.setAttribute('role', 'tab');
+                btn.setAttribute('aria-selected', idx === currentPage ? 'true' : 'false');
+                btn.innerHTML = `<i class="fas ${cat.icon || 'fa-utensils'}"></i> <span data-i18n="${cat.category_key}">Category</span>`;
+                btn.addEventListener('click', () => {
+                    if (currentPage !== idx) {
+                        currentPage = idx;
+                        renderMenu();
+                        document.getElementById('menu-start').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+                tabsNav.appendChild(btn);
+            });
+            menuContainer.appendChild(tabsNav);
+
+            // 2. Render Current Page Content
             const pageData = menuData[currentPage];
             if (pageData) {
-                // Category Title
-                const catTitle = document.createElement('h3');
-                catTitle.className = 'page-title';
-                catTitle.setAttribute('data-i18n', pageData.category_key);
-                menuContainer.appendChild(catTitle);
+                // Category Header Block
+                const catHeader = document.createElement('div');
+                catHeader.className = 'menu-category-header';
+                catHeader.innerHTML = `
+                    <div class="category-subtitle-badge">
+                        <i class="fas fa-crown"></i> <span data-i18n="menu.rooftop_badge">Meros Rooftop Dining</span>
+                    </div>
+                    <h3 class="page-title" data-i18n="${pageData.category_key}">Loading...</h3>
+                `;
+                menuContainer.appendChild(catHeader);
 
                 // Grid Container
                 const grid = document.createElement('div');
-                grid.className = 'menu-items-list'; // Use the CSS class we kept/will keep
+                grid.className = 'menu-items-list';
 
                 pageData.items.forEach(item => {
                     grid.innerHTML += createMenuItem(item);
@@ -3139,11 +3465,19 @@ function initScrollAndMenu() {
                 menuContainer.appendChild(grid);
             }
 
-            // Controls
+            // 3. Controls (Prev / Next & Indicator)
+            const controlsDiv = document.createElement('div');
+            controlsDiv.className = 'menu-controls';
             controlsDiv.innerHTML = `
-                <button id="prev-page" class="page-btn" ${currentPage === 0 ? 'disabled' : ''}>&#8592; Previous</button>
-                <span id="page-indicator" style="margin: 0 15px;font-family:'Playfair Display';font-weight:bold;">${currentPage + 1} / ${menuData.length}</span>
-                <button id="next-page" class="page-btn" ${currentPage === menuData.length - 1 ? 'disabled' : ''}>Next &#8594;</button>
+                <button id="prev-page" class="page-btn" ${currentPage === 0 ? 'disabled' : ''}>
+                    <i class="fas fa-arrow-left"></i> <span data-i18n="menu.btn_prev">Previous</span>
+                </button>
+                <div class="page-indicator-pill">
+                    <span id="page-indicator">${currentPage + 1} / ${menuData.length}</span>
+                </div>
+                <button id="next-page" class="page-btn" ${currentPage === menuData.length - 1 ? 'disabled' : ''}>
+                    <span data-i18n="menu.btn_next">Next</span> <i class="fas fa-arrow-right"></i>
+                </button>
             `;
             menuContainer.appendChild(controlsDiv);
 
@@ -3301,7 +3635,7 @@ function initDatePickers() {
         }
 
         const lang = localStorage.getItem('selectedLang') || 'en';
-        
+
         let placeholderTexts = {
             'en': 'YYYY-MM-DD (Year-Month-Day)',
             'uz': 'YYYY-MM-DD (Yil-Oy-Kun)',
@@ -3340,7 +3674,7 @@ function initDatePickers() {
                 // Use the raw typed value if available, else the input value
                 const typedVal = instance.altInput ? instance.altInput.dataset.lastTyped : instance.input.value;
                 const finalVal = instance.input.value;
-                
+
                 if (!typedVal && !finalVal) return;
 
                 // Check if the typed value was an impossible date (like month 23)
@@ -3377,21 +3711,21 @@ function initDatePickers() {
                 allowInput: true,
                 disableMobile: true,
                 static: false, // Make it float to avoid being cut off by containers
-                position: "auto", 
+                position: "auto",
                 placeholder: placeholderTexts[lang] || "YYYY-MM-DD",
                 altInputClass: "flatpickr-input-custom",
-                onReady: function(selectedDates, dateStr, instance) {
+                onReady: function (selectedDates, dateStr, instance) {
                     maskDateInput(instance.altInput || instance.input);
                     if (instance.altInput) {
                         instance.altInput.placeholder = placeholderTexts[lang] || "YYYY-MM-DD";
-                        instance.altInput.addEventListener('focus', function() { this.placeholder = ''; });
-                        instance.altInput.addEventListener('blur', function() { 
-                            if(!this.value) this.placeholder = placeholderTexts[lang] || "YYYY-MM-DD";
+                        instance.altInput.addEventListener('focus', function () { this.placeholder = ''; });
+                        instance.altInput.addEventListener('blur', function () {
+                            if (!this.value) this.placeholder = placeholderTexts[lang] || "YYYY-MM-DD";
                             validateDate(instance);
                         });
                     }
                 },
-                onClose: function(selectedDates, dateStr, instance) {
+                onClose: function (selectedDates, dateStr, instance) {
                     validateDate(instance);
                 }
             };
@@ -3402,7 +3736,7 @@ function initDatePickers() {
 
             window.checkInPickerInstance = flatpickr(checkIn, {
                 ...commonConfig,
-                onChange: function(selectedDates, dateStr, instance) {
+                onChange: function (selectedDates, dateStr, instance) {
                     const minOutDate = dateStr || "today";
                     if (window.checkOutPickerInstance) {
                         window.checkOutPickerInstance.set('minDate', minOutDate);

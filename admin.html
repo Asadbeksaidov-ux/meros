@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,8 +14,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meros B&B - Admin Panel</title>
-    <link rel="icon" type="image/png" href="logo-v2.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/logo-v2.png">
+    <link rel="stylesheet" href="style.css?v=5.8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
@@ -251,7 +251,7 @@
         <div class="header-left">
             <div class="logo">
                 <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
-                    <img src="logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
+                    <img src="images/logo-v2.png" alt="Meros Logo" style="height: 50px; width: auto; object-fit: contain;">
                     <span>Meros B&B</span>
                 </a>
             </div>
@@ -337,6 +337,9 @@
                 </button>
                 <button class="tab-btn" id="tab-btn-dining" onclick="switchAdminTab('dining')">
                     <i class="fas fa-utensils"></i> Rooftop Dining
+                </button>
+                <button class="tab-btn" id="tab-btn-analytics" onclick="switchAdminTab('analytics')">
+                    <i class="fas fa-chart-line"></i> Statistika
                 </button>
             </div>
 
@@ -1127,6 +1130,41 @@
                     </div>
                 </div>
                 <div class="admin-card">
+                    <h3>🥟 Qovoqli Somsa (Pumpkin)</h3>
+                    <div class="edit-group">
+                        <label>Qovoqli Somsa – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_somsa_qovoq"
+                                data-edit-key="menu.img_somsa_qovoq" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="handleImageUpload(this, 'img-input-menu_img_somsa_qovoq', 'dining')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_somsa_qovoq"></div>
+                    </div>
+                    <div class="edit-group"><label>Qovoqli Somsa – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.somsa_qovoq" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Qovoqli Somsa – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.somsa_qovoq" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Qovoqli Somsa – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.somsa_qovoq" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Qovoqli Somsa – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_somsa_qovoq" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Qovoqli Somsa – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_somsa_qovoq" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Qovoqli Somsa – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_somsa_qovoq" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
                     <h3>🍽️ Soup Barak</h3>
                     <div class="edit-group">
                         <label>Soup Barak – Image</label>
@@ -1264,6 +1302,76 @@
                     </div>
                     <div class="edit-group"><label>Galubsi – Desc <span class="lang-badge">RU</span></label>
                         <input type="text" data-edit-key="menu.desc_galubsi" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍲 Mastava</h3>
+                    <div class="edit-group">
+                        <label>Mastava – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_mastava"
+                                data-edit-key="menu.img_mastava" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="handleImageUpload(this, 'img-input-menu_img_mastava', 'dining')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_mastava"></div>
+                    </div>
+                    <div class="edit-group"><label>Mastava – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.mastava" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Mastava – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.mastava" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Mastava – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.mastava" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Mastava – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_mastava" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Mastava – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_mastava" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Mastava – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_mastava" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍲 Yasmiq Sho'rva (Lentil Cream Soup)</h3>
+                    <div class="edit-group">
+                        <label>Lentil Soup – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_lentil_soup"
+                                data-edit-key="menu.img_lentil_soup" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="handleImageUpload(this, 'img-input-menu_img_lentil_soup', 'dining')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_lentil_soup"></div>
+                    </div>
+                    <div class="edit-group"><label>Lentil Soup – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.lentil_soup" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Lentil Soup – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.lentil_soup" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Lentil Soup – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.lentil_soup" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Lentil Soup – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_lentil_soup" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Lentil Soup – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_lentil_soup" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Lentil Soup – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_lentil_soup" data-edit-lang="ru" data-edit-category="dining">
                     </div>
                 </div>
                 <div class="admin-card">
@@ -1407,6 +1515,251 @@
                     </div>
                 </div>
                 <div class="admin-card">
+                    <h3>🍚 Qaynatilgan Guruch (Boiled Rice Garnish)</h3>
+                    <div class="edit-group">
+                        <label>Rice – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_rice"
+                                data-edit-key="menu.img_rice" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="handleImageUpload(this, 'img-input-menu_img_rice', 'dining')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_rice"></div>
+                    </div>
+                    <div class="edit-group"><label>Rice – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.rice" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Rice – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.rice" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Rice – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.rice" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Rice – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_rice" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Rice – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_rice" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Rice – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_rice" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🥗 Karam Salati (Cabbage Salad)</h3>
+                    <div class="edit-group">
+                        <label>Cabbage Salad – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_cabbage_salad"
+                                data-edit-key="menu.img_cabbage_salad" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_cabbage_salad', 'menu.img_cabbage_salad')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_cabbage_salad"></div>
+                    </div>
+                    <div class="edit-group"><label>Cabbage Salad – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.cabbage_salad" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cabbage Salad – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.cabbage_salad" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cabbage Salad – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.cabbage_salad" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cabbage Salad – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_cabbage_salad" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cabbage Salad – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_cabbage_salad" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cabbage Salad – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_cabbage_salad" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🥗 Olivye Salati (Olivier Salad)</h3>
+                    <div class="edit-group">
+                        <label>Olivier Salad – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_olivier_salad"
+                                data-edit-key="menu.img_olivier_salad" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_olivier_salad', 'menu.img_olivier_salad')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_olivier_salad"></div>
+                    </div>
+                    <div class="edit-group"><label>Olivier Salad – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.olivier_salad" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Olivier Salad – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.olivier_salad" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Olivier Salad – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.olivier_salad" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Olivier Salad – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_olivier_salad" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Olivier Salad – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_olivier_salad" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Olivier Salad – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_olivier_salad" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🥗 Shuba Salati (Сельдь под шубой)</h3>
+                    <div class="edit-group">
+                        <label>Shuba Salad – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_shuba_salad"
+                                data-edit-key="menu.img_shuba_salad" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_shuba_salad', 'menu.img_shuba_salad')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_shuba_salad"></div>
+                    </div>
+                    <div class="edit-group"><label>Shuba Salad – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.shuba_salad" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shuba Salad – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.shuba_salad" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shuba Salad – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.shuba_salad" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shuba Salad – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_shuba_salad" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shuba Salad – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_shuba_salad" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Shuba Salad – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_shuba_salad" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🥗 Go'shtli Sabzavotli Salat (Beef & Vegetable Salad)</h3>
+                    <div class="edit-group">
+                        <label>Beef Salad – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_salad_beef"
+                                data-edit-key="menu.img_salad_beef" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_salad_beef', 'menu.img_salad_beef')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_salad_beef"></div>
+                    </div>
+                    <div class="edit-group"><label>Beef Salad – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.salad_beef" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Beef Salad – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.salad_beef" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Beef Salad – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.salad_beef" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Beef Salad – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_salad_beef" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Beef Salad – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_salad_beef" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Beef Salad – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_salad_beef" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🥗 Lavlagi Salati (Beetroot & Walnut Salad)</h3>
+                    <div class="edit-group">
+                        <label>Beetroot Salad – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_salad_beetroot"
+                                data-edit-key="menu.img_salad_beetroot" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_salad_beetroot', 'menu.img_salad_beetroot')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_salad_beetroot"></div>
+                    </div>
+                    <div class="edit-group"><label>Beetroot Salad – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.salad_beetroot" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Beetroot Salad – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.salad_beetroot" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Beetroot Salad – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.salad_beetroot" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Beetroot Salad – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_salad_beetroot" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Beetroot Salad – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_salad_beetroot" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Beetroot Salad – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_salad_beetroot" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🥗 Vitamin Salati (Vitamin Salad)</h3>
+                    <div class="edit-group">
+                        <label>Vitamin Salad – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_salad_vitamin"
+                                data-edit-key="menu.img_salad_vitamin" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_salad_vitamin', 'menu.img_salad_vitamin')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_salad_vitamin"></div>
+                    </div>
+                    <div class="edit-group"><label>Vitamin Salad – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.salad_vitamin" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Vitamin Salad – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.salad_vitamin" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Vitamin Salad – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.salad_vitamin" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Vitamin Salad – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_salad_vitamin" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Vitamin Salad – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_salad_vitamin" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Vitamin Salad – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_salad_vitamin" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
                     <h3>🍽️ Tea</h3>
                     <div class="edit-group">
                         <label>Tea – Image</label>
@@ -1439,6 +1792,41 @@
                     </div>
                     <div class="edit-group"><label>Tea – Desc <span class="lang-badge">RU</span></label>
                         <input type="text" data-edit-key="menu.desc_tea" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>☕ Espresso & Artisan Coffee</h3>
+                    <div class="edit-group">
+                        <label>Coffee – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_coffee"
+                                data-edit-key="menu.img_coffee" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_coffee', 'menu.img_coffee')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_coffee"></div>
+                    </div>
+                    <div class="edit-group"><label>Coffee – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.coffee" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Coffee – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.coffee" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Coffee – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.coffee" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Coffee – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_coffee" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Coffee – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_coffee" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Coffee – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_coffee" data-edit-lang="ru" data-edit-category="dining">
                     </div>
                 </div>
                 <div class="admin-card">
@@ -1477,7 +1865,42 @@
                     </div>
                 </div>
                 <div class="admin-card">
-                    <h3>🍽️ Wine</h3>
+                    <h3>🥤 Cold Drinks (Kola, Fanta, Sprite)</h3>
+                    <div class="edit-group">
+                        <label>Cold Drinks – Image</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="img-input-menu_img_cold_drinks"
+                                data-edit-key="menu.img_cold_drinks" data-edit-category="dining"
+                                placeholder="Image URL or upload below">
+                            <label class="img-upload-label">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" accept="image/*"
+                                    onchange="uploadAdminImage(this.files[0], 'img-input-menu_img_cold_drinks', 'menu.img_cold_drinks')">
+                            </label>
+                        </div>
+                        <div class="img-status" id="img-upload-status-img-input-menu_img_cold_drinks"></div>
+                    </div>
+                    <div class="edit-group"><label>Cold Drinks – Title <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.cold_drinks" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cold Drinks – Title <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.cold_drinks" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cold Drinks – Title <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.cold_drinks" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cold Drinks – Desc <span class="lang-badge">EN</span></label>
+                        <input type="text" data-edit-key="menu.desc_cold_drinks" data-edit-lang="en" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cold Drinks – Desc <span class="lang-badge">UZ</span></label>
+                        <input type="text" data-edit-key="menu.desc_cold_drinks" data-edit-lang="uz" data-edit-category="dining">
+                    </div>
+                    <div class="edit-group"><label>Cold Drinks – Desc <span class="lang-badge">RU</span></label>
+                        <input type="text" data-edit-key="menu.desc_cold_drinks" data-edit-lang="ru" data-edit-category="dining">
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <h3>🍷 Red & White Wines (Qizil va Oq Vinolar)</h3>
                     <div class="edit-group">
                         <label>Wine – Image</label>
                         <div class="img-upload-row">
@@ -1557,6 +1980,121 @@
                 </div>
             </div>
 
+            <!-- ── STATISTIKA / ANALYTICS TAB ── -->
+            <div class="tab-panel" id="panel-analytics">
+                <div class="admin-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.08);">
+                        <div>
+                            <h2 style="margin: 0 0 6px 0; font-size: 24px; color: var(--text-dark, #2c3e50); display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-chart-line" style="color: #e67e22;"></i> Google Analytics & Sayt Statistikasi
+                            </h2>
+                            <p style="margin: 0; color: #666; font-size: 14px;">
+                                Google Analytics 4 (Kuzatuv ID: <span style="background: rgba(39, 174, 96, 0.15); color: #27ae60; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-family: monospace;">G-7RBD2GXNJE</span>) orqali to‘plangan statistik hisobotlar
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                            <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer" class="btn" style="background: #1a73e8; color: white; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; padding: 10px 18px; border-radius: 8px; box-shadow: 0 2px 6px rgba(26,115,232,0.25);">
+                                <i class="fas fa-external-link-alt"></i> Google Analytics'ni ochish
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Metrics cards -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px;">
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 14px;">
+                            <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(39, 174, 96, 0.12); color: #27ae60; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; color: #64748b; font-weight: 500; text-transform: uppercase;">Google Tag Holati</div>
+                                <div style="font-size: 16px; font-weight: 700; color: #0f172a;">Faol (Ulangan)</div>
+                                <div style="font-size: 11px; color: #27ae60;">G-7RBD2GXNJE</div>
+                            </div>
+                        </div>
+
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 14px;">
+                            <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(26, 115, 232, 0.12); color: #1a73e8; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; color: #64748b; font-weight: 500; text-transform: uppercase;">Kuzatuv Turi</div>
+                                <div style="font-size: 16px; font-weight: 700; color: #0f172a;">GA4 + Looker Studio</div>
+                                <div style="font-size: 11px; color: #64748b;">Real-time tahlil</div>
+                            </div>
+                        </div>
+
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 14px;">
+                            <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(230, 126, 34, 0.12); color: #e67e22; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                <i class="fas fa-globe-asia"></i>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; color: #64748b; font-weight: 500; text-transform: uppercase;">Mehmonlar Geografiyasi</div>
+                                <div style="font-size: 16px; font-weight: 700; color: #0f172a;">Xalqaro Auditoriya</div>
+                                <div style="font-size: 11px; color: #64748b;">Dunyo mamlakatlari</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Embed URL Setup Bar -->
+                    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; margin-bottom: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                        <label style="display: block; font-weight: 600; font-size: 14px; margin-bottom: 8px; color: #1e293b;">
+                            <i class="fas fa-link" style="color: #6366f1;"></i> Looker Studio Hisoboti Havolasi (Embed URL):
+                        </label>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <input type="text" id="analytics-embed-url" placeholder="Masalan: https://lookerstudio.google.com/embed/reporting/..." style="flex-grow: 1; min-width: 280px; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; outline: none;">
+                            <button class="btn" onclick="saveAnalyticsEmbedUrl()" style="background: #27ae60; color: white; padding: 10px 22px; font-weight: 600; border-radius: 8px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <i class="fas fa-save"></i> Saqlash
+                            </button>
+                        </div>
+                        <div id="analytics-save-status" style="font-size: 13px; margin-top: 6px; min-height: 18px;"></div>
+                    </div>
+
+                    <!-- Iframe & Placeholder Container -->
+                    <div id="analytics-container" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; min-height: 720px; position: relative;">
+                        <iframe id="analytics-embed-frame" style="width: 100%; height: 780px; border: none; display: none;" allowfullscreen frameborder="0" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe>
+
+                        <div id="analytics-placeholder" style="padding: 50px 25px; text-align: center;">
+                            <div style="font-size: 52px; margin-bottom: 15px;">📊</div>
+                            <h3 style="font-size: 22px; color: #1e293b; margin-bottom: 10px;">Google Looker Studio Hisoboti Ulanmagan</h3>
+                            <p style="max-width: 650px; margin: 0 auto 25px auto; color: #64748b; line-height: 1.6; font-size: 15px;">
+                                Saytingiz tashrif buyuruvchilari, davlatlar xaritasi va eng ko‘p ko‘rilgan sahifalar statistikasini to‘g‘ridan-to‘g‘ri shu yerda ko‘rish uchun <strong>Google Looker Studio</strong> orqali 2 daqiqada bepul hisobot tayyorlab, havolasini yuqoriga qo‘ying.
+                            </p>
+
+                            <div style="max-width: 600px; margin: 0 auto; text-align: left; background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+                                <h4 style="margin: 0 0 14px 0; color: #0f172a; font-size: 15px;">Qanday qilib ulanadi? (3 ta oddiy qadam):</h4>
+                                <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px;">
+                                    <div style="background: #e0f2fe; color: #0284c7; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 13px;">1</div>
+                                    <div style="font-size: 14px; color: #334155; line-height: 1.5;">
+                                        <strong>lookerstudio.google.com</strong> saytiga kiring va <em>«Blank Report»</em> (Bo‘sh hisobot) tugmasini bosing.
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px;">
+                                    <div style="background: #e0f2fe; color: #0284c7; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 13px;">2</div>
+                                    <div style="font-size: 14px; color: #334155; line-height: 1.5;">
+                                        Ulanish manbai sifatida <strong>Google Analytics (Meros B&B)</strong> hisobingizni tanlang.
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                                    <div style="background: #e0f2fe; color: #0284c7; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 13px;">3</div>
+                                    <div style="font-size: 14px; color: #334155; line-height: 1.5;">
+                                        Tepadagi <strong>File -> Embed report</strong> menyusiga kirib, <em>Embed URL</em> ni nusxalang va yuqoridagi maydonga qo‘yib <em>«Saqlash»</em>ni bosing.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 30px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                                <a href="https://lookerstudio.google.com/reporting/create" target="_blank" rel="noopener noreferrer" class="btn" style="background: #2563eb; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-plus-circle"></i> Looker Studio'da yangi hisobot ochish
+                                </a>
+                                <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer" class="btn" style="background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-external-link-alt"></i> To‘g‘ridan-to‘g‘ri Analytics'ga o‘tish
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div><!-- /#admin-dashboard -->
     </main>
 
@@ -1589,12 +2127,12 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
-    <script src="main.js"></script>
+    <script src="main.js?v=5.8"></script>
 
     <script>
     /* ============================================================
        ADMIN PANEL PAGE SCRIPT
-       Depends on: main.js (db, auth, storage, loadAdminContentEditor,
+       Depends on: main.js?v=5.8 (db, auth, storage, loadAdminContentEditor,
                    saveAdminContentOverrides, uploadAdminImage, restoreLastBackup,
                    loadAdminStats, loadAdminReviews, deleteReview, showTab)
        ============================================================ */
@@ -1658,6 +2196,7 @@
         buildPriceTable();
         buildTransferTable();
         try { loadAdminContentEditor(); } catch(e) { console.error(e); }
+        try { loadAdminAnalytics(); } catch(e) { console.error(e); }
     }
 
     /* ─────────── TAB SWITCHING ─────────── */
@@ -1728,6 +2267,73 @@
         </tr>`;
     }
 
+    /* ─────────── ANALYTICS LOADER & SAVER ─────────── */
+
+    async function loadAdminAnalytics() {
+        if (!db) return;
+        try {
+            const docSnap = await db.collection('settings').doc('custom_translations').get();
+            const input = document.getElementById('analytics-embed-url');
+            const frame = document.getElementById('analytics-embed-frame');
+            const placeholder = document.getElementById('analytics-placeholder');
+            
+            if (docSnap && docSnap.exists) {
+                const data = docSnap.data();
+                const url = data.analytics_embed_url;
+                if (url && input) {
+                    input.value = url;
+                    if (frame && placeholder) {
+                        frame.src = url;
+                        frame.style.display = 'block';
+                        placeholder.style.display = 'none';
+                    }
+                }
+            }
+        } catch (err) {
+            console.error('Error loading analytics embed URL:', err);
+        }
+    }
+
+    async function saveAnalyticsEmbedUrl() {
+        if (!db) { alert('Firebase not connected.'); return; }
+        const input = document.getElementById('analytics-embed-url');
+        const statusEl = document.getElementById('analytics-save-status');
+        const frame = document.getElementById('analytics-embed-frame');
+        const placeholder = document.getElementById('analytics-placeholder');
+        if (!input) return;
+
+        const url = input.value.trim();
+        statusEl.textContent = '⏳ Saqlanmoqda...';
+        statusEl.style.color = '#e67e22';
+
+        try {
+            await db.collection('settings').doc('custom_translations').set({
+                analytics_embed_url: url
+            }, { merge: true });
+
+            statusEl.textContent = '✅ Muvaffaqiyatli saqlandi!';
+            statusEl.style.color = '#27ae60';
+
+            if (url && frame && placeholder) {
+                frame.src = url;
+                frame.style.display = 'block';
+                placeholder.style.display = 'none';
+            } else if (!url && frame && placeholder) {
+                frame.src = '';
+                frame.style.display = 'none';
+                placeholder.style.display = 'block';
+            }
+
+            setTimeout(() => {
+                if (statusEl) statusEl.textContent = '';
+            }, 3000);
+        } catch (err) {
+            console.error('Save error:', err);
+            statusEl.textContent = '❌ Xatolik: ' + err.message;
+            statusEl.style.color = '#e74c3c';
+        }
+    }
+
     /* Allow Enter key for login */
     document.addEventListener('DOMContentLoaded', () => {
         const pwInput = document.getElementById('admin-password');
@@ -1738,3 +2344,4 @@
     </script>
 </body>
 </html>
+
