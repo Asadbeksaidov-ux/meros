@@ -4,7 +4,10 @@
 function fixImgPath(p) {
     if (!p || typeof p !== 'string') return p;
     p = p.trim();
-    if (p.startsWith('http://') || p.startsWith('https://') || p.startsWith('data:') || p.startsWith('images/') || p.startsWith('/images/')) {
+    if (p.startsWith('/images/')) {
+        p = p.substring(1);
+    }
+    if (p.startsWith('http://') || p.startsWith('https://') || p.startsWith('data:') || p.startsWith('images/')) {
         return p;
     }
     return 'images/' + p;
@@ -2539,6 +2542,9 @@ function applyLanguage(lang) {
         if (key === 'menu.img_cold_drinks' && (!src || src.trim() === '')) {
             src = 'images/cold_drinks.jpg?v=5.5';
         }
+        if (key === 'menu.img_eggplant' && (!src || src.includes('egplant') || src.includes('eggplant'))) {
+            src = 'images/eggplant_salad.jpg?v=5.0';
+        }
         if (src) {
             src = fixImgPath(src);
             el.src = src;
@@ -2685,6 +2691,9 @@ if (typeof firebase !== 'undefined') {
                                 }
                                 if (key === 'menu.img_cold_drinks' && (!finalVal || finalVal.trim() === '')) {
                                     finalVal = 'images/cold_drinks.jpg?v=5.5';
+                                }
+                                if (key === 'menu.img_eggplant' && (!finalVal || finalVal.includes('egplant') || finalVal.includes('eggplant'))) {
+                                    finalVal = 'images/eggplant_salad.jpg?v=5.0';
                                 }
                                 if (key.includes('img') || /\.(jpg|jpeg|png|webp|svg|gif)$/i.test(finalVal)) {
                                     finalVal = fixImgPath(finalVal);
@@ -3391,6 +3400,9 @@ function initScrollAndMenu() {
             }
             if (item.img_key === 'menu.img_cold_drinks' && (!initialSrc || initialSrc.trim() === '')) {
                 initialSrc = 'images/cold_drinks.jpg?v=5.5';
+            }
+            if (item.img_key === 'menu.img_eggplant' && (!initialSrc || initialSrc.includes('egplant') || initialSrc.includes('eggplant'))) {
+                initialSrc = 'images/eggplant_salad.jpg?v=5.0';
             }
             if (initialSrc) initialSrc = fixImgPath(initialSrc);
             let posStyle = item.img_position ? `style="object-position: ${item.img_position};"` : '';
